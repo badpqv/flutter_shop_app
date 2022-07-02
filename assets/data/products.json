@@ -1,0 +1,205 @@
+[
+    {
+        "id": 1,
+        "images":[
+            "assets/images/Bronya_1.jpg",
+            "assets/images/Bronya_2.jpg"
+        ],
+        "colors":[
+            "0xFFF6625E",
+            "0xFF836DB8",
+            "0xFFDECB9C",
+            "0xFFFFFFFF"
+        ],
+        "rating": 5.0,
+        "isFavourite": true,
+        "isPopular": true,
+        "title": "Bronya",
+        "price": 2800.0,
+        "description" : "Bronya Zaychik was a Russian orphan who was raised as an assassin since she was young due to the aftermath of the 2nd Houkai War. Eventually she was sent to assassinate Cocolia, a member of Anti-Entropy, but failed in her mission. Instead of killing her, Cocolia took pity on Bronya and took her to be raised in her orphanage. There Bronya was experimented on, gaining the power to use Houkai energy, levitate, manipulate Remodelled Bunny 19C, and more but lost her emotions and the ability to use her legs due to the X-10 Experiment. By Cocolia's commands, she was sent to St. Freya High School in order to spy on Schicksal. Bronya is later known as the Herrscher of Reason. She appears in Chapter 1 alongside Kiana Kaslana and Raiden Mei while fending off Houkai Beasts. In Chapter 10, 11 and 12, Bronya plays an important role."
+    },
+    {
+        "id": 2,
+        "images":[
+            "assets/images/March7th_1.jpg",
+            "assets/images/March7th_2.jpg",
+            "assets/images/March7th_3.jpg"
+        ],
+        "colors":[
+            "0xFFF6625E",
+            "0xFF836DB8",
+            "0xFFDECB9C",
+            "0xFFFFFFFF"
+        ],
+        "rating": 5.0,
+        "isFavourite": false,
+        "isPopular": true,
+        "title": "March 7th",
+        "price": 1600.0,
+        "description" : "March 7th is a playable character in Honkai: Star Rail. She is an enthusiastic girl who was once saved by the Astral Express from drifting in eternal ice. She now travels with them, always bringing her camera hoping that she captures a memento of her past."
+    },
+    {
+        "id": 3,
+        "images":[
+            "assets/images/Blemishine.jpg",
+            "assets/images/Blemishine_2.jpg"
+        ],
+        "colors":[
+            "0xFFF6625E",
+            "0xFF836DB8",
+            "0xFFDECB9C",
+            "0xFFFFFFFF"
+        ],
+        "rating": 5.0,
+        "isFavourite": true,
+        "isPopular": true,
+        "title": "Blemishine",
+        "price": 1600.0,
+        "description" : "Blemishine is a 6★ Guardian Defender who specializes in (obviously) Defense and Healing, as well as – unusually for her subclass – DPS. As a Guardian Defender, Blemishine initially can block two enemies, which is increased to three once she is promoted to Elite 1, and has innate RES, but lower HP and DEF when compared to Protector Defenders. However, Blemishine can attack enemies on the tile ahead of her (like that of most melee Operators) – she is the only Guardian Defender with this quirk – with the highest ATK of all Guardian Defenders, though her DEF is slightly lower."
+    },
+    {
+        "id": 4,
+        "images":[
+            "assets/images/Eula.jpg",
+            "assets/images/Eula_2.jpg"
+        ],
+        "colors":[
+            "0xFFF6625E",
+            "0xFF836DB8",
+            "0xFFDECB9C",
+            "0xFFFFFFFF"
+        ],
+        "rating": 5.0,
+        "isFavourite": true,
+        "isPopular": true,
+        "title": "Eula Lawrence",
+        "price": 1600.0,
+        "description" : "Eula là một nhân vật hệ Băng chơi được trong Genshin Impact. Là hậu duệ của Gia Tộc Lawrence, đồng thời là cháu gái của Schubert, Eula còn là đội trưởng Đội Du Kích của Đội Kỵ Sĩ Tây Phong."
+    },
+    {
+        "id": 5,
+        "images":[
+            "assets/images/Hutao.jpg"
+        ],
+        "colors":[
+            "0xFFF6625E",
+            "0xFF836DB8",
+            "0xFFDECB9C",
+            "0xFFFFFFFF"
+        ],
+        "rating": 4.8,
+        "isFavourite": true,
+        "isPopular": true,
+        "title": "Hutao",
+        "price": 1600.0,
+        "description" : "Hu Tao (Tiếng Trung: 胡桃 Hú Táo,'Hồ Đào') là một nhân vật hệ Hỏa chơi được trong Genshin Impact. Cô là Đường Chủ đời thứ 77 của Vãng Sinh Đường tại Cảng Liyue."
+    },
+    {
+        "id": 6,
+        "images":[
+            "assets/images/Jean.jpg"
+        ],
+        "colors":[
+            "0xFFF6625E",
+            "0xFF836DB8",
+            "0xFFDECB9C",
+            "0xFFFFFFFF"
+        ],
+        "rating": 5.0,
+        "isFavourite": true,
+        "isPopular": true,
+        "title": "Jean Danchou",
+        "price": 1600.0,
+        "description" : "Jean Gunnhildr là nhân vật Phong chơi được trong Genshin Impact. Là con gái của Frederica Gunnhildr và Seamus Pegg, chị gái Barbara, và là hậu duệ của Gia tộc Gunnhildr danh giá, Jean là quyền Đội Trưởng của Đội Kỵ Sĩ Tây Phong. Cô luôn xử lý tình trạng bất ổn trên khắp Mondstadt và làm việc không mệt mỏi để đêm lại yên bình cho Thành phố Tự do này."
+    },
+    {
+        "id": 7,
+        "images":[
+            "assets/images/Keqing.jpg"
+        ],
+        "colors":[
+            "0xFFF6625E",
+            "0xFF836DB8",
+            "0xFFDECB9C",
+            "0xFFFFFFFF"
+        ],
+        "rating": 5.0,
+        "isFavourite": true,
+        "isPopular": true,
+        "title": "Keqing",
+        "price": 1600.0,
+        "description" : "Keqing (Tiếng Trung: 刻晴 Kèqíng, 'Khắc Tình') là nhân vật hệ Lôi  trong Genshin Impact. Là Ngọc Hành Tinh,một trong 7 Thất Tinh Liyue, cô ấy là người luôn tìm kiếm câu trả lời cho riêng mình thay vì cứ để tình trạng hỗn loạn hoành hành ở Liyue. Cô chọn con đường của riêng  bằng chính sức mạnh và khả năng của mình, thay vì để các vị thần định đoạt số phận của mình."
+    },
+    {
+        "id": 8,
+        "images":[
+            "assets/images/Klee.jpg"
+        ],
+        "colors":[
+            "0xFFF6625E",
+            "0xFF836DB8",
+            "0xFFDECB9C",
+            "0xFFFFFFFF"
+        ],
+        "rating": 5.0,
+        "isFavourite": true,
+        "isPopular": true,
+        "title": "Klee",
+        "price": 1600.0,
+        "description" : "Klee là một nhân vật hệ Hỏa chơi được trong Genshin Impact. Con gái của nhà thám hiểm gan dạ và hay phá hoại Alice, Klee giống mẹ ở nhất nhiều điểm, nhất là về việc 'phá hoại' Đội Kỵ Sĩ Tây Phong, nơi được giao phó chăm sóc trong khi Alice đang trên cuộc phiêu lưu của mình."
+    },
+    {
+        "id": 9,
+        "images":[
+            "assets/images/Kokomi.jpg"
+        ],
+        "colors":[
+            "0xFFF6625E",
+            "0xFF836DB8",
+            "0xFFDECB9C",
+            "0xFFFFFFFF"
+        ],
+        "rating": 5.0,
+        "isFavourite": true,
+        "isPopular": true,
+        "title": "Sangonomiya Kokomi",
+        "price": 1600.0,
+        "description" : "Sangonomiya Kokomi (Tiếng Nhật: 珊さん瑚ご宮のみや心ここ海み Sangonomiya Kokomi, 'San Hô Cung Tâm Hải') là nhân vật hệ Thủy chơi được trong Genshin Impact. Cô là Thánh Pháp Sư trẻ tuổi quản lý mọi công việc đối nội lẫn đối ngoại của Đảo Watatsumi, đồng thời là người kế thừa huyết mạch của gia tộc Sangonomiya. Là thủ lĩnh tối cao đương nhiệm của Đảo Watatsumi, một mình cô gánh lên vai chức trách to lớn: mang đến niềm hi vọng và hạnh phúc cho người dân Watatsumi mà họ hằng mong ước"
+    },
+    {
+        "id": 10,
+        "images":[
+            "assets/images/Skadi.jpg"
+        ],
+        "colors":[
+            "0xFFF6625E",
+            "0xFF836DB8",
+            "0xFFDECB9C",
+            "0xFFFFFFFF"
+        ],
+        "rating": 5.0,
+        "isFavourite": true,
+        "isPopular": true,
+        "title": "Skadi",
+        "price": 1600.0,
+        "description" : "Skadi is a bounty hunter, currently employed by Rhodes Island. She has shown impressive combat prowess in the past, defeating large creatures, eliminating difficult targets, fighting crucial battles, and winning entire wars. She is very experienced in combat, but her history prior to becoming a bounty hunter is unclear. She is now an Operator for a Rhodes Island assault team, and also executes solo missions."
+    },
+    {
+        "id": 11,
+        "images":[
+            "assets/images/Yun Jin.jpg"
+        ],
+        "colors":[
+            "0xFFF6625E",
+            "0xFF836DB8",
+            "0xFFDECB9C",
+            "0xFFFFFFFF"
+        ],
+        "rating": 5.0,
+        "isFavourite": false,
+        "isPopular": true,
+        "title": "Yun Jin",
+        "price": 1600.0,
+        "description" : "Yun Jin (Tiếng Trung: 云堇 Yún Jǐn, 'Vân Cận') là nhân vật hệ Nham chơi được trong Genshin Impact. Cô là một vũ công, ca sĩ và nhà làm bia có uy tín làm việc tại Vân Hàn Xã."
+    }
+]

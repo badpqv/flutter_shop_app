@@ -1,0 +1,72 @@
+[
+    {
+        "product": {
+            "title": "Bronya",
+            "description": "Bronya Zaychik was a Russian orphan who was raised as an assassin since she was young due to the aftermath of the 2nd Houkai War. Eventually she was sent to assassinate Cocolia, a member of Anti-Entropy, but failed in her mission. Instead of killing her, Cocolia took pity on Bronya and took her to be raised in her orphanage. There Bronya was experimented on, gaining the power to use Houkai energy, levitate, manipulate Remodelled Bunny 19C, and more but lost her emotions and the ability to use her legs due to the X-10 Experiment. By Cocolia's commands, she was sent to St. Freya High School in order to spy on Schicksal. Bronya is later known as the Herrscher of Reason. She appears in Chapter 1 alongside Kiana Kaslana and Raiden Mei while fending off Houkai Beasts. In Chapter 10, 11 and 12, Bronya plays an important role.",
+            "images": [
+                "assets/images/Bronya_1.jpg",
+                "assets/images/Bronya_2.jpg"
+            ],
+            "colors": [
+                "0xFFF6625E",
+                "0xFF836DB8",
+                "0xFFDECB9C",
+                "0xFFFFFFFF"
+            ],
+            "rating": 5,
+            "price": 2800,
+            "isFavourite": false,
+            "isPopular": false,
+            "id": "1"
+        },
+        "quantity": 2,
+        "id": "1"
+    },
+    {
+        "product": {
+            "title": "March 7th",
+            "description": "March 7th is a playable character in Honkai: Star Rail. She is an enthusiastic girl who was once saved by the Astral Express from drifting in eternal ice. She now travels with them, always bringing her camera hoping that she captures a memento of her past.",
+            "images": [
+                "assets/images/March7th_1.jpg",
+                "assets/images/March7th_2.jpg",
+                "assets/images/March7th_3.jpg"
+            ],
+            "colors": [
+                "0xFFF6625E",
+                "0xFF836DB8",
+                "0xFFDECB9C",
+                "0xFFFFFFFF"
+            ],
+            "rating": 5,
+            "price": 2800,
+            "isFavourite": true,
+            "isPopular": true,
+            "id": "2"
+        },
+        "quantity": 3,
+        "id": "2"
+    },
+    {
+        "product": {
+            "title": "Blemishine",
+            "description": "Blemishine is a 6★ Guardian Defender who specializes in (obviously) Defense and Healing, as well as – unusually for her subclass – DPS. As a Guardian Defender, Blemishine initially can block two enemies, which is increased to three once she is promoted to Elite 1, and has innate RES, but lower HP and DEF when compared to Protector Defenders. However, Blemishine can attack enemies on the tile ahead of her (like that of most melee Operators) – she is the only Guardian Defender with this quirk – with the highest ATK of all Guardian Defenders, though her DEF is slightly lower.",
+            "images": [
+                "assets/images/Blemishine.jpg",
+                "assets/images/Blemishine_2.jpg"
+            ],
+            "colors": [
+                "0xFFF6625E",
+                "0xFF836DB8",
+                "0xFFDECB9C",
+                "0xFFFFFFFF"
+            ],
+            "rating": 5,
+            "price": 1600,
+            "isFavourite": true,
+            "isPopular": true,
+            "id": "3"
+        },
+        "quantity": 2,
+        "id": "3"
+    }
+]

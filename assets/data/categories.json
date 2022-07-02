@@ -1,0 +1,26 @@
+[
+    {
+        "title":"Genshin Impact",
+        "icon" : "assets/icons/GenshinImpact.svg"
+    },
+    {
+        "title":"Honkai Impact 3",
+        "icon" : "assets/icons/HonkaiImpact3.svg"
+    },      
+    {
+        "title":"Honkai Star Rail",
+        "icon" : "assets/icons/StarRail.svg"
+    },
+    {
+        "title":"Arknights",
+        "icon" : "assets/icons/Arknights.svg"
+    },
+    {
+        "title":"Blue Archive",
+        "icon" : "assets/icons/bluearchive.svg"
+    },
+    {
+        "title":"Artery Gear",
+        "icon" : "assets/icons/ArteryGear.svg"
+    }
+]
