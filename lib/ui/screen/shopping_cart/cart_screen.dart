@@ -43,14 +43,7 @@ class _CartScreenState extends State<CartScreen> {
           carts = snapshot.data as List<Cart>;
           return Scaffold(
             appBar: AppBar(
-              leading: BackButton(
-                onPressed: () {
-                  setState(() {
-                    futureCarts = fetchCarts();
-                  });
-                  Navigator.pushNamed(context, HomeScreen.routeName);
-                },
-              ),
+              leading: const BackButton(),
               title: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -84,13 +77,15 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Padding buildCartBody() {
+    final CartArguments args =
+        ModalRoute.of(context)!.settings.arguments as CartArguments;
     return Padding(
       padding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding, vertical: defaultPadding / 2),
+          horizontal: defaultPadding, vertical: defaultPadding / 4),
       child: ListView.builder(
         itemCount: carts.length,
         itemBuilder: (context, index) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: defaultPadding / 2),
+          padding: const EdgeInsets.symmetric(vertical: defaultPadding / 4),
           child: Dismissible(
             direction: DismissDirection.endToStart,
             key: Key(UniqueKey().toString()),
@@ -110,7 +105,9 @@ class _CartScreenState extends State<CartScreen> {
             ),
             onDismissed: (direction) async {
               setState(() {
-                cart = deleteCart(carts[index].id);
+                cart = deleteCart(carts[index].id).whenComplete(
+                  () => args.refreshSate(),
+                );
                 carts.removeAt(index);
               });
             },
@@ -122,4 +119,11 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
+}
+
+class CartArguments {
+  final Function refreshSate;
+  CartArguments({
+    required this.refreshSate,
+  });
 }

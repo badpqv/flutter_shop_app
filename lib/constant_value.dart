@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 const Color primaryColor = Color(0xff6495ED);
 const Color primaryLightColor = Color(0xFFFFECDF);
-const Color secondaryColor = Color(0xFF979797);
+Color secondaryColor = const Color(0xFF979797).withOpacity(0.1);
 const Color textColor = Color(0xFF757575);
 const Color bgColor = Color(0xFFFAF9F6);
 final primaryGradient = LinearGradient(
@@ -50,9 +50,19 @@ OutlineInputBorder outlineInputBorder() {
 
 List<Map<String, String>> splashData = [
   {
-    "text": 'Chất lượng "ơ mây zing gút chóp" :3!',
-    "image": "assets/images/March7th_1.jpg"
+    "text": 'Hiện đại nhất Việt Nam\nChất lượng "ơ mây zing gút chóp" :3!',
+    "image": "assets/images/March7th_1.png"
   },
-  {"text": 'Đổi trả miễn phí', "image": "assets/images/March7th_2.jpg"},
-  {"text": "Ship hàng tận tay", "image": "assets/images/March7th_3.jpg"},
+  {
+    "text": 'Đổi trả miễn phí',
+    "image": "assets/images/March7th_2.png",
+  },
+  {
+    "text": "Ship hàng tận tay",
+    "image": "assets/images/March7th_3.png",
+  },
+  {
+    "text": "Vui lòng xoay màn hình dọc \n để có trải nghiệm tốt nhất",
+    "image": "assets/images/March7th_2.png",
+  },
 ];

@@ -57,33 +57,6 @@ Future<Cart> fetchCart(String id) async {
   }
 }
 
-Future<int> getCartsLength() async {
-  final response = await http.get(
-    Uri.parse(cartApiUrl),
-    headers: <String, String>{
-      'Content-Type': "application/json;charset=UTF-8",
-    },
-  );
-  if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the J
-    // SON.s
-    final jsonData = jsonDecode(utf8.decode(response.bodyBytes)) as List;
-    List<Cart> carts;
-
-    if (jsonData.length > 0) {
-      carts = jsonData.map((cart) => Cart.fromJson(cart)).toList();
-    } else {
-      carts = <Cart>[];
-    }
-    return carts.length;
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    throw Exception('Failed to load carts');
-  }
-}
-
 Future<http.Response> postCart(
     Cart cart, int addedQuantity, bool isExisted) async {
   http.Response response;
@@ -104,7 +77,7 @@ Future<http.Response> postCart(
       return response;
     } else {
       var response = await http.put(
-        Uri.parse('${cartApiUrl}/${cart.id}'),
+        Uri.parse('$cartApiUrl/${cart.id}'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -151,7 +124,6 @@ Future<Cart> deleteCart(String id) async {
   );
 
   if (response.statusCode == 200) {
-    await fetchCarts();
     return Cart.fromJson(jsonDecode(response.body));
   } else {
     // If the server did not return a "200 OK response",

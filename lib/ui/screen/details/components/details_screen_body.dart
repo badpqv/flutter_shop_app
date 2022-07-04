@@ -12,7 +12,12 @@ import 'package:flutter_shop_app/ui/screen/shopping_cart/cart_screen.dart';
 
 class DetailsScreenBody extends StatefulWidget {
   final Product product;
-  const DetailsScreenBody({Key? key, required this.product}) : super(key: key);
+  final Function refreshState;
+  const DetailsScreenBody({
+    Key? key,
+    required this.product,
+    required this.refreshState,
+  }) : super(key: key);
 
   @override
   State<DetailsScreenBody> createState() => _DetailsScreenBodyState();
@@ -96,12 +101,15 @@ class _DetailsScreenBodyState extends State<DetailsScreenBody> {
                                 child: CustomButton(
                                   text: "Thêm vào giỏ hàng",
                                   press: () {
+                                    print(widget.product.id);
                                     var hasProduct = carts
                                         .where((x) =>
                                             x.product.id == widget.product.id)
                                         .toList();
                                     var isExisted = hasProduct.isNotEmpty;
+
                                     setState(() {
+                                      futureCarts = fetchCarts();
                                       postCart(
                                         Cart(
                                           id: isExisted
@@ -114,9 +122,10 @@ class _DetailsScreenBodyState extends State<DetailsScreenBody> {
                                         ),
                                         prodQuantity,
                                         isExisted,
+                                      ).whenComplete(
+                                        () => widget.refreshState(),
                                       );
                                     });
-
                                     final snackBar = SnackBar(
                                       padding: const EdgeInsets.symmetric(
                                         horizontal: defaultPadding / 2,
@@ -128,7 +137,7 @@ class _DetailsScreenBodyState extends State<DetailsScreenBody> {
                                       shape: const StadiumBorder(),
                                       backgroundColor: primaryColor,
                                       dismissDirection:
-                                          DismissDirection.startToEnd,
+                                          DismissDirection.endToStart,
                                       duration: const Duration(
                                           seconds: 1, milliseconds: 200),
                                       action: SnackBarAction(
@@ -136,7 +145,12 @@ class _DetailsScreenBodyState extends State<DetailsScreenBody> {
                                         textColor: Colors.white70,
                                         onPressed: () {
                                           Navigator.pushNamed(
-                                              context, CartScreen.routeName);
+                                            context,
+                                            CartScreen.routeName,
+                                            arguments: CartArguments(
+                                              refreshSate: widget.refreshState,
+                                            ),
+                                          );
                                           setState(() {
                                             futureCarts = fetchCarts();
                                           });

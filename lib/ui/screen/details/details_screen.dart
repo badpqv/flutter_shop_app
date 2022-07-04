@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_app/models/product_model.dart';
 import 'package:flutter_shop_app/ui/screen/details/components/details_screen_body.dart';
+import 'package:flutter_shop_app/ui/screen/home/home_screen.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({Key? key}) : super(key: key);
@@ -52,7 +53,7 @@ class DetailsScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             )
           ],
@@ -60,6 +61,7 @@ class DetailsScreen extends StatelessWidget {
       ),
       body: DetailsScreenBody(
         product: agrs.product,
+        refreshState: agrs.refreshState,
       ),
     );
   }
@@ -67,5 +69,9 @@ class DetailsScreen extends StatelessWidget {
 
 class ProductDetailsArguments {
   final Product product;
-  ProductDetailsArguments({required this.product});
+  final Function refreshState;
+  ProductDetailsArguments({
+    required this.refreshState,
+    required this.product,
+  });
 }

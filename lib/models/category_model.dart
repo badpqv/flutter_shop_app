@@ -11,7 +11,7 @@ String categoryToJson(List<Category> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Category {
-  Category({
+  const Category({
     this.title = "",
     this.icon = "",
     this.id = "0",

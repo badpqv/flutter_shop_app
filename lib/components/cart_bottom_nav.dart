@@ -78,7 +78,7 @@ class CartBottomNavbar extends StatelessWidget {
                   children: [
                     TextSpan(
                       text:
-                          "\$${carts.fold<double>(0, (previousValue, element) => previousValue + (element.product.price * element.quantity))}",
+                          "\$${carts.fold<double>(0, (previousValue, element) => (previousValue + (element.product.price * element.quantity))).toStringAsFixed(2)}",
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 20,

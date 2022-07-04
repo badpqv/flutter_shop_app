@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 
-class IconButtonWithCounter extends StatelessWidget {
+class IconButtonWithCounter extends StatefulWidget {
   const IconButtonWithCounter({
     Key? key,
     required this.icon,
@@ -11,10 +11,16 @@ class IconButtonWithCounter extends StatelessWidget {
   final IconData icon;
   final int numberOfItems;
   final GestureTapCallback onTap;
+
+  @override
+  State<IconButtonWithCounter> createState() => _IconButtonWithCounterState();
+}
+
+class _IconButtonWithCounterState extends State<IconButtonWithCounter> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: widget.onTap,
       borderRadius: BorderRadius.circular(defaultBorderRadius * 5),
       child: Stack(
         children: [
@@ -26,34 +32,38 @@ class IconButtonWithCounter extends StatelessWidget {
               color: secondaryColor.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
-            child: Icon(icon),
+            child: Icon(widget.icon),
           ),
-          Positioned(
-            top: 0,
-            right: 0,
-            child: Container(
-              height: 20,
-              width: 20,
-              decoration: BoxDecoration(
-                color: Colors.red,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  width: 1.5,
-                  color: Colors.white,
-                ),
-              ),
-              child: Center(
-                child: Text(
-                  numberOfItems < 9 ? numberOfItems.toString() : "9+",
-                  style: const TextStyle(
-                    fontSize: 10,
-                    height: 1,
-                    color: primaryLightColor,
+          widget.numberOfItems > 0
+              ? Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    height: 20,
+                    width: 20,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        width: 1.5,
+                        color: Colors.white,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        widget.numberOfItems <= 10
+                            ? widget.numberOfItems.toString()
+                            : "10+",
+                        style: const TextStyle(
+                          fontSize: 10,
+                          height: 1,
+                          color: primaryLightColor,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
-          )
+                )
+              : const Center(),
         ],
       ),
     );

@@ -11,7 +11,7 @@ Future<List<Product>> fetchProducts() async {
   );
   if (response.statusCode == 200) {
     List<Product> products = productsFromJson(utf8.decode(response.bodyBytes));
-
+    print(products);
     return products;
   } else {
     throw Exception('Failed to load products');

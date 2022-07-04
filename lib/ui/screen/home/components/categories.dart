@@ -6,59 +6,44 @@ import 'package:flutter_shop_app/services/category_services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Categories extends StatefulWidget {
-  const Categories({Key? key}) : super(key: key);
-
+  const Categories({Key? key, required this.categories}) : super(key: key);
+  final List<Category> categories;
   @override
   State<Categories> createState() => _CategoriesState();
 }
 
 class _CategoriesState extends State<Categories> {
-  Future<List<Category>>? categories;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    categories = fetchCategories();
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return FutureBuilder(
-      builder: (context, response) {
-        if (response.hasError) {
-          return Text("${response.error} 😢");
-        } else if (response.hasData) {
-          var categories = response.data as List<Category>;
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: List.generate(
-                  categories.length,
-                  (index) => Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: defaultPadding / 2,
-                    ),
-                    child: CategoryCard(
-                      icon: categories[index].icon,
-                      title: categories[index].title,
-                      onClick: () {},
-                    ),
-                  ),
-                ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: List.generate(
+            widget.categories.length,
+            (index) => Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: defaultPadding / 2,
+              ),
+              child: CategoryCard(
+                icon: widget.categories[index].icon,
+                title: widget.categories[index].title,
+                onClick: () {},
               ),
             ),
-          );
-        }
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-      future: categories,
+          ),
+        ),
+      ),
     );
   }
 }

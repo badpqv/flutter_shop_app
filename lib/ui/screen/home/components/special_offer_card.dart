@@ -63,7 +63,7 @@ class SpecialOffferCard extends StatelessWidget {
                         ),
                         TextSpan(
                           text:
-                              "${numberOfBrands < 10 ? numberOfBrands.toString() : "10+"} Brands",
+                              "${numberOfBrands < 10 ? numberOfBrands.toString() : "10+"} sản phẩm",
                           style: const TextStyle(
                             color: Colors.white,
                           ),
