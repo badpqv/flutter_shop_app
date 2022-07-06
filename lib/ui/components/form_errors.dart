@@ -21,21 +21,23 @@ class FormErrors extends StatelessWidget {
   }
 }
 
-Row formErrorText({String? error}) {
-  return Row(
-    children: [
-      const Icon(
-        Icons.error_outline,
-        size: 15,
-        color: Colors.red,
-      ),
-      const SizedBox(
-        width: defaultPadding,
-      ),
-      Text(
-        error!,
-        style: const TextStyle(color: Colors.red, fontSize: 13),
-      ),
-    ],
+SingleChildScrollView formErrorText({String? error}) {
+  return SingleChildScrollView(
+    child: Row(
+      children: [
+        const Icon(
+          Icons.error_outline,
+          size: 15,
+          color: Colors.red,
+        ),
+        const SizedBox(
+          width: defaultPadding,
+        ),
+        Text(
+          error!,
+          style: const TextStyle(color: Colors.red, fontSize: 13),
+        ),
+      ],
+    ),
   );
 }

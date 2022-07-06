@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/category_model.dart';
 import 'package:flutter_shop_app/models/product_model.dart';
+import 'package:flutter_shop_app/models/user_model.dart';
 import 'package:flutter_shop_app/ui/screen/home/components/categories.dart';
 import 'package:flutter_shop_app/ui/screen/home/components/discount_banner.dart';
 import 'package:flutter_shop_app/ui/screen/home/components/figure.dart';
@@ -14,9 +15,11 @@ class HomeScreenBody extends StatefulWidget {
     required this.products,
     required this.categories,
     required this.refreshStateCallback,
+    required this.user,
   }) : super(key: key);
   final List<Product> products;
   final List<Category> categories;
+  final User user;
   final Function refreshStateCallback;
   @override
   State<HomeScreenBody> createState() => _HomeScreenBodyState();
@@ -72,7 +75,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   SpecialOffferCard(
                     image: "assets/images/Figure.png",
                     category: "Figure",
-                    numberOfBrands: 20,
+                    numberOfBrands: widget.products.length,
                     onTap: () {},
                   ),
                 ],
@@ -84,6 +87,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
             SectionTitle(title: "Genshin Impact", onClick: () {}),
             FigureProducts(
               products: widget.products,
+              user: widget.user,
               refreshState: widget.refreshStateCallback,
             ),
             const SizedBox(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop_app/components/custom_btn.dart';
+import 'package:flutter_shop_app/ui/components/custom_btn.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/shopping_cart_model.dart';
+import 'package:intl/intl.dart';
 
 class CartBottomNavbar extends StatelessWidget {
   const CartBottomNavbar({
@@ -77,8 +78,16 @@ class CartBottomNavbar extends StatelessWidget {
                   ),
                   children: [
                     TextSpan(
-                      text:
-                          "\$${carts.fold<double>(0, (previousValue, element) => (previousValue + (element.product.price * element.quantity))).toStringAsFixed(2)}",
+                      text: NumberFormat.simpleCurrency(
+                        locale: "vi",
+                        decimalDigits: 0,
+                      ).format(
+                        carts.fold<double>(
+                          0,
+                          (previousValue, element) => (previousValue +
+                              element.product.price * element.quantity),
+                        ),
+                      ),
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 20,

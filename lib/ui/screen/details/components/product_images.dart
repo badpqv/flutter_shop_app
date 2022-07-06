@@ -26,7 +26,8 @@ class _ProductImagesState extends State<ProductImages> {
             width: 238,
             child: AspectRatio(
               aspectRatio: 1,
-              child: Image.asset(widget.product.images[selectedImage]),
+              child:
+                  Image.asset(widget.product.images.split(",")[selectedImage]),
             ),
           ),
         ),
@@ -37,7 +38,7 @@ class _ProductImagesState extends State<ProductImages> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ...List.generate(
-                widget.product.images.length,
+                widget.product.images.split(",").length,
                 (index) => Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: defaultPadding / 4,
@@ -69,7 +70,7 @@ class _ProductImagesState extends State<ProductImages> {
             color: selectedImage == index ? primaryColor : Colors.transparent,
           ),
         ),
-        child: Image.asset(widget.product.images[index]),
+        child: Image.asset(widget.product.images.split(",")[index]),
       ),
     );
   }

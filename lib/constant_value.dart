@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 const Color primaryColor = Color(0xff6495ED);
 const Color primaryLightColor = Color(0xFFFFECDF);
-Color secondaryColor = const Color(0xFF979797).withOpacity(0.1);
+Color secondaryColor = const Color(0xFF979797);
 const Color textColor = Color(0xFF757575);
 const Color bgColor = Color(0xFFFAF9F6);
 final primaryGradient = LinearGradient(
@@ -27,7 +27,9 @@ const invalidEmailError = "Địa chỉ email không hợp lệ";
 const nullPassError = "Vui lòng nhập mật khẩu";
 const shortPassError = "Mật khẩu quá ngắn. Vui lòng nhập lại mật khẩu";
 const matchPassError = "Mật khẩu và xác nhận mật khẩu không khớp";
+const loginError = "Đăng nhập thất bại \n sai tên tài khoản hoặc mật khẩu";
 RegExp emailValidatoreRegExp = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+
 const headingStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 30,
@@ -60,9 +62,5 @@ List<Map<String, String>> splashData = [
   {
     "text": "Ship hàng tận tay",
     "image": "assets/images/March7th_3.png",
-  },
-  {
-    "text": "Vui lòng xoay màn hình dọc \n để có trải nghiệm tốt nhất",
-    "image": "assets/images/March7th_2.png",
   },
 ];

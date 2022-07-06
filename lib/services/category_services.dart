@@ -2,8 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_shop_app/models/category_model.dart';
 
-const categoryApiUrl =
-    "https://62bd4f38bac21839b600258a.mockapi.io/shop_app/categories";
+const categoryApiUrl = "https://localhost:7296/api/Category";
 Future<List<Category>> fetchCategories() async {
   final response = await http.get(
     Uri.parse(categoryApiUrl),
@@ -22,6 +21,6 @@ Future<List<Category>> fetchCategories() async {
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
-    throw Exception('Failed to load album');
+    throw Exception('Failed to load category');
   }
 }

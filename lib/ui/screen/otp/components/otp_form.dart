@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_app/constant_value.dart';
-import 'package:flutter_shop_app/components/custom_btn.dart';
+import 'package:flutter_shop_app/ui/components/custom_btn.dart';
 import 'package:flutter_shop_app/ui/screen/home/home_screen.dart';
 
 class OtpForm extends StatefulWidget {

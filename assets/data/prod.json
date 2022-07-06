@@ -1,19 +1,19 @@
 [
     {
         "id": "1",
-        "useremail": "abc@gmail.com",
+        "email": "abc@gmail.com",
         "password": "123456",
         "isVerified":  true
     },
     {
         "id": "2",
-        "useremail": "pviet@gmail.com",
+        "email": "pviet@gmail.com",
         "password": "123456",
         "isVerified":  true
     },
     {
         "id": "3",
-        "useremail": "admin@gmail.com",
+        "email": "admin@gmail.com",
         "password": "123456",
         "isVerified":  true
     }

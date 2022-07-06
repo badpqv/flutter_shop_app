@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:flutter_shop_app/models/product_model.dart';
+
 List<Category> categoryFromJson(String str) =>
     List<Category>.from(json.decode(str).map((x) => Category.fromJson(x)));
 
@@ -20,16 +22,15 @@ class Category {
   final String title;
   final String icon;
   final String id;
-
-  factory Category.fromJson(Map<String, dynamic> json) => Category(
+  factory Category.fromJson(dynamic json) => Category(
         title: json["title"],
         icon: json["icon"],
-        id: json["id"],
+        id: json["id"].toString(),
       );
 
   Map<String, dynamic> toJson() => {
         "title": title,
         "icon": icon,
-        "id": id,
+        "id": int.parse(id),
       };
 }

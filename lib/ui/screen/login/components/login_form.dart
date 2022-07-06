@@ -1,16 +1,13 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_shop_app/ui/screen/login/login_screen.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_shop_app/components/custom_btn.dart';
-import 'package:flutter_shop_app/components/form_errors.dart';
+import 'package:flutter_shop_app/constant_value.dart';
+import 'package:flutter_shop_app/services/user_services.dart';
+import 'package:flutter_shop_app/ui/components/custom_btn.dart';
+import 'package:flutter_shop_app/ui/components/form_errors.dart';
 import 'package:flutter_shop_app/models/user_model.dart';
 import 'package:flutter_shop_app/ui/screen/forgot_password/forgot_pass_screen.dart';
 
 import 'package:flutter_shop_app/ui/screen/login/login_success_screen.dart';
-
-import '../../../../constant_value.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -90,7 +87,19 @@ class _LoginFormState extends State<LoginForm> {
             press: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                var user = User(
+                  email: email,
+                  password: password,
+                );
+                login(user).then(
+                  (value) => value == const User()
+                      ? addError(error: loginError)
+                      : Navigator.pushNamed(
+                          context,
+                          LoginSuccessScreen.routeName,
+                          arguments: value,
+                        ),
+                );
               }
             },
           ),
@@ -107,6 +116,8 @@ class _LoginFormState extends State<LoginForm> {
       obscureText: true,
       onSaved: (newValue) => password = newValue!,
       onChanged: (value) {
+        removeError(error: loginError);
+
         if (value.isNotEmpty) {
           removeError(error: nullPassError);
         } else if (value.length >= 6) {
@@ -153,8 +164,10 @@ class _LoginFormState extends State<LoginForm> {
       controller: emailController,
       onSaved: (newValue) => email = newValue!,
       onChanged: (value) {
+        removeError(error: nullEmailError);
+
         if (value.isNotEmpty) {
-          removeError(error: nullEmailError);
+          removeError(error: loginError);
         } else if (emailValidatoreRegExp.hasMatch(value)) {
           removeError(error: invalidEmailError);
         }

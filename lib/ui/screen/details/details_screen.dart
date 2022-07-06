@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_app/models/product_model.dart';
+import 'package:flutter_shop_app/models/user_model.dart';
 import 'package:flutter_shop_app/ui/screen/details/components/details_screen_body.dart';
 import 'package:flutter_shop_app/ui/screen/home/home_screen.dart';
 
@@ -61,6 +62,7 @@ class DetailsScreen extends StatelessWidget {
       ),
       body: DetailsScreenBody(
         product: agrs.product,
+        user: agrs.user,
         refreshState: agrs.refreshState,
       ),
     );
@@ -70,8 +72,10 @@ class DetailsScreen extends StatelessWidget {
 class ProductDetailsArguments {
   final Product product;
   final Function refreshState;
+  final User user;
   ProductDetailsArguments({
     required this.refreshState,
     required this.product,
+    required this.user,
   });
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/shopping_cart_model.dart';
+import 'package:intl/intl.dart';
 
 class CartItemCard extends StatelessWidget {
   const CartItemCard({
@@ -13,22 +14,14 @@ class CartItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: bgColor,
+      color: const Color(0xFFFFFFF0),
       child: Row(
         children: [
           SizedBox(
             width: 88,
             child: AspectRatio(
               aspectRatio: .88,
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Color(0xFFF5F6F9),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(defaultBorderRadius * 1.5),
-                  ),
-                ),
-                child: Image.asset(cart.product.images[0]),
-              ),
+              child: Image.asset(cart.product.images.split(",")[0]),
             ),
           ),
           const SizedBox(
@@ -47,7 +40,9 @@ class CartItemCard extends StatelessWidget {
               ),
               Text.rich(
                 TextSpan(
-                  text: "\$${cart.product.price}",
+                  text: NumberFormat.simpleCurrency(
+                          locale: "vi", decimalDigits: 0)
+                      .format(cart.product.price),
                   style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     color: primaryColor,

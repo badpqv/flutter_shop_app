@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop_app/components/cart_bottom_nav.dart';
+import 'package:flutter_shop_app/models/user_model.dart';
+import 'package:flutter_shop_app/ui/components/cart_bottom_nav.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/shopping_cart_model.dart';
 import 'package:flutter_shop_app/services/cart_services.dart';
@@ -17,62 +18,38 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  Future<List<Cart>>? futureCarts;
-  List<Cart> carts = <Cart>[];
-  Future<Cart>? cart;
-  int? cartsLength;
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    futureCarts = fetchCarts();
-    cart = fetchCart("1");
   }
 
   @override
   Widget build(BuildContext context) {
+    final CartArguments args =
+        ModalRoute.of(context)!.settings.arguments as CartArguments;
     // TODO: implement build
-    return FutureBuilder(
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Center(
-            child: Text("${snapshot.error}"),
-          );
-        } else if (snapshot.hasData) {
-          carts = snapshot.data as List<Cart>;
-          return Scaffold(
-            appBar: AppBar(
-              leading: const BackButton(),
-              title: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Giỏ hàng",
-                    style: TextStyle(
-                      color: primaryColor,
-                    ),
-                  ),
-                  Text(
-                    "${carts.length} sản phẩm",
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                ],
+    return Scaffold(
+      appBar: AppBar(
+        leading: const BackButton(),
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Giỏ hàng",
+              style: TextStyle(
+                color: primaryColor,
               ),
             ),
-            body: buildCartBody(),
-            bottomNavigationBar: CartBottomNavbar(carts: carts),
-          );
-        }
-        return const Scaffold(
-          body: Center(
-            child: CircularProgressIndicator(
-              color: primaryColor,
+            Text(
+              "${args.carts.length} sản phẩm",
+              style: Theme.of(context).textTheme.caption,
             ),
-          ),
-        );
-      },
-      future: futureCarts,
+          ],
+        ),
+      ),
+      body: buildCartBody(),
+      bottomNavigationBar: CartBottomNavbar(carts: args.carts),
     );
   }
 
@@ -83,7 +60,7 @@ class _CartScreenState extends State<CartScreen> {
       padding: const EdgeInsets.symmetric(
           horizontal: defaultPadding, vertical: defaultPadding / 4),
       child: ListView.builder(
-        itemCount: carts.length,
+        itemCount: args.carts.length,
         itemBuilder: (context, index) => Padding(
           padding: const EdgeInsets.symmetric(vertical: defaultPadding / 4),
           child: Dismissible(
@@ -105,14 +82,14 @@ class _CartScreenState extends State<CartScreen> {
             ),
             onDismissed: (direction) async {
               setState(() {
-                cart = deleteCart(carts[index].id).whenComplete(
-                  () => args.refreshSate(),
-                );
-                carts.removeAt(index);
+                deleteCart(int.parse(args.carts[index].id)).then((value) {
+                  args.refreshSate();
+                });
+                args.carts.removeAt(index);
               });
             },
             child: CartItemCard(
-              cart: carts[index],
+              cart: args.carts[index],
             ),
           ),
         ),
@@ -123,7 +100,11 @@ class _CartScreenState extends State<CartScreen> {
 
 class CartArguments {
   final Function refreshSate;
+  final User user;
+  final List<Cart> carts;
   CartArguments({
+    required this.user,
     required this.refreshSate,
+    required this.carts,
   });
 }

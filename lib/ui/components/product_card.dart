@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/product_model.dart';
+import 'package:intl/intl.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard(
@@ -31,7 +32,7 @@ class ProductCard extends StatelessWidget {
                     defaultBorderRadius * 1.5,
                   ),
                 ),
-                child: Image.asset(product.images[0]),
+                child: Image.asset(product.images.split(",")[0]),
               ),
             ),
             const SizedBox(
@@ -51,7 +52,8 @@ class ProductCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "\$${product.price}",
+                  NumberFormat.simpleCurrency(locale: "vi", decimalDigits: 0)
+                      .format(product.price),
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w200,

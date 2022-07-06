@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop_app/components/rounded_icon_btn.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/product_model.dart';
+import 'package:flutter_shop_app/ui/components/rounded_icon_btn.dart';
 
 class ColorDots extends StatefulWidget {
   const ColorDots({
@@ -34,7 +34,7 @@ class _ColorDotsState extends State<ColorDots> {
     return Row(
       children: [
         ...List.generate(
-          widget.product.colors.length,
+          widget.product.colors.split(",").length,
           (index) => GestureDetector(
             onTap: () {
               setState(() {
@@ -43,7 +43,7 @@ class _ColorDotsState extends State<ColorDots> {
             },
             child: ColorDot(
               color: Color(
-                int.parse(widget.product.colors[index]),
+                int.parse(widget.product.colors.split(",")[index]),
               ),
               isSelected: selectedColor == index,
             ),

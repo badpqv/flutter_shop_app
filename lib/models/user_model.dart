@@ -15,31 +15,47 @@ String userToJson(List<User> data) =>
 class User extends Equatable {
   const User({
     this.id = "0",
-    this.useremail = "",
+    this.email = "",
     this.password = "",
+    this.firstName = "",
+    this.lastName = "",
+    this.phoneNumber = "",
+    this.address = "",
     this.isVerified = false,
   });
 
   final String id;
-  final String useremail;
+  final String email;
   final String password;
+  final String firstName;
+  final String lastName;
+  final String phoneNumber;
+  final String address;
   final bool isVerified;
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json["id"],
-        useremail: json["useremail"],
+  factory User.fromJson(dynamic json) => User(
+        id: json["id"].toString(),
+        email: json["email"],
         password: json["password"],
+        firstName: json["firstName"],
+        lastName: json["lastName"],
+        phoneNumber: json["phoneNumber"],
+        address: json["address"],
         isVerified: json["isVerified"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "useremail": useremail,
+        "id": int.parse(id),
+        "email": email,
         "password": password,
+        "firstName": firstName,
+        "lastName": lastName,
+        "phoneNumber": phoneNumber,
+        "address": address,
         "isVerified": isVerified,
       };
 
   @override
   // TODO: implement props
-  List<Object?> get props => [id, useremail, password, isVerified];
+  List<Object?> get props => [id, email, password, isVerified];
 }
