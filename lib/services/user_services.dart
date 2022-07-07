@@ -47,7 +47,25 @@ Future<User> login(User user) async {
     }
     return const User();
   } catch (e) {
-    print(e);
+    print("Lỗi kết nối server: $e");
     return const User();
+  }
+}
+
+Future<bool> postUser(User user) async {
+  try {
+    var response = await http.post(
+      Uri.parse(usersApiUrl),
+      headers: <String, String>{
+        'Content-Type': "application/json;charset=UTF-8",
+      },
+      body: jsonEncode(user.toJson()),
+    );
+    if (response.statusCode == 201) {
+      return true;
+    }
+    return false;
+  } catch (e) {
+    return false;
   }
 }

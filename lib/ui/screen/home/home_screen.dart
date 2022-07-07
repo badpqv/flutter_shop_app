@@ -43,13 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final User args = ModalRoute.of(context)!.settings.arguments as User;
+    final HomeArguments args =
+        ModalRoute.of(context)!.settings.arguments as HomeArguments;
 
     return FutureBuilder(
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
           var carts = (snapshot.data![0] as List<Cart>)
-              .where((element) => element.user == args)
+              .where((element) => element.user == args.user)
               .toList();
           var products = snapshot.data![2] as List<Product>;
           var categories = snapshot.data![1] as List<Category>;
@@ -57,17 +58,17 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Scaffold(
               appBar: HomeHeader(
                 carts: carts,
-                user: args,
+                user: args.user,
                 refreshStateCallback: refreshState,
               ),
               body: HomeScreenBody(
                 categories: categories,
                 products: products,
-                user: args,
+                user: args.user,
                 refreshStateCallback: refreshState,
               ),
               bottomNavigationBar: CustomBottomAppBar(
-                user: args,
+                user: args.user,
               ),
             ),
           );
@@ -77,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
             appBar: HomeHeader(
               carts: const <Cart>[],
               refreshStateCallback: refreshState,
-              user: args,
+              user: args.user,
             ),
             body: const Center(
               child: CircularProgressIndicator(
@@ -85,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             bottomNavigationBar: CustomBottomAppBar(
-              user: args,
+              user: args.user,
             ),
           ),
         );

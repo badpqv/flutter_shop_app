@@ -14,7 +14,8 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final User user = ModalRoute.of(context)!.settings.arguments as User;
+    final ProfileArguments args =
+        ModalRoute.of(context)!.settings.arguments as ProfileArguments;
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
@@ -42,9 +43,9 @@ class ProfileScreen extends StatelessWidget {
                   height: defaultPadding,
                 ),
                 NameBox(
-                  firstName: user.firstName,
-                  lastName: user.lastName,
-                  isVerified: user.isVerified,
+                  firstName: args.user.firstName,
+                  lastName: args.user.lastName,
+                  isVerified: args.user.isVerified,
                 ),
                 const SizedBox(
                   height: defaultPadding,
@@ -77,7 +78,7 @@ class ProfileScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: CustomBottomAppBar(
-        user: user,
+        user: args.user,
       ),
     );
   }

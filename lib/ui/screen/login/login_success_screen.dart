@@ -8,7 +8,8 @@ class LoginSuccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final User args = ModalRoute.of(context)!.settings.arguments as User;
+    final LoginSuccessArguments args =
+        ModalRoute.of(context)!.settings.arguments as LoginSuccessArguments;
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
@@ -16,7 +17,7 @@ class LoginSuccessScreen extends StatelessWidget {
       ),
       body: Center(
         child: LoginSuccessBody(
-          user: args,
+          user: args.user,
         ),
       ),
     );

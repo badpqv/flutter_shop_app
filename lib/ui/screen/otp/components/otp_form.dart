@@ -1,11 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_app/constant_value.dart';
+import 'package:flutter_shop_app/models/user_model.dart';
+import 'package:flutter_shop_app/services/user_services.dart';
 import 'package:flutter_shop_app/ui/components/custom_btn.dart';
 import 'package:flutter_shop_app/ui/screen/home/home_screen.dart';
+import 'package:flutter_shop_app/ui/screen/otp/otp_screen.dart';
 
 class OtpForm extends StatefulWidget {
-  const OtpForm({Key? key}) : super(key: key);
-
+  const OtpForm({Key? key, required this.arguments}) : super(key: key);
+  final OtpArguments arguments;
   @override
   State<OtpForm> createState() => _OtpFormState();
 }
@@ -111,7 +116,20 @@ class _OtpFormState extends State<OtpForm> {
           CustomButton(
             text: "Tiếp tục",
             press: () {
-              Navigator.pushNamed(context, HomeScreen.routeName);
+              postUser(widget.arguments.user).then(
+                (value) {
+                  if (value) {
+                    login(widget.arguments.user).then(
+                      (value) => Navigator.pushNamed(
+                        context,
+                        HomeScreen.routeName,
+                        arguments: HomeArguments(user: value),
+                      ),
+                    );
+                  }
+                },
+              );
+              // Navigator.pushNamed(context, HomeScreen.routeName);
             },
           ),
         ],

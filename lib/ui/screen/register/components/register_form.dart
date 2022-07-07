@@ -59,6 +59,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   if (password == value) {
                     removeError(error: matchPassError);
                   }
+                  confirmPass = value;
                 },
                 validator: (value) {
                   if (password != value) {
@@ -94,10 +95,16 @@ class _RegisterFormState extends State<RegisterForm> {
               CustomButton(
                 text: "Tiếp tục",
                 press: () {
-                  if (_formKey.currentState!.validate()) {
+                  if (_formKey.currentState!.validate() && errors.isEmpty) {
                     _formKey.currentState!.save();
                     Navigator.pushNamed(
-                        context, CompleteProfileScreen.routeName);
+                      context,
+                      CompleteProfileScreen.routeName,
+                      arguments: CompleteProfileArguments(
+                        email: email!,
+                        password: password!,
+                      ),
+                    );
                   }
                 },
               )
@@ -156,6 +163,9 @@ class _RegisterFormState extends State<RegisterForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      onSaved: ((newValue) {
+        password = newValue!;
+      }),
       enableSuggestions: false,
       autocorrect: false,
       obscureText: true,
@@ -165,6 +175,7 @@ class _RegisterFormState extends State<RegisterForm> {
         } else if (value.length >= 6) {
           removeError(error: shortPassError);
         }
+        password = value;
       },
       validator: (value) {
         if (value!.isEmpty) {

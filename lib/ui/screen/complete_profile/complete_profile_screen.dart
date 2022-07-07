@@ -8,7 +8,8 @@ class CompleteProfileScreen extends StatelessWidget {
   static String routeName = "/complete_profile";
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    final args =
+        ModalRoute.of(context)!.settings.arguments as CompleteProfileArguments;
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(),
@@ -20,7 +21,15 @@ class CompleteProfileScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: const CompleteProfileBody(),
+      body: CompleteProfileBody(
+        args: args,
+      ),
     );
   }
+}
+
+class CompleteProfileArguments {
+  final String email;
+  final String password;
+  CompleteProfileArguments({required this.email, required this.password});
 }

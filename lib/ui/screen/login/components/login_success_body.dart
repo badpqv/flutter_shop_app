@@ -58,7 +58,7 @@ class LoginSuccessBody extends StatelessWidget {
                   Navigator.pushNamed(
                     context,
                     HomeScreen.routeName,
-                    arguments: user,
+                    arguments: HomeArguments(user: user),
                   );
                 },
               ),

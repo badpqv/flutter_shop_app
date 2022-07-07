@@ -47,7 +47,7 @@ class CustomBottomAppBar extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   HomeScreen.routeName,
-                  arguments: user,
+                  arguments: HomeArguments(user: user),
                 );
               },
               child: const Icon(
@@ -69,7 +69,7 @@ class CustomBottomAppBar extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   ProfileScreen.routeName,
-                  arguments: user,
+                  arguments: ProfileArguments(user: user),
                 );
               },
             ),

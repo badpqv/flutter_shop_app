@@ -14,7 +14,7 @@ class CartItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xFFFFFFF0),
+      color: const Color(0xffFAF9F6),
       child: Row(
         children: [
           SizedBox(

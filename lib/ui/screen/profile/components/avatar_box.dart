@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_app/constant_value.dart';
 
 class AvatarBox extends StatelessWidget {
   const AvatarBox({
@@ -15,8 +18,8 @@ class AvatarBox extends StatelessWidget {
           fit: StackFit.expand,
           clipBehavior: Clip.none,
           children: [
-            const CircleAvatar(
-              backgroundImage: AssetImage("assets/images/March7th_1.png"),
+            CircleAvatar(
+              backgroundImage: avatars[Random().nextInt(avatars.length)],
             ),
             Positioned(
               right: -16,

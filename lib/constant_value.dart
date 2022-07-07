@@ -64,3 +64,8 @@ List<Map<String, String>> splashData = [
     "image": "assets/images/March7th_3.png",
   },
 ];
+List<ImageProvider> avatars = [
+  const AssetImage("assets/images/March7th_1.png"),
+  const AssetImage("assets/images/March7th_2.png"),
+  const AssetImage("assets/images/March7th_3.png"),
+];

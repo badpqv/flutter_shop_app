@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_app/constant_value.dart';
+import 'package:flutter_shop_app/ui/screen/complete_profile/complete_profile_screen.dart';
 import 'package:flutter_shop_app/ui/screen/complete_profile/components/complete_profile_form.dart';
 
 class CompleteProfileBody extends StatelessWidget {
-  const CompleteProfileBody({Key? key}) : super(key: key);
-
+  const CompleteProfileBody({Key? key, required this.args}) : super(key: key);
+  final CompleteProfileArguments args;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -26,7 +27,9 @@ class CompleteProfileBody extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * .05,
               ),
-              const CompleteProfileForm(),
+              CompleteProfileForm(
+                args: args,
+              ),
               const SizedBox(height: defaultPadding),
               const Text(
                 "Việc đăng ký tài khoản sẽ đồng nghĩ với việc bạn đồng ý \nvới các Điều khoản sử dụng của Artery",

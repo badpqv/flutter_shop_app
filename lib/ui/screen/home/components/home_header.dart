@@ -45,26 +45,32 @@ class _HomeHeaderState extends State<HomeHeader> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const SearchField(),
-              IconButtonWithCounter(
-                icon: Icons.shopping_cart_outlined,
-                numberOfItems: widget.carts.length,
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    CartScreen.routeName,
-                    arguments: CartArguments(
-                      refreshSate: widget.refreshStateCallback,
-                      user: widget.user,
-                      carts: widget.carts,
-                    ),
-                  );
-                  widget.refreshStateCallback();
-                },
-              ),
-              IconButtonWithCounter(
-                icon: Icons.notifications,
-                numberOfItems: 9,
-                onTap: () {},
+              Wrap(
+                children: [
+                  IconButtonWithCounter(
+                    icon: Icons.shopping_cart_outlined,
+                    numberOfItems: widget.carts.length,
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        CartScreen.routeName,
+                        arguments: CartArguments(
+                          refreshSate: widget.refreshStateCallback,
+                          user: widget.user,
+                          carts: widget.carts,
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    width: defaultPadding,
+                  ),
+                  IconButtonWithCounter(
+                    icon: Icons.notifications,
+                    numberOfItems: 9,
+                    onTap: () {},
+                  ),
+                ],
               ),
             ],
           ),

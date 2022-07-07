@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_app/models/user_model.dart';
 import 'package:flutter_shop_app/ui/components/custom_btn.dart';
 import 'package:flutter_shop_app/ui/components/form_errors.dart';
+import 'package:flutter_shop_app/ui/screen/complete_profile/complete_profile_screen.dart';
 import 'package:flutter_shop_app/ui/screen/otp/otp_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../constant_value.dart';
 
 class CompleteProfileForm extends StatefulWidget {
-  const CompleteProfileForm({Key? key}) : super(key: key);
-
+  const CompleteProfileForm({Key? key, required this.args}) : super(key: key);
+  final CompleteProfileArguments args;
   @override
   State<CompleteProfileForm> createState() => _CompleteProfileFormState();
 }
@@ -63,7 +65,20 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
               press: () {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
-                  Navigator.pushNamed(context, OtpScreen.routeName);
+                  Navigator.pushNamed(
+                    context,
+                    OtpScreen.routeName,
+                    arguments: OtpArguments(
+                      user: User(
+                        email: widget.args.email,
+                        password: widget.args.password,
+                        firstName: firstName!,
+                        lastName: lastName!,
+                        phoneNumber: phoneNumber!,
+                        address: address!,
+                      ),
+                    ),
+                  );
                 }
               },
             )

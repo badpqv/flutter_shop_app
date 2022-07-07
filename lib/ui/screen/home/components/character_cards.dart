@@ -11,8 +11,8 @@ import 'package:flutter_shop_app/services/product_services.dart';
 import 'package:flutter_shop_app/ui/screen/details/details_screen.dart';
 import 'package:http/http.dart' as http;
 
-class FigureProducts extends StatefulWidget {
-  const FigureProducts({
+class CharacterCards extends StatefulWidget {
+  const CharacterCards({
     Key? key,
     required this.products,
     required this.refreshState,
@@ -22,10 +22,10 @@ class FigureProducts extends StatefulWidget {
   final List<Product> products;
   final User user;
   @override
-  State<FigureProducts> createState() => _FigureProductsState();
+  State<CharacterCards> createState() => _CharacterCardsState();
 }
 
-class _FigureProductsState extends State<FigureProducts> {
+class _CharacterCardsState extends State<CharacterCards> {
   @override
   void initState() {
     // TODO: implement initState

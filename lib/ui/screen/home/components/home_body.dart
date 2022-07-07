@@ -3,9 +3,10 @@ import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/category_model.dart';
 import 'package:flutter_shop_app/models/product_model.dart';
 import 'package:flutter_shop_app/models/user_model.dart';
+import 'package:flutter_shop_app/ui/screen/all_products/all_products_screen.dart';
 import 'package:flutter_shop_app/ui/screen/home/components/categories.dart';
 import 'package:flutter_shop_app/ui/screen/home/components/discount_banner.dart';
-import 'package:flutter_shop_app/ui/screen/home/components/figure.dart';
+import 'package:flutter_shop_app/ui/screen/home/components/character_cards.dart';
 import 'package:flutter_shop_app/ui/screen/home/components/section_title.dart';
 import 'package:flutter_shop_app/ui/screen/home/components/special_offer_card.dart';
 
@@ -74,7 +75,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   ),
                   SpecialOffferCard(
                     image: "assets/images/Figure.png",
-                    category: "Figure",
+                    category: "Cards",
                     numberOfBrands: widget.products.length,
                     onTap: () {},
                   ),
@@ -84,9 +85,22 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
             const SizedBox(
               height: defaultPadding / 2,
             ),
-            SectionTitle(title: "Genshin Impact", onClick: () {}),
-            FigureProducts(
-              products: widget.products,
+            SectionTitle(
+                title: "Populars",
+                onClick: () {
+                  Navigator.pushNamed(
+                    context,
+                    AllProducts.routeName,
+                    arguments: ProductsArguments(
+                      categories: widget.categories,
+                      products: widget.products,
+                    ),
+                  );
+                }),
+            CharacterCards(
+              products: widget.products
+                  .where((element) => element.isPopular)
+                  .toList(),
               user: widget.user,
               refreshState: widget.refreshStateCallback,
             ),

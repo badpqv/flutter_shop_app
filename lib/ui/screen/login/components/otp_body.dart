@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/ui/screen/otp/components/otp_form.dart';
+import 'package:flutter_shop_app/ui/screen/otp/otp_screen.dart';
 
 class OtpScreenBody extends StatelessWidget {
-  const OtpScreenBody({Key? key}) : super(key: key);
-
+  const OtpScreenBody({Key? key, required this.args}) : super(key: key);
+  final OtpArguments args;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -51,7 +52,9 @@ class OtpScreenBody extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * .15,
             ),
-            const OtpForm(),
+            OtpForm(
+              arguments: args,
+            ),
             SizedBox(
               height: MediaQuery.of(context).size.height * .1,
             ),

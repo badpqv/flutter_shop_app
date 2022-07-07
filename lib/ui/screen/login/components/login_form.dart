@@ -97,7 +97,7 @@ class _LoginFormState extends State<LoginForm> {
                       : Navigator.pushNamed(
                           context,
                           LoginSuccessScreen.routeName,
-                          arguments: value,
+                          arguments: LoginSuccessArguments(user: value),
                         ),
                 );
               }
