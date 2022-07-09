@@ -6,9 +6,11 @@ class SectionTitle extends StatelessWidget {
     Key? key,
     required this.title,
     required this.onClick,
+    required this.hasPermission,
   }) : super(key: key);
   final String title;
   final GestureTapCallback onClick;
+  final bool hasPermission;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,19 +25,28 @@ class SectionTitle extends StatelessWidget {
               color: textColor,
             ),
           ),
-          GestureDetector(
-            onTap: onClick,
-            child: const Text(
-              "Quản lý",
-              style: TextStyle(color: textColor),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {},
-            child: const Text(
-              "Xem tất cả",
-              style: TextStyle(color: textColor),
-            ),
+          Wrap(
+            children: [
+              hasPermission
+                  ? GestureDetector(
+                      onTap: onClick,
+                      child: const Text(
+                        "Quản lý",
+                        style: TextStyle(color: textColor),
+                      ),
+                    )
+                  : const Center(),
+              const SizedBox(
+                width: defaultPadding,
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: const Text(
+                  "Xem tất cả",
+                  style: TextStyle(color: textColor),
+                ),
+              ),
+            ],
           ),
         ],
       ),

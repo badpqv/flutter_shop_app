@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_shop_app/bloc/cart/cart_bloc.dart';
 import 'package:flutter_shop_app/models/user_model.dart';
 import 'package:flutter_shop_app/ui/components/cart_bottom_nav.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/shopping_cart_model.dart';
-import 'package:flutter_shop_app/services/cart_services.dart';
+import 'package:flutter_shop_app/ui/screen/details/details_screen.dart';
 import 'package:flutter_shop_app/ui/screen/home/home_screen.dart';
 import 'package:flutter_shop_app/ui/screen/shopping_cart/components/cart_item_card.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -29,38 +31,64 @@ class _CartScreenState extends State<CartScreen> {
     final CartArguments args =
         ModalRoute.of(context)!.settings.arguments as CartArguments;
     // TODO: implement build
-    return Scaffold(
-      appBar: AppBar(
-        leading: const BackButton(),
-        title: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              "Giỏ hàng",
-              style: TextStyle(
-                color: primaryColor,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => CartBloc(user: args.user)
+            ..add(
+              GetCartList(),
+            ),
+        ),
+      ],
+      child: BlocListener<CartBloc, CartState>(
+        listener: (context, state) {},
+        child: BlocBuilder<CartBloc, CartState>(
+          builder: (context, state) {
+            return Scaffold(
+              appBar: AppBar(
+                leading: const BackButton(),
+                title: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Giỏ hàng",
+                      style: TextStyle(
+                        color: primaryColor,
+                      ),
+                    ),
+                    state is CartLoaded
+                        ? Text(
+                            "${state.carts.length} sản phẩm",
+                            style: Theme.of(context).textTheme.caption,
+                          )
+                        : Text(
+                            "0 sản phẩm",
+                            style: Theme.of(context).textTheme.caption,
+                          ),
+                  ],
+                ),
               ),
-            ),
-            Text(
-              "${args.carts.length} sản phẩm",
-              style: Theme.of(context).textTheme.caption,
-            ),
-          ],
+              body: state is CartLoaded
+                  ? buildCartBody(state, state.carts)
+                  : buildCartBody(state, <Cart>[]),
+              bottomNavigationBar: state is CartLoaded
+                  ? CartBottomNavbar(carts: state.carts)
+                  : const CartBottomNavbar(carts: <Cart>[]),
+            );
+          },
         ),
       ),
-      body: buildCartBody(),
-      bottomNavigationBar: CartBottomNavbar(carts: args.carts),
     );
   }
 
-  Padding buildCartBody() {
+  Padding buildCartBody(CartState state, List<Cart> carts) {
     final CartArguments args =
         ModalRoute.of(context)!.settings.arguments as CartArguments;
     return Padding(
       padding: const EdgeInsets.symmetric(
           horizontal: defaultPadding, vertical: defaultPadding / 4),
       child: ListView.builder(
-        itemCount: args.carts.length,
+        itemCount: carts.length,
         itemBuilder: (context, index) => Padding(
           padding: const EdgeInsets.symmetric(vertical: defaultPadding / 4),
           child: Dismissible(
@@ -82,14 +110,16 @@ class _CartScreenState extends State<CartScreen> {
             ),
             onDismissed: (direction) async {
               setState(() {
-                deleteCart(int.parse(args.carts[index].id)).then((value) {
-                  args.refreshSate();
-                });
-                args.carts.removeAt(index);
+                context.read<CartBloc>().add(
+                      DeleteCart(
+                        cart: carts[index],
+                      ),
+                    );
+                carts.removeAt(index);
               });
             },
             child: CartItemCard(
-              cart: args.carts[index],
+              cart: carts[index],
             ),
           ),
         ),
@@ -99,12 +129,10 @@ class _CartScreenState extends State<CartScreen> {
 }
 
 class CartArguments {
-  final Function refreshSate;
   final User user;
-  final List<Cart> carts;
+  final String previousRouteName;
   CartArguments({
     required this.user,
-    required this.refreshSate,
-    required this.carts,
+    required this.previousRouteName,
   });
 }

@@ -6,11 +6,11 @@ class ProductImages extends StatefulWidget {
   const ProductImages({
     Key? key,
     required this.product,
-    required this.callback,
+    required this.callbacks,
   }) : super(key: key);
 
   final Product product;
-  final Function callback;
+  final List<Function> callbacks;
   @override
   State<ProductImages> createState() => _ProductImagesState();
 }
@@ -57,7 +57,8 @@ class _ProductImagesState extends State<ProductImages> {
         setState(() {
           selectedImage = index;
         });
-        widget.callback(index);
+        widget.callbacks[0](index);
+        widget.callbacks[1](index);
       },
       child: Container(
         padding: const EdgeInsets.all(defaultPadding / 2),

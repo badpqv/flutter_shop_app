@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_app/api_repository/api_repository.dart';
 import 'package:flutter_shop_app/constant_value.dart';
-import 'package:flutter_shop_app/services/user_services.dart';
 import 'package:flutter_shop_app/ui/components/custom_btn.dart';
 import 'package:flutter_shop_app/ui/components/form_errors.dart';
 import 'package:flutter_shop_app/models/user_model.dart';
@@ -17,6 +17,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  final ApiRepository repository = ApiRepository();
   var emailController = TextEditingController();
   var passController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -91,15 +92,15 @@ class _LoginFormState extends State<LoginForm> {
                   email: email,
                   password: password,
                 );
-                login(user).then(
-                  (value) => value == const User()
-                      ? addError(error: loginError)
-                      : Navigator.pushNamed(
-                          context,
-                          LoginSuccessScreen.routeName,
-                          arguments: LoginSuccessArguments(user: value),
-                        ),
-                );
+                repository.login(user).then(
+                      (value) => value == const User()
+                          ? addError(error: loginError)
+                          : Navigator.pushNamed(
+                              context,
+                              LoginSuccessScreen.routeName,
+                              arguments: LoginSuccessArguments(user: value),
+                            ),
+                    );
               }
             },
           ),

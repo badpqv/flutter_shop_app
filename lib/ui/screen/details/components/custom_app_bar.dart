@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 
-class CustomAppBar extends StatelessWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double rating;
   const CustomAppBar({Key? key, required this.rating}) : super(key: key);
   @override
   // AppBar().preferredSize.height provide us the height that appy on our app bar
-  Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
+  Size get preferredSize => const Size.fromHeight(60);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -18,8 +18,8 @@ class CustomAppBar extends StatelessWidget {
         child: Row(
           children: [
             SizedBox(
-              height: (40),
-              width: (40),
+              height: (30),
+              width: (30),
               child: TextButton(
                 style: TextButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -38,7 +38,8 @@ class CustomAppBar extends StatelessWidget {
             ),
             const Spacer(),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: defaultPadding / 2, vertical: defaultPadding / 4),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(14),
@@ -48,14 +49,15 @@ class CustomAppBar extends StatelessWidget {
                   Text(
                     "$rating",
                     style: const TextStyle(
-                      fontSize: 14,
+                      fontSize: 13,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   const SizedBox(width: 5),
                   const Icon(
                     Icons.star,
-                    color: Colors.yellowAccent,
+                    color: Colors.yellow,
+                    size: 15,
                   ),
                 ],
               ),

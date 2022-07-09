@@ -1,27 +1,27 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_shop_app/bloc/cart/cart_bloc.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/product_model.dart';
 import 'package:flutter_shop_app/models/shopping_cart_model.dart';
 import 'package:flutter_shop_app/models/user_model.dart';
-import 'package:flutter_shop_app/services/cart_services.dart';
 import 'package:flutter_shop_app/ui/components/custom_btn.dart';
 import 'package:flutter_shop_app/ui/screen/details/components/colors_dot.dart';
 import 'package:flutter_shop_app/ui/screen/details/components/product_description.dart';
 import 'package:flutter_shop_app/ui/screen/details/components/product_images.dart';
 import 'package:flutter_shop_app/ui/screen/details/components/top_rounded_corner.dart';
+import 'package:flutter_shop_app/ui/screen/details/details_screen.dart';
 import 'package:flutter_shop_app/ui/screen/shopping_cart/cart_screen.dart';
 
 class DetailsScreenBody extends StatefulWidget {
   final Product product;
-  final Function refreshState;
   final User user;
+  final Function setSelectedIndex;
   const DetailsScreenBody({
     Key? key,
     required this.product,
     required this.user,
-    required this.refreshState,
+    required this.setSelectedIndex,
   }) : super(key: key);
 
   @override
@@ -29,25 +29,24 @@ class DetailsScreenBody extends StatefulWidget {
 }
 
 class _DetailsScreenBodyState extends State<DetailsScreenBody> {
-  Future<List<Cart>>? futureCarts;
   int imageIndex = 0;
   int colorIndex = 0;
   int prodQuantity = 1;
   var initialQuantity = 0;
 
-  getImageIndex(index) {
+  setImageIndex(index) {
     setState(() {
       imageIndex = index;
     });
   }
 
-  getColorIndex(index) {
+  setColorIndex(index) {
     setState(() {
       colorIndex = index;
     });
   }
 
-  getQuantity(quantity) {
+  setQuantity(quantity) {
     setState(() {
       prodQuantity = quantity;
     });
@@ -57,23 +56,19 @@ class _DetailsScreenBodyState extends State<DetailsScreenBody> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    futureCarts = fetchCarts();
   }
 
   @override
   Widget build(BuildContext context) {
-    SnackBar snackBar;
-    return FutureBuilder(
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          var carts = (snapshot.data as List<Cart>)
-              .where((element) => element.user == widget.user)
-              .toList();
+    return BlocProvider(
+      create: (context) => CartBloc(user: widget.user)..add(GetCartList()),
+      child: BlocBuilder<CartBloc, CartState>(
+        builder: (context, state) {
           return ListView(
             children: [
               ProductImages(
                 product: widget.product,
-                callback: getImageIndex,
+                callbacks: [setImageIndex, widget.setSelectedIndex],
               ),
               TopRoundedContainer(
                 color: Colors.white,
@@ -94,8 +89,8 @@ class _DetailsScreenBodyState extends State<DetailsScreenBody> {
                           children: [
                             ColorDots(
                               product: widget.product,
-                              callback: getColorIndex,
-                              quantityGetter: getQuantity,
+                              callback: setColorIndex,
+                              quantityGetter: setQuantity,
                             ),
                             TopRoundedContainer(
                               color: Colors.white,
@@ -109,40 +104,43 @@ class _DetailsScreenBodyState extends State<DetailsScreenBody> {
                                 child: CustomButton(
                                   text: "Thêm vào giỏ hàng",
                                   press: () {
-                                    var hasProduct = carts
-                                        .where((x) =>
-                                            x.product.id == widget.product.id &&
-                                            x.user.id == widget.user.id)
-                                        .toList();
-                                    var isExisted = hasProduct.isNotEmpty;
-                                    setState(() {
-                                      postCart(
-                                        Cart(
-                                          id: isExisted
-                                              ? hasProduct[0].id
-                                              : "0",
-                                          product: widget.product,
-                                          quantity: hasProduct.isNotEmpty
-                                              ? prodQuantity +
-                                                  hasProduct[0].quantity
-                                              : prodQuantity,
-                                          productId: widget.product.id,
-                                          userId: widget.user.id,
-                                          user: widget.user,
-                                        ),
-                                        isExisted,
-                                      ).then((value) {
-                                        futureCarts =
-                                            fetchCartsWithUser(widget.user);
-                                        futureCarts?.then((value) {
-                                          widget.refreshState();
+                                    if (state is CartLoaded) {
+                                      var hasProduct = state.carts
+                                          .where((x) =>
+                                              x.product.id ==
+                                                  widget.product.id &&
+                                              x.user.id == widget.user.id)
+                                          .toList();
+                                      var isExisted = hasProduct.isNotEmpty;
+                                      setState(
+                                        () {
+                                          context.read<CartBloc>().add(
+                                                AddCart(
+                                                  cart: Cart(
+                                                    id: isExisted
+                                                        ? hasProduct[0].id
+                                                        : "0",
+                                                    product: widget.product,
+                                                    quantity:
+                                                        hasProduct.isNotEmpty
+                                                            ? prodQuantity +
+                                                                hasProduct[0]
+                                                                    .quantity
+                                                            : prodQuantity,
+                                                    productId:
+                                                        widget.product.id,
+                                                    userId: widget.user.id,
+                                                    user: widget.user,
+                                                  ),
+                                                ),
+                                              );
                                           var snackBar =
-                                              addToCartSnackbar(context, value);
+                                              addToCartSnackbar(context);
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(snackBar);
-                                        });
-                                      });
-                                    });
+                                        },
+                                      );
+                                    }
                                   },
                                 ),
                               ),
@@ -156,16 +154,12 @@ class _DetailsScreenBodyState extends State<DetailsScreenBody> {
               ),
             ],
           );
-        }
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-      future: futureCarts,
+        },
+      ),
     );
   }
 
-  SnackBar addToCartSnackbar(BuildContext context, List<Cart> carts) {
+  SnackBar addToCartSnackbar(BuildContext context) {
     return SnackBar(
       padding: const EdgeInsets.symmetric(
         horizontal: defaultPadding / 2,
@@ -185,14 +179,10 @@ class _DetailsScreenBodyState extends State<DetailsScreenBody> {
             context,
             CartScreen.routeName,
             arguments: CartArguments(
-              refreshSate: widget.refreshState,
               user: widget.user,
-              carts: carts,
+              previousRouteName: DetailsScreen.routeName,
             ),
           );
-          setState(() {
-            futureCarts = fetchCarts();
-          });
         },
       ),
     );

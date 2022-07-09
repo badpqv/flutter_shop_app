@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop_app/ui/screen/all_products/all_products_screen.dart';
-import 'package:flutter_shop_app/ui/screen/all_products/components/add_products.dart';
 import 'package:flutter_shop_app/ui/screen/complete_profile/complete_profile_screen.dart';
 import 'package:flutter_shop_app/ui/screen/details/details_screen.dart';
 import 'package:flutter_shop_app/ui/screen/forgot_password/forgot_pass_screen.dart';
@@ -25,7 +23,5 @@ final Map<String, WidgetBuilder> routes = {
   ProfileScreen.routeName: (context) => const ProfileScreen(),
   HomeScreen.routeName: (context) => const HomeScreen(),
   DetailsScreen.routeName: (context) => const DetailsScreen(),
-  AllProducts.routeName: (context) => const AllProducts(),
-  AddProductScreen.routeName: (context) => const AddProductScreen(),
   CartScreen.routeName: (context) => const CartScreen(),
 };

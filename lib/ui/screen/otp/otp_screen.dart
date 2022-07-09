@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/user_model.dart';
-import 'package:flutter_shop_app/ui/screen/login/components/otp_body.dart';
+import 'package:flutter_shop_app/ui/screen/otp/components/otp_body.dart';
 import 'package:flutter_shop_app/ui/screen/otp/components/otp_form.dart';
 
 class OtpScreen extends StatelessWidget {

@@ -7,7 +7,6 @@ import 'dart:convert';
 
 import 'package:flutter_shop_app/models/product_model.dart';
 import 'package:flutter_shop_app/models/user_model.dart';
-import 'package:flutter_shop_app/services/product_services.dart';
 import 'package:flutter_shop_app/ui/screen/details/details_screen.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,10 +14,8 @@ class CharacterCards extends StatefulWidget {
   const CharacterCards({
     Key? key,
     required this.products,
-    required this.refreshState,
     required this.user,
   }) : super(key: key);
-  final Function refreshState;
   final List<Product> products;
   final User user;
   @override
@@ -59,7 +56,6 @@ class _CharacterCardsState extends State<CharacterCards> {
                         context,
                         DetailsScreen.routeName,
                         arguments: ProductDetailsArguments(
-                          refreshState: widget.refreshState,
                           product: filterList[index],
                           user: widget.user,
                         ),

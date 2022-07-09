@@ -14,7 +14,11 @@ class CartItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xffFAF9F6),
+      decoration: BoxDecoration(
+        color: const Color(0xffFAF9F6),
+        borderRadius: BorderRadius.circular(defaultBorderRadius),
+        border: Border.all(color: Colors.white),
+      ),
       child: Row(
         children: [
           SizedBox(

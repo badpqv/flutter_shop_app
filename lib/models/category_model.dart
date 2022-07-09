@@ -17,15 +17,23 @@ class Category {
     this.title = "",
     this.icon = "",
     this.id = "0",
+    this.products = const <Product>[],
   });
 
   final String title;
   final String icon;
   final String id;
+  final List<Product> products;
+
   factory Category.fromJson(dynamic json) => Category(
         title: json["title"],
         icon: json["icon"],
         id: json["id"].toString(),
+        products: List<Product>.from(
+          json["products"].map(
+            (x) => Product.fromJson(x),
+          ),
+        ),
       );
 
   Map<String, dynamic> toJson() => {

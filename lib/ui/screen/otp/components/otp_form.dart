@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_app/api_repository/api_repository.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/user_model.dart';
-import 'package:flutter_shop_app/services/user_services.dart';
 import 'package:flutter_shop_app/ui/components/custom_btn.dart';
 import 'package:flutter_shop_app/ui/screen/home/home_screen.dart';
 import 'package:flutter_shop_app/ui/screen/otp/otp_screen.dart';
@@ -16,6 +16,7 @@ class OtpForm extends StatefulWidget {
 }
 
 class _OtpFormState extends State<OtpForm> {
+  final ApiRepository repository = ApiRepository();
   FocusNode? pin2FocusNode;
   FocusNode? pin3FocusNode;
   FocusNode? pin4FocusNode;
@@ -116,19 +117,17 @@ class _OtpFormState extends State<OtpForm> {
           CustomButton(
             text: "Tiếp tục",
             press: () {
-              postUser(widget.arguments.user).then(
-                (value) {
-                  if (value) {
-                    login(widget.arguments.user).then(
-                      (value) => Navigator.pushNamed(
-                        context,
-                        HomeScreen.routeName,
-                        arguments: HomeArguments(user: value),
-                      ),
-                    );
-                  }
-                },
-              );
+              repository.register(widget.arguments.user).then((value) {
+                if (value != const User()) {
+                  repository.login(value).then(
+                        (value) => Navigator.pushNamed(
+                          context,
+                          HomeScreen.routeName,
+                          arguments: HomeArguments(user: value),
+                        ),
+                      );
+                }
+              });
               // Navigator.pushNamed(context, HomeScreen.routeName);
             },
           ),

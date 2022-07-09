@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_shop_app/models/category_model.dart';
 import 'package:flutter_shop_app/models/nofification_model.dart';
 import 'package:flutter_shop_app/models/product_model.dart';
@@ -11,7 +12,7 @@ List<Cart> cartFromJson(String str) =>
 String cartToJson(List<Cart> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Cart {
+class Cart extends Equatable {
   Cart({
     this.product = const Product(id: "0"),
     this.quantity = 1,
@@ -43,4 +44,15 @@ class Cart {
         "userId": int.parse(userId),
         "productId": int.parse(productId),
       };
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [
+        product,
+        quantity,
+        id,
+        userId,
+        productId,
+        user,
+      ];
 }
