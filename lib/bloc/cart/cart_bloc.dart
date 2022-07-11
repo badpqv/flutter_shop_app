@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_shop_app/api_repository/api_repository.dart';
+import 'package:flutter_shop_app/models/nofification_model.dart';
 import 'package:flutter_shop_app/models/shopping_cart_model.dart';
 import 'package:flutter_shop_app/models/user_model.dart';
 
@@ -61,6 +62,28 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             );
           } on NetworkError {
             emit(const CartLoaded(carts: <Cart>[]));
+          }
+        }
+      },
+    );
+    on<AddNotification>(
+      (event, emit) async {
+        if (state is NotificationLoaded) {
+          try {
+            await repository.sendNotification(event.notification);
+            var notificationAfterPost =
+                await repository.fetchNotificationsList();
+            emit(
+              NotificationLoaded(
+                notifications: notificationAfterPost,
+              ),
+            );
+          } on NetworkError {
+            emit(
+              const NotificationLoaded(
+                notifications: <AppNotification>[],
+              ),
+            );
           }
         }
       },

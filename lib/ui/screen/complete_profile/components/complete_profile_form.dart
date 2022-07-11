@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_app/api_repository/api_repository.dart';
 import 'package:flutter_shop_app/models/user_model.dart';
 import 'package:flutter_shop_app/ui/components/custom_btn.dart';
 import 'package:flutter_shop_app/ui/components/form_errors.dart';
 import 'package:flutter_shop_app/ui/screen/complete_profile/complete_profile_screen.dart';
-import 'package:flutter_shop_app/ui/screen/otp/otp_screen.dart';
+import 'package:flutter_shop_app/ui/screen/login/login_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../constant_value.dart';
@@ -16,6 +17,7 @@ class CompleteProfileForm extends StatefulWidget {
 }
 
 class _CompleteProfileFormState extends State<CompleteProfileForm> {
+  ApiRepository repository = ApiRepository();
   final _formKey = GlobalKey<FormState>();
   String? firstName;
   String? lastName;
@@ -65,19 +67,34 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
               press: () {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
-                  Navigator.pushNamed(
-                    context,
-                    OtpScreen.routeName,
-                    arguments: OtpArguments(
-                      user: User(
-                        email: widget.args.email,
-                        password: widget.args.password,
-                        firstName: firstName!,
-                        lastName: lastName!,
-                        phoneNumber: phoneNumber!,
-                        address: address!,
-                      ),
+                  repository
+                      .register(
+                    User(
+                      email: widget.args.email,
+                      password: widget.args.password,
+                      firstName: firstName!,
+                      lastName: lastName!,
+                      phoneNumber: phoneNumber!,
+                      address: address!,
                     ),
+                  )
+                      .then(
+                    (value) {
+                      if (value != const User()) {
+                        var snackBar = SnackBar(
+                          content: const Text("Đăng ký thành công"),
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: primaryColor,
+                          action: SnackBarAction(
+                            label: "Về đăng nhập",
+                            onPressed: () {
+                              Navigator.pushNamed(context, LoginPage.routeName);
+                            },
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                    },
                   );
                 }
               },

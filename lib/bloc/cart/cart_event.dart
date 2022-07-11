@@ -24,3 +24,17 @@ class DeleteCart extends CartEvent {
   @override
   List<Object> get props => [cart];
 }
+
+class LoadNotificationsList extends CartEvent {}
+
+class AddNotification extends CartEvent {
+  final AppNotification notification;
+  const AddNotification({required this.notification});
+
+  @override
+  List<Object> get props => [notification];
+}
+
+class MarkNotificationAsRead extends CartEvent {}
+
+class MarkAllNotificationAsRead extends CartEvent {}

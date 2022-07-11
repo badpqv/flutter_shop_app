@@ -9,4 +9,6 @@ abstract class CategoryEvent extends Equatable {
 
 class GetCategoriesList extends CategoryEvent {}
 
+class GetFilteredCategoriesList extends CategoryEvent {}
+
 class AddCategory extends CategoryEvent {}

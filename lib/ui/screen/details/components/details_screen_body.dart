@@ -1,7 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shop_app/bloc/cart/cart_bloc.dart';
+import 'package:flutter_shop_app/bloc/notification/notification_bloc.dart';
 import 'package:flutter_shop_app/constant_value.dart';
+import 'package:flutter_shop_app/models/nofification_model.dart';
 import 'package:flutter_shop_app/models/product_model.dart';
 import 'package:flutter_shop_app/models/shopping_cart_model.dart';
 import 'package:flutter_shop_app/models/user_model.dart';
@@ -60,99 +64,136 @@ class _DetailsScreenBodyState extends State<DetailsScreenBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CartBloc(user: widget.user)..add(GetCartList()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CartBloc(user: widget.user)..add(GetCartList()),
+        ),
+      ],
       child: BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
-          return ListView(
-            children: [
-              ProductImages(
-                product: widget.product,
-                callbacks: [setImageIndex, widget.setSelectedIndex],
+          return Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  widget.product.images.split(",")[imageIndex],
+                ),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  primaryLightColor.withOpacity(0.4),
+                  BlendMode.dstATop,
+                ),
               ),
-              TopRoundedContainer(
-                color: Colors.white,
-                child: Column(
-                  children: [
-                    ProductDescription(
-                      product: widget.product,
-                      onTap: () {},
-                    ),
-                    TopRoundedContainer(
-                      color: const Color(0xFFF6F7F9),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: defaultPadding,
-                          vertical: defaultPadding / 5,
+            ),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+              child: ListView(
+                children: [
+                  ProductImages(
+                    product: widget.product,
+                    callbacks: [setImageIndex, widget.setSelectedIndex],
+                  ),
+                  TopRoundedContainer(
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        ProductDescription(
+                          product: widget.product,
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text(widget.product.title),
+                                content: Text(widget.product.description),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'OK'),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
                         ),
-                        child: Column(
-                          children: [
-                            ColorDots(
-                              product: widget.product,
-                              callback: setColorIndex,
-                              quantityGetter: setQuantity,
+                        TopRoundedContainer(
+                          color: const Color(0xFFF6F7F9),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: defaultPadding,
+                              vertical: defaultPadding / 5,
                             ),
-                            TopRoundedContainer(
-                              color: Colors.white,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width * .15,
-                                  right:
-                                      MediaQuery.of(context).size.width * .15,
-                                  bottom: 21,
+                            child: Column(
+                              children: [
+                                ColorDots(
+                                  product: widget.product,
+                                  callback: setColorIndex,
+                                  quantityGetter: setQuantity,
                                 ),
-                                child: CustomButton(
-                                  text: "Thêm vào giỏ hàng",
-                                  press: () {
-                                    if (state is CartLoaded) {
-                                      var hasProduct = state.carts
-                                          .where((x) =>
-                                              x.product.id ==
-                                                  widget.product.id &&
-                                              x.user.id == widget.user.id)
-                                          .toList();
-                                      var isExisted = hasProduct.isNotEmpty;
-                                      setState(
-                                        () {
-                                          context.read<CartBloc>().add(
-                                                AddCart(
-                                                  cart: Cart(
-                                                    id: isExisted
-                                                        ? hasProduct[0].id
-                                                        : "0",
-                                                    product: widget.product,
-                                                    quantity:
-                                                        hasProduct.isNotEmpty
+                                TopRoundedContainer(
+                                  color: Colors.white,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      left: MediaQuery.of(context).size.width *
+                                          .15,
+                                      right: MediaQuery.of(context).size.width *
+                                          .15,
+                                      bottom: 18,
+                                    ),
+                                    child: CustomButton(
+                                      text: "Thêm vào giỏ hàng",
+                                      press: () {
+                                        if (state is CartLoaded) {
+                                          var hasProduct = state.carts
+                                              .where((x) =>
+                                                  x.product.id ==
+                                                      widget.product.id &&
+                                                  x.user.id == widget.user.id)
+                                              .toList();
+                                          var isExisted = hasProduct.isNotEmpty;
+                                          setState(
+                                            () {
+                                              context.read<CartBloc>().add(
+                                                    AddCart(
+                                                      cart: Cart(
+                                                        id: isExisted
+                                                            ? hasProduct[0].id
+                                                            : "0",
+                                                        product: widget.product,
+                                                        quantity: hasProduct
+                                                                .isNotEmpty
                                                             ? prodQuantity +
                                                                 hasProduct[0]
                                                                     .quantity
                                                             : prodQuantity,
-                                                    productId:
-                                                        widget.product.id,
-                                                    userId: widget.user.id,
-                                                    user: widget.user,
-                                                  ),
-                                                ),
-                                              );
-                                          var snackBar =
-                                              addToCartSnackbar(context);
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(snackBar);
-                                        },
-                                      );
-                                    }
-                                  },
+                                                        productId:
+                                                            widget.product.id,
+                                                        userId: widget.user.id,
+                                                        user: widget.user,
+                                                      ),
+                                                    ),
+                                                  );
+                                              var snackBar =
+                                                  addToCartSnackbar(context);
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(snackBar);
+                                            },
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           );
         },
       ),

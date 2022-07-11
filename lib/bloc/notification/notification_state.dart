@@ -9,4 +9,11 @@ abstract class NotificationState extends Equatable {
 
 class NotificationInitial extends NotificationState {}
 
-class NotificationLoaded extends NotificationState {}
+class NotificationLoading extends NotificationState {}
+
+class NotificationLoaded extends NotificationState {
+  final List<AppNotification> notifications;
+  const NotificationLoaded({required this.notifications});
+  @override
+  List<Object> get props => [notifications];
+}

@@ -5,7 +5,7 @@ import 'package:flutter_shop_app/ui/screen/complete_profile/components/complete_
 
 class CompleteProfileScreen extends StatelessWidget {
   const CompleteProfileScreen({Key? key}) : super(key: key);
-  static String routeName = "/complete_profile";
+  static String routeName = "/complete-profile";
   @override
   Widget build(BuildContext context) {
     final args =

@@ -5,7 +5,7 @@ import 'package:flutter_shop_app/ui/screen/forgot_password/components/forgot_pas
 
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
-  static String routeName = "/forgot_password";
+  static String routeName = "/forgot-password";
   @override
   Widget build(BuildContext context) {
     return Scaffold(

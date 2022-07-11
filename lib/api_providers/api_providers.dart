@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_shop_app/models/category_model.dart';
+import 'package:flutter_shop_app/models/nofification_model.dart';
 import 'package:flutter_shop_app/models/product_model.dart';
 import 'package:flutter_shop_app/models/shopping_cart_model.dart';
 import 'package:flutter_shop_app/models/user_model.dart';
@@ -10,17 +11,20 @@ class ApiProvider {
   final Dio _dio = Dio();
   final List<String> urls = [
     Platform.isAndroid
-        ? "https://192.168.1.3:5000/api/User"
-        : "https://localhost:5000/api/User",
+        ? "http://192.168.1.30:5000/api/User"
+        : "http://localhost:5000/api/User",
     Platform.isAndroid
-        ? "https://192.168.1.3:5000/api/Product"
-        : "https://localhost:5000/api/Product",
+        ? "http://192.168.1.30:5000/api/Product"
+        : "http://localhost:5000/api/Product",
     Platform.isAndroid
-        ? "https://192.168.1.3:5000/api/Category"
-        : "https://localhost:5000/api/Category",
+        ? "http://192.168.1.30:5000/api/Category"
+        : "http://localhost:5000/api/Category",
     Platform.isAndroid
-        ? "https://192.168.1.3:5000/api/Cart"
-        : "https://localhost:5000/api/Cart",
+        ? "http://192.168.1.30:5000/api/Cart"
+        : "http://localhost:5000/api/Cart",
+    Platform.isAndroid
+        ? "http://192.168.1.30:5000/api/Notification"
+        : "http://localhost:5000/api/Notification",
   ];
 
   //FETCH
@@ -29,7 +33,6 @@ class ApiProvider {
       Response response = await _dio.get(urls[0]);
       return userFromJson(response.data);
     } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
       return <User>[];
     }
   }
@@ -39,7 +42,6 @@ class ApiProvider {
       Response response = await _dio.get(urls[1]);
       return productsFromJson(jsonEncode(response.data));
     } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
       return <Product>[];
     }
   }
@@ -49,7 +51,6 @@ class ApiProvider {
       Response response = await _dio.get(urls[2]);
       return categoryFromJson(jsonEncode(response.data));
     } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
       return <Category>[];
     }
   }
@@ -59,7 +60,6 @@ class ApiProvider {
       Response response = await _dio.get(urls[3]);
       return cartFromJson(jsonEncode(response.data));
     } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
       return <Cart>[];
     }
   }
@@ -71,8 +71,16 @@ class ApiProvider {
           .where((element) => element.user == user)
           .toList();
     } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
       return <Cart>[];
+    }
+  }
+
+  Future<List<AppNotification>> fetchNotificationsList() async {
+    try {
+      Response response = await _dio.get(urls[4]);
+      return notificationFromJson(jsonEncode(response.data));
+    } catch (error, stacktrace) {
+      return <AppNotification>[];
     }
   }
 
@@ -84,7 +92,6 @@ class ApiProvider {
       Response response = await _dio.post(urls[0], data: data);
       return User.fromJson(response.data);
     } catch (e, stacktrace) {
-      print("Exception occured: $e stackTrace: $stacktrace");
       return const User();
     }
   }
@@ -95,7 +102,6 @@ class ApiProvider {
       Response response = await _dio.post("${urls[0]}/login", data: data);
       return User.fromJson(response.data);
     } catch (e) {
-      print(e);
       return const User();
     }
   }
@@ -107,7 +113,6 @@ class ApiProvider {
       Response response = await _dio.post(urls[1], data: data);
       return response.statusCode == 201 || response.statusCode == 200;
     } catch (e, stacktrace) {
-      print("Exception occured: $e stackTrace: $stacktrace");
       return false;
     }
   }
@@ -122,7 +127,6 @@ class ApiProvider {
       );
       return response.statusCode == 201 || response.statusCode == 200;
     } catch (e, stacktrace) {
-      print("Exception occured: $e stackTrace: $stacktrace");
       return false;
     }
   }
@@ -136,7 +140,17 @@ class ApiProvider {
       );
       return response.statusCode == 201 || response.statusCode == 200;
     } catch (e, stacktrace) {
-      print("Exception occured: $e stackTrace: $stacktrace");
+      return false;
+    }
+  }
+
+  Future<bool> sendNotification(AppNotification notification) async {
+    var data = notification.toJson();
+
+    try {
+      Response response = await _dio.post(urls[4], data: data);
+      return response.statusCode == 201 || response.statusCode == 200;
+    } catch (e, stacktrace) {
       return false;
     }
   }
@@ -149,7 +163,6 @@ class ApiProvider {
       Response response = await _dio.put("${urls[0]}/$id", data: data);
       return response.data;
     } catch (e, stacktrace) {
-      print("Exception occured: $e stackTrace: $stacktrace");
       return const User();
     }
   }
@@ -161,7 +174,6 @@ class ApiProvider {
       Response response = await _dio.put("${urls[0]}/$id", data: data);
       return response.data;
     } catch (e, stacktrace) {
-      print("Exception occured: $e stackTrace: $stacktrace");
       return const Product(id: "0");
     }
   }
@@ -173,7 +185,6 @@ class ApiProvider {
       Response response = await _dio.put("${urls[0]}/$id", data: data);
       return response.data;
     } catch (e, stacktrace) {
-      print("Exception occured: $e stackTrace: $stacktrace");
       return const Category();
     }
   }
@@ -185,7 +196,6 @@ class ApiProvider {
       Response response = await _dio.put("${urls[0]}/$id", data: data);
       return response.data;
     } catch (e, stacktrace) {
-      print("Exception occured: $e stackTrace: $stacktrace");
       return Cart(id: "0", productId: "0", userId: "0", user: const User());
     }
   }
@@ -196,7 +206,6 @@ class ApiProvider {
       Response response = await _dio.delete(urls[0]);
       return response.statusCode!;
     } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
       return 400;
     }
   }
@@ -206,7 +215,6 @@ class ApiProvider {
       Response response = await _dio.delete(urls[1]);
       return response.statusCode!;
     } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
       return 400;
     }
   }
@@ -216,7 +224,6 @@ class ApiProvider {
       Response response = await _dio.get(urls[2]);
       return response.statusCode!;
     } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
       return 400;
     }
   }
@@ -228,7 +235,6 @@ class ApiProvider {
           .where((element) => element.user == user)
           .toList();
     } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
       return <Cart>[];
     }
   }

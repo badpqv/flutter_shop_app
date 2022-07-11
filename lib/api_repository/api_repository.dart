@@ -1,5 +1,6 @@
 import 'package:flutter_shop_app/api_providers/api_providers.dart';
 import 'package:flutter_shop_app/models/category_model.dart';
+import 'package:flutter_shop_app/models/nofification_model.dart';
 import 'package:flutter_shop_app/models/product_model.dart';
 import 'package:flutter_shop_app/models/shopping_cart_model.dart';
 import 'package:flutter_shop_app/models/user_model.dart';
@@ -27,6 +28,10 @@ class ApiRepository {
     return _provider.fetchCurrentUserCart(user);
   }
 
+  Future<List<AppNotification>> fetchNotificationsList() {
+    return _provider.fetchNotificationsList();
+  }
+
   //POST
   Future<User> register(User user) {
     return _provider.register(user);
@@ -46,6 +51,10 @@ class ApiRepository {
 
   Future<bool> postCart(Cart cart) {
     return _provider.postCart(cart);
+  }
+
+  Future<bool> sendNotification(AppNotification notification) {
+    return _provider.sendNotification(notification);
   }
 
   //PUT

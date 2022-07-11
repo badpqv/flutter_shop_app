@@ -11,6 +11,7 @@ import 'package:flutter_shop_app/ui/screen/home/components/discount_banner.dart'
 import 'package:flutter_shop_app/ui/screen/home/components/character_cards.dart';
 import 'package:flutter_shop_app/ui/screen/home/components/section_title.dart';
 import 'package:flutter_shop_app/ui/screen/home/components/special_offer_card.dart';
+import 'package:flutter_shop_app/ui/screen/product_manage/product_list.dart';
 
 class HomeScreenBody extends StatefulWidget {
   const HomeScreenBody({
@@ -24,16 +25,27 @@ class HomeScreenBody extends StatefulWidget {
 }
 
 class _HomeScreenBodyState extends State<HomeScreenBody> {
+  late CategoryBloc loadCategories;
+  late ProductBloc loadProducts;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadCategories = CategoryBloc()..add(GetCategoriesList());
+    loadProducts = ProductBloc()..add(GetProductsList());
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
     return MultiBlocProvider(
       providers: [
         BlocProvider<CategoryBloc>(
-          create: (_) => CategoryBloc()..add(GetCategoriesList()),
+          create: (_) => loadCategories,
         ),
         BlocProvider<ProductBloc>(
-          create: (_) => ProductBloc()..add(GetProductsList()),
+          create: (_) => loadProducts,
         ),
       ],
       child: SafeArea(
@@ -104,18 +116,46 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                       const SizedBox(
                         height: defaultPadding / 2,
                       ),
-                      SectionTitle(
-                          title: "Populars",
-                          hasPermission: widget.user.isVerified,
-                          onClick: () {}),
-                      CharacterCards(
-                        products: state is ProductLoaded
-                            ? state.products
-                                .where((element) => element.isPopular)
-                                .toList()
-                            : <Product>[],
-                        user: widget.user,
-                      ),
+                      state is ProductLoaded
+                          ? Column(
+                              children: [
+                                ...List.generate(
+                                  state.categories.length,
+                                  (index) => Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: defaultPadding / 2,
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        SectionTitle(
+                                          title: state.categories[index].title,
+                                          hasPermission: widget.user.isVerified,
+                                          onClick: () {
+                                            Navigator.pushNamed(
+                                              context,
+                                              ProductListScreen.routeName,
+                                            );
+                                          },
+                                        ),
+                                        CharacterCards(
+                                          products: state.products
+                                              .where(
+                                                (element) =>
+                                                    element.isPopular &&
+                                                    element.categoryId ==
+                                                        state.categories[index]
+                                                            .id,
+                                              )
+                                              .toList(),
+                                          user: widget.user,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : const Center()
                     ],
                   );
                 },

@@ -5,8 +5,6 @@ import 'package:flutter_shop_app/models/user_model.dart';
 import 'package:flutter_shop_app/ui/components/cart_bottom_nav.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/shopping_cart_model.dart';
-import 'package:flutter_shop_app/ui/screen/details/details_screen.dart';
-import 'package:flutter_shop_app/ui/screen/home/home_screen.dart';
 import 'package:flutter_shop_app/ui/screen/shopping_cart/components/cart_item_card.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
