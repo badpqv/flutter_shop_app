@@ -32,7 +32,7 @@ class ProductCard extends StatelessWidget {
                     defaultBorderRadius * 1.5,
                   ),
                 ),
-                child: Image.asset(product.images.split(",")[0]),
+                child: Image.network(product.images.split(",")[0]),
               ),
             ),
             const SizedBox(

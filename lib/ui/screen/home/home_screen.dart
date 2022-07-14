@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shop_app/bloc/cart/cart_bloc.dart';
+import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/ui/components/custom_bottom_nav.dart';
 import 'package:flutter_shop_app/models/shopping_cart_model.dart';
 import 'package:flutter_shop_app/models/user_model.dart';
@@ -50,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 bottomNavigationBar: CustomBottomAppBar(
                   user: args.user,
+                  selectedMenu: Menu.home,
                 ),
               ),
             ),

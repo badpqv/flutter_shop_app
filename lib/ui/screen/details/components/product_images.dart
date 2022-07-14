@@ -26,26 +26,29 @@ class _ProductImagesState extends State<ProductImages> {
             width: 238,
             child: AspectRatio(
               aspectRatio: 1,
-              child:
-                  Image.asset(widget.product.images.split(",")[selectedImage]),
+              child: Image.network(
+                  widget.product.images.split(",")[selectedImage]),
             ),
           ),
         ),
         const SizedBox(
           height: 10,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ...List.generate(
-                widget.product.images.split(",").length,
-                (index) => Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: defaultPadding / 4,
-                      ),
-                      child: buildSmallPreview(index),
-                    )),
-          ],
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ...List.generate(
+                  widget.product.images.split(",").length,
+                  (index) => Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: defaultPadding / 4,
+                        ),
+                        child: buildSmallPreview(index),
+                      )),
+            ],
+          ),
         )
       ],
     );
@@ -71,7 +74,7 @@ class _ProductImagesState extends State<ProductImages> {
             color: selectedImage == index ? primaryColor : Colors.transparent,
           ),
         ),
-        child: Image.asset(widget.product.images.split(",")[index]),
+        child: Image.network(widget.product.images.split(",")[index]),
       ),
     );
   }

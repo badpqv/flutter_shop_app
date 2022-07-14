@@ -3,7 +3,7 @@ import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/ui/screen/login/components/login_form.dart';
 import 'package:flutter_shop_app/ui/screen/login/components/social_card.dart';
 import 'package:flutter_shop_app/ui/screen/register/register_screen.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 
 class LoginPageBody extends StatelessWidget {
   const LoginPageBody({Key? key}) : super(key: key);
@@ -68,7 +68,7 @@ class LoginPageBody extends StatelessWidget {
                       padding: const EdgeInsets.only(right: defaultPadding),
                       child: SocialCard(
                         icon: const Icon(
-                          FontAwesomeIcons.twitter,
+                          FontAwesome.twitter,
                           size: 25,
                           color: Colors.lightBlue,
                         ),
@@ -77,7 +77,7 @@ class LoginPageBody extends StatelessWidget {
                     ),
                     SocialCard(
                       icon: const Icon(
-                        FontAwesomeIcons.google,
+                        FontAwesome.google,
                         size: 25,
                         color: Colors.redAccent,
                       ),

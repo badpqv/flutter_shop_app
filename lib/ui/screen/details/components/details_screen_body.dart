@@ -75,7 +75,7 @@ class _DetailsScreenBodyState extends State<DetailsScreenBody> {
           return Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
+                image: NetworkImage(
                   widget.product.images.split(",")[imageIndex],
                 ),
                 fit: BoxFit.cover,
@@ -87,108 +87,113 @@ class _DetailsScreenBodyState extends State<DetailsScreenBody> {
             ),
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-              child: ListView(
+              child: Column(
                 children: [
                   ProductImages(
                     product: widget.product,
                     callbacks: [setImageIndex, widget.setSelectedIndex],
                   ),
-                  TopRoundedContainer(
-                    color: Colors.white,
-                    child: Column(
-                      children: [
-                        ProductDescription(
-                          product: widget.product,
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: Text(widget.product.title),
-                                content: Text(widget.product.description),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, 'OK'),
-                                    child: const Text('OK'),
+                  Expanded(
+                    child: TopRoundedContainer(
+                      color: Colors.white,
+                      child: Column(
+                        children: [
+                          ProductDescription(
+                            product: widget.product,
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: Text(widget.product.title),
+                                  content: Text(widget.product.description),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'OK'),
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                          TopRoundedContainer(
+                            color: const Color(0xFFF6F7F9),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: defaultPadding,
+                              ),
+                              child: Column(
+                                children: [
+                                  ColorDots(
+                                    product: widget.product,
+                                    callback: setColorIndex,
+                                    quantityGetter: setQuantity,
+                                  ),
+                                  TopRoundedContainer(
+                                    color: Colors.transparent,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                        left:
+                                            MediaQuery.of(context).size.width *
+                                                .15,
+                                        right:
+                                            MediaQuery.of(context).size.width *
+                                                .15,
+                                      ),
+                                      child: CustomButton(
+                                        text: "Thêm vào giỏ hàng",
+                                        press: () {
+                                          if (state is CartLoaded) {
+                                            var hasProduct = state.carts
+                                                .where((x) =>
+                                                    x.product.id ==
+                                                        widget.product.id &&
+                                                    x.user.id == widget.user.id)
+                                                .toList();
+                                            var isExisted =
+                                                hasProduct.isNotEmpty;
+                                            setState(
+                                              () {
+                                                context.read<CartBloc>().add(
+                                                      AddCart(
+                                                        cart: Cart(
+                                                          id: isExisted
+                                                              ? hasProduct[0].id
+                                                              : "0",
+                                                          product:
+                                                              widget.product,
+                                                          quantity: hasProduct
+                                                                  .isNotEmpty
+                                                              ? prodQuantity +
+                                                                  hasProduct[0]
+                                                                      .quantity
+                                                              : prodQuantity,
+                                                          productId:
+                                                              widget.product.id,
+                                                          userId:
+                                                              widget.user.id,
+                                                          user: widget.user,
+                                                        ),
+                                                      ),
+                                                    );
+                                                var snackBar =
+                                                    addToCartSnackbar(context);
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(snackBar);
+                                              },
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
-                            );
-                          },
-                        ),
-                        TopRoundedContainer(
-                          color: const Color(0xFFF6F7F9),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: defaultPadding,
-                              vertical: defaultPadding / 5,
-                            ),
-                            child: Column(
-                              children: [
-                                ColorDots(
-                                  product: widget.product,
-                                  callback: setColorIndex,
-                                  quantityGetter: setQuantity,
-                                ),
-                                TopRoundedContainer(
-                                  color: Colors.white,
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                      left: MediaQuery.of(context).size.width *
-                                          .15,
-                                      right: MediaQuery.of(context).size.width *
-                                          .15,
-                                      bottom: 18,
-                                    ),
-                                    child: CustomButton(
-                                      text: "Thêm vào giỏ hàng",
-                                      press: () {
-                                        if (state is CartLoaded) {
-                                          var hasProduct = state.carts
-                                              .where((x) =>
-                                                  x.product.id ==
-                                                      widget.product.id &&
-                                                  x.user.id == widget.user.id)
-                                              .toList();
-                                          var isExisted = hasProduct.isNotEmpty;
-                                          setState(
-                                            () {
-                                              context.read<CartBloc>().add(
-                                                    AddCart(
-                                                      cart: Cart(
-                                                        id: isExisted
-                                                            ? hasProduct[0].id
-                                                            : "0",
-                                                        product: widget.product,
-                                                        quantity: hasProduct
-                                                                .isNotEmpty
-                                                            ? prodQuantity +
-                                                                hasProduct[0]
-                                                                    .quantity
-                                                            : prodQuantity,
-                                                        productId:
-                                                            widget.product.id,
-                                                        userId: widget.user.id,
-                                                        user: widget.user,
-                                                      ),
-                                                    ),
-                                                  );
-                                              var snackBar =
-                                                  addToCartSnackbar(context);
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(snackBar);
-                                            },
-                                          );
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ],
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],

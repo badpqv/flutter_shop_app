@@ -19,8 +19,8 @@ class LoginSuccessBody extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.04,
             ),
-            Image.asset(
-              "assets/images/March7th_1.png",
+            Image.network(
+              "http://192.168.1.5:5000/images/march7th_1.jpg",
               height: MediaQuery.of(context).size.height * 0.4,
             ),
             SizedBox(

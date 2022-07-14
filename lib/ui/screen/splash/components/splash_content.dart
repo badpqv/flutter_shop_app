@@ -32,7 +32,7 @@ class SplashContent extends StatelessWidget {
         const Spacer(
           flex: 2,
         ),
-        Image.asset(
+        Image.network(
           image!,
           height: MediaQuery.of(context).size.height * .35,
           width: MediaQuery.of(context).size.height * .35,

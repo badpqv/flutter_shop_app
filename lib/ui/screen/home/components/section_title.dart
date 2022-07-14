@@ -39,13 +39,6 @@ class SectionTitle extends StatelessWidget {
               const SizedBox(
                 width: defaultPadding,
               ),
-              GestureDetector(
-                onTap: () {},
-                child: const Text(
-                  "Xem tất cả",
-                  style: TextStyle(color: textColor),
-                ),
-              ),
             ],
           ),
         ],

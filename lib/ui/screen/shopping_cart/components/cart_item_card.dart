@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/shopping_cart_model.dart';
+import 'package:flutter_shop_app/ui/screen/details/components/colors_dot.dart';
 import 'package:intl/intl.dart';
 
 class CartItemCard extends StatelessWidget {
@@ -22,10 +23,13 @@ class CartItemCard extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(
-            width: 88,
+            width: 100,
             child: AspectRatio(
-              aspectRatio: .88,
-              child: Image.asset(cart.product.images.split(",")[0]),
+              aspectRatio: .9,
+              child: Image.network(
+                cart.product.images.split(",")[0],
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           const SizedBox(
@@ -34,10 +38,36 @@ class CartItemCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                cart.product.title,
-                style: const TextStyle(fontSize: 16, color: textColor),
-                maxLines: 2,
+              Container(
+                width: 250,
+                padding: const EdgeInsets.only(right: defaultPadding / 2),
+                child: Text(
+                  cart.product.title,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    color: textColor,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  maxLines: 1,
+                  softWrap: false,
+                ),
+              ),
+              const SizedBox(
+                height: defaultPadding / 2,
+              ),
+              Row(
+                children: [
+                  ...List.generate(
+                      cart.product.colors.split(",").length,
+                      (index) => ColorDot(
+                          color: Color(
+                            int.parse(
+                              cart.product.colors.split(",")[index],
+                            ),
+                          ),
+                          isSelected: false)),
+                ],
               ),
               const SizedBox(
                 height: defaultPadding / 2,

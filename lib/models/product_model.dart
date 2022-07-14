@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'dart:convert';
 
 import 'package:flutter_shop_app/models/category_model.dart';
 import 'package:flutter_shop_app/models/shopping_cart_model.dart';
+import 'package:image_picker/image_picker.dart';
 
 List<Product> productsFromJson(String str) =>
     List<Product>.from(json.decode(str).map((x) => Product.fromJson(x)));
@@ -18,6 +21,7 @@ class Product extends Equatable {
   final double rating, price;
   final bool isFavourite, isPopular;
   final String categoryId;
+  final int imagesCount;
   const Product({
     required this.id,
     this.images = '',
@@ -29,6 +33,7 @@ class Product extends Equatable {
     this.price = 0.0,
     this.description = "",
     this.categoryId = "0",
+    this.imagesCount = 0,
   });
 
   factory Product.fromJson(dynamic json) {
@@ -55,7 +60,8 @@ class Product extends Equatable {
         "price": price,
         "isFavourite": isFavourite,
         "isPopular": isPopular,
-        "categoryId": categoryId
+        "categoryId": categoryId,
+        "imagesCount": imagesCount,
       };
   @override
   // TODO: implement props
@@ -69,5 +75,6 @@ class Product extends Equatable {
         title,
         price,
         description,
+        categoryId,
       ];
 }

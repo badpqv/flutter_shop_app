@@ -6,24 +6,26 @@ import 'package:flutter_shop_app/models/nofification_model.dart';
 import 'package:flutter_shop_app/models/product_model.dart';
 import 'package:flutter_shop_app/models/shopping_cart_model.dart';
 import 'package:flutter_shop_app/models/user_model.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ApiProvider {
   final Dio _dio = Dio();
   final List<String> urls = [
     Platform.isAndroid
-        ? "http://192.168.1.30:5000/api/User"
+        ? "http://192.168.1.5:5000/api/User"
         : "http://localhost:5000/api/User",
     Platform.isAndroid
-        ? "http://192.168.1.30:5000/api/Product"
+        ? "http://192.168.1.5:5000/api/Product"
         : "http://localhost:5000/api/Product",
     Platform.isAndroid
-        ? "http://192.168.1.30:5000/api/Category"
+        ? "http://192.168.1.5:5000/api/Category"
         : "http://localhost:5000/api/Category",
     Platform.isAndroid
-        ? "http://192.168.1.30:5000/api/Cart"
+        ? "http://192.168.1.5:5000/api/Cart"
         : "http://localhost:5000/api/Cart",
     Platform.isAndroid
-        ? "http://192.168.1.30:5000/api/Notification"
+        ? "http://192.168.1.5:5000/api/Notification"
         : "http://localhost:5000/api/Notification",
   ];
 
@@ -107,13 +109,38 @@ class ApiProvider {
   }
 
   Future<bool> postProduct(Product product) async {
-    var data = product.toJson();
-
     try {
-      Response response = await _dio.post(urls[1], data: data);
+      var data = product.toJson();
+
+      Response response = await _dio.post(
+        urls[1],
+        data: data,
+      );
+      print(response.statusCode);
       return response.statusCode == 201 || response.statusCode == 200;
     } catch (e, stacktrace) {
+      print(e);
       return false;
+    }
+  }
+
+  Future<String> saveImages(String fileName, File image) async {
+    var fileExtension = image.path.split("/").last.split(".").last;
+    var formData = FormData.fromMap({
+      "image": MultipartFile.fromFileSync(
+        image.path,
+        filename: "$fileName.$fileExtension",
+      ),
+    });
+    try {
+      Response response = await _dio.post("${urls[1]}/save-image",
+          data: formData,
+          options: Options(headers: {
+            "Content-Type": "multipart/form-data",
+          }));
+      return response.data;
+    } catch (e) {
+      return "";
     }
   }
 
@@ -167,14 +194,16 @@ class ApiProvider {
     }
   }
 
-  Future<Product> editProduct(Product product, int id) async {
-    var data = FormData.fromMap({'data': jsonEncode(product.toJson())});
+  Future<bool> editProduct(Product product, int id) async {
+    var data = product.toJson();
 
     try {
-      Response response = await _dio.put("${urls[0]}/$id", data: data);
+      Response response = await _dio.put("${urls[1]}/$id", data: data);
+      print(response.statusCode);
       return response.data;
     } catch (e, stacktrace) {
-      return const Product(id: "0");
+      print(e);
+      return false;
     }
   }
 
@@ -210,12 +239,15 @@ class ApiProvider {
     }
   }
 
-  Future<int> deleteProduct() async {
+  Future<List<Product>> deleteProduct(int id) async {
+    print(id);
     try {
-      Response response = await _dio.delete(urls[1]);
-      return response.statusCode!;
+      Response response = await _dio.delete("${urls[1]}/$id");
+      print(response.statusCode);
+      return productsFromJson(jsonEncode(response.data));
     } catch (error, stacktrace) {
-      return 400;
+      print(error);
+      return [];
     }
   }
 

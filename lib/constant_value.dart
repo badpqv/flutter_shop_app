@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// #region main variables in project
 const Color primaryColor = Color(0xFFF88379);
 const Color primaryLightColor = Color(0xffFFB6C1);
 Color secondaryColor = const Color(0xFF979797);
@@ -15,11 +16,11 @@ final primaryGradient = LinearGradient(
 );
 const double defaultPadding = 20.0;
 const double defaultBorderRadius = 10;
-
 const animationDuration = Duration(milliseconds: 500);
+// #endregion
 
-const nullFirstNameError = "Vui lòng nhập tên của bạn";
-const nullLastNameError = "Vui lòng nhập họ và tên đệm của bạn";
+const nullFirstNameError = "Vui lòng nhập họ và tên đệm của bạn";
+const nullLastNameError = "Vui lòng nhập tên của bạn";
 const nullEmailError = "Vui lòng nhập địa chỉ email";
 const nullPhoneError = " Vui lòng nhập số điện thoại của bạn";
 const nullAddressError = " Vui lòng nhập địa chỉ của bạn";
@@ -28,6 +29,9 @@ const nullPassError = "Vui lòng nhập mật khẩu";
 const shortPassError = "Mật khẩu quá ngắn. Vui lòng nhập lại mật khẩu";
 const matchPassError = "Mật khẩu và xác nhận mật khẩu không khớp";
 const loginError = "Đăng nhập thất bại \n sai tên tài khoản hoặc mật khẩu";
+
+const nullProductNameError = "Vui lòng nhập tên sản phẩm";
+
 RegExp emailValidatoreRegExp = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
 
 const headingStyle = TextStyle(
@@ -53,19 +57,22 @@ OutlineInputBorder outlineInputBorder() {
 List<Map<String, String>> splashData = [
   {
     "text": 'Hiện đại nhất Việt Nam\nChất lượng "ơ mây zing gút chóp" :3!',
-    "image": "assets/images/March7th_1.png"
+    "image": "http://192.168.1.5:5000/images/march7th_1.jpg"
   },
   {
     "text": 'Đổi trả miễn phí',
-    "image": "assets/images/March7th_2.png",
+    "image": "http://192.168.1.5:5000/images/march7th_2.jpg",
   },
   {
     "text": "Ship hàng tận tay",
-    "image": "assets/images/March7th_3.png",
+    "image": "http://192.168.1.5:5000/images/march7th_3.jpg",
   },
 ];
+
 List<ImageProvider> avatars = [
-  const AssetImage("assets/images/March7th_1.png"),
-  const AssetImage("assets/images/March7th_2.png"),
-  const AssetImage("assets/images/March7th_3.png"),
+  const NetworkImage("http://192.168.1.5:5000/images/march7th_1.jpg"),
+  const NetworkImage("http://192.168.1.5:5000/images/march7th_2.jpg"),
+  const NetworkImage("http://192.168.1.5:5000/images/march7th_3.jpg"),
 ];
+
+enum Menu { home, favourite, message, profile }

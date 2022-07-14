@@ -5,7 +5,9 @@ import 'package:flutter_shop_app/ui/components/custom_btn.dart';
 import 'package:flutter_shop_app/ui/components/form_errors.dart';
 import 'package:flutter_shop_app/ui/screen/complete_profile/complete_profile_screen.dart';
 import 'package:flutter_shop_app/ui/screen/login/login_screen.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 
 import '../../../../constant_value.dart';
 
@@ -52,9 +54,9 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         child: Column(
           children: [
             const SizedBox(height: defaultPadding),
-            buildLastNameInput(),
-            const SizedBox(height: defaultPadding),
             buildFirstNameInput(),
+            const SizedBox(height: defaultPadding),
+            buildLastNameInput(),
             const SizedBox(height: defaultPadding),
             buildPhoneNumberInput(),
             const SizedBox(height: defaultPadding),
@@ -76,6 +78,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                       lastName: lastName!,
                       phoneNumber: phoneNumber!,
                       address: address!,
+                      isVerified: true,
                     ),
                   )
                       .then(
@@ -87,6 +90,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                           backgroundColor: primaryColor,
                           action: SnackBarAction(
                             label: "Về đăng nhập",
+                            textColor: Colors.white,
                             onPressed: () {
                               Navigator.pushNamed(context, LoginPage.routeName);
                             },
@@ -122,9 +126,9 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Tên",
+        labelText: "Họ, tên đệm",
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        hintText: "Nhập tên của bạn",
+        hintText: "Nhập họ, tên đệm của bạn",
         contentPadding: const EdgeInsets.symmetric(
           horizontal: defaultPadding * 2,
           vertical: defaultPadding * 1.5,
@@ -141,7 +145,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         ),
         suffixIcon: const Padding(
           padding: EdgeInsets.all(defaultPadding),
-          child: Icon(FontAwesomeIcons.user),
+          child: Icon(FontAwesome.user),
         ),
       ),
     );
@@ -164,9 +168,9 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Họ, tên đệm",
+        labelText: "Tên",
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        hintText: "Nhập họ, tên đệm của bạn",
+        hintText: "Nhập tên đệm của bạn",
         contentPadding: const EdgeInsets.symmetric(
           horizontal: defaultPadding * 2,
           vertical: defaultPadding * 1.5,
@@ -183,7 +187,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         ),
         suffixIcon: const Padding(
           padding: EdgeInsets.all(defaultPadding),
-          child: Icon(FontAwesomeIcons.user),
+          child: Icon(FontAwesome.user),
         ),
       ),
     );
@@ -267,7 +271,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         ),
         suffixIcon: const Padding(
           padding: EdgeInsets.all(defaultPadding),
-          child: Icon(FontAwesomeIcons.addressCard),
+          child: Icon(FontAwesome5.address_card),
         ),
       ),
     );

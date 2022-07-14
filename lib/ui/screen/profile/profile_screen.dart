@@ -68,7 +68,12 @@ class ProfileScreen extends StatelessWidget {
                 ProfileMenu(
                   title: "Đăng xuất",
                   onClick: () {
-                    Navigator.pushNamed(context, LoginPage.routeName);
+                    Navigator.popUntil(
+                      context,
+                      ModalRoute.withName(
+                        LoginPage.routeName,
+                      ),
+                    );
                   },
                   icon: Icons.logout_outlined,
                 ),
@@ -79,6 +84,7 @@ class ProfileScreen extends StatelessWidget {
       ),
       bottomNavigationBar: CustomBottomAppBar(
         user: args.user,
+        selectedMenu: Menu.profile,
       ),
     );
   }

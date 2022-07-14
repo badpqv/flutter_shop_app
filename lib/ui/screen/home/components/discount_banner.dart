@@ -26,11 +26,11 @@ class DiscountBanner extends StatelessWidget {
         TextSpan(
             text: "Artery Gear: FUSION\n",
             style: TextStyle(
-              color: primaryLightColor,
+              color: Colors.white,
             ),
             children: [
               TextSpan(
-                text: "Cashback 20%",
+                text: "Giảm giá 20%",
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,

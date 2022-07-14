@@ -26,7 +26,7 @@ class SpecialOffferCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(defaultBorderRadius),
             child: Stack(
               children: [
-                Image.asset(
+                Image.network(
                   image,
                   fit: BoxFit.fill,
                   width: 230,

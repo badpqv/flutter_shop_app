@@ -6,7 +6,7 @@ import 'package:flutter_shop_app/ui/components/cart_bottom_nav.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/shopping_cart_model.dart';
 import 'package:flutter_shop_app/ui/screen/shopping_cart/components/cart_item_card.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 
 class CartScreen extends StatefulWidget {
   static String routeName = "/cart";
@@ -80,11 +80,9 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Padding buildCartBody(CartState state, List<Cart> carts) {
-    final CartArguments args =
-        ModalRoute.of(context)!.settings.arguments as CartArguments;
     return Padding(
       padding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding, vertical: defaultPadding / 4),
+          horizontal: defaultPadding, vertical: defaultPadding / 2),
       child: ListView.builder(
         itemCount: carts.length,
         itemBuilder: (context, index) => Padding(
@@ -101,7 +99,7 @@ class _CartScreenState extends State<CartScreen> {
               child: Row(children: [
                 const Spacer(),
                 Icon(
-                  FontAwesomeIcons.solidTrashCan,
+                  FontAwesome.trash,
                   color: Colors.redAccent[200],
                 ),
               ]),

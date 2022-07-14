@@ -35,6 +35,13 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
     loadProducts = ProductBloc()..add(GetProductsList());
   }
 
+  refreshBlocState() {
+    setState(() {
+      loadCategories = CategoryBloc()..add(GetCategoriesList());
+      loadProducts = ProductBloc()..add(GetProductsList());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -48,123 +55,87 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
           create: (_) => loadProducts,
         ),
       ],
-      child: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: defaultPadding / 2,
-              ),
-              const DiscountBanner(),
-              const SizedBox(
-                height: defaultPadding * 2,
-              ),
-              BlocBuilder<CategoryBloc, CategoryState>(
-                builder: (context, state) {
-                  return state is CategoryLoaded
-                      ? Categories(categories: state.categories)
-                      : const Categories(categories: <Category>[]);
-                },
-              ),
-              const SizedBox(
-                height: defaultPadding,
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-                child: SectionTitle(
-                  hasPermission: false,
-                  title: "Special for you",
-                  onClick: () {},
-                ),
-              ),
-              const SizedBox(
-                height: defaultPadding / 2,
-              ),
-              BlocBuilder<ProductBloc, ProductState>(
-                builder: (context, state) {
-                  return Column(
-                    children: [
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SpecialOffferCard(
-                              image: "assets/images/Image Banner.png",
-                              category: "Gaming  Gear",
-                              numberOfBrands: 10,
-                              onTap: () {},
-                            ),
-                            SpecialOffferCard(
-                              image: "assets/images/Image Banner 2.png",
-                              category: "Smartphone",
-                              numberOfBrands: 5,
-                              onTap: () {},
-                            ),
-                            SpecialOffferCard(
-                              image: "assets/images/Figure.png",
-                              category: "Cards",
-                              numberOfBrands: state is ProductLoaded
-                                  ? state.products.length
-                                  : 0,
-                              onTap: () {},
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: defaultPadding / 2,
-                      ),
-                      state is ProductLoaded
-                          ? Column(
-                              children: [
-                                ...List.generate(
-                                  state.categories.length,
-                                  (index) => Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: defaultPadding / 2,
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        SectionTitle(
-                                          title: state.categories[index].title,
-                                          hasPermission: widget.user.isVerified,
-                                          onClick: () {
-                                            Navigator.pushNamed(
-                                              context,
-                                              ProductListScreen.routeName,
-                                            );
-                                          },
-                                        ),
-                                        CharacterCards(
-                                          products: state.products
-                                              .where(
-                                                (element) =>
-                                                    element.isPopular &&
-                                                    element.categoryId ==
-                                                        state.categories[index]
-                                                            .id,
-                                              )
-                                              .toList(),
-                                          user: widget.user,
-                                        ),
-                                      ],
-                                    ),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: defaultPadding / 2,
+            ),
+            const DiscountBanner(),
+            const SizedBox(
+              height: defaultPadding * 2,
+            ),
+            BlocBuilder<CategoryBloc, CategoryState>(
+              builder: (context, state) {
+                return state is CategoryLoaded
+                    ? Categories(categories: state.categories)
+                    : const Categories(categories: <Category>[]);
+              },
+            ),
+            const SizedBox(
+              height: defaultPadding,
+            ),
+            const SizedBox(
+              height: defaultPadding / 2,
+            ),
+            BlocBuilder<ProductBloc, ProductState>(
+              builder: (context, state) {
+                return Column(
+                  children: [
+                    const SizedBox(
+                      height: defaultPadding / 2,
+                    ),
+                    state is ProductLoaded
+                        ? Column(
+                            children: [
+                              ...List.generate(
+                                state.categories.length,
+                                (index) => Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: defaultPadding / 2,
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      SectionTitle(
+                                        title: state.categories[index].title,
+                                        hasPermission: widget.user.isVerified,
+                                        onClick: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            ProductListScreen.routeName,
+                                            arguments: ProductListArguments(
+                                              category: state.categories[index],
+                                              user: widget.user,
+                                              callBack: refreshBlocState,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      CharacterCards(
+                                        products: state.products
+                                            .where(
+                                              (element) =>
+                                                  element.categoryId ==
+                                                  state.categories[index].id,
+                                            )
+                                            .toList(),
+                                        user: widget.user,
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            )
-                          : const Center()
-                    ],
-                  );
-                },
-              ),
-              const SizedBox(
-                height: defaultPadding / 2,
-              ),
-            ],
-          ),
+                              ),
+                            ],
+                          )
+                        : const Center()
+                  ],
+                );
+              },
+            ),
+            const SizedBox(
+              height: defaultPadding / 2,
+            ),
+          ],
         ),
       ),
     );
