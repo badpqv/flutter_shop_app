@@ -18,22 +18,32 @@ class _ProductListState extends State<ProductListScreen> {
   Widget build(BuildContext context) {
     final ProductListArguments args =
         ModalRoute.of(context)!.settings.arguments as ProductListArguments;
-    return Scaffold(
-      appBar: AppBar(
-        leading: BackButton(onPressed: () async {
-          await Navigator.pushNamed(context, HomeScreen.routeName,
-              arguments: HomeArguments(user: args.user));
-        }),
-        title: const Text(
-          "Quản lý sản phẩm",
-          style: TextStyle(color: primaryColor),
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.popAndPushNamed(
+          context,
+          HomeScreen.routeName,
+          arguments: HomeArguments(user: args.user),
+        );
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: BackButton(onPressed: () async {
+            await Navigator.pushNamed(context, HomeScreen.routeName,
+                arguments: HomeArguments(user: args.user));
+          }),
+          title: const Text(
+            "Quản lý sản phẩm",
+            style: TextStyle(color: primaryColor),
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: ProductListBody(
-        category: args.category,
-        user: args.user,
-        callBack: args.callBack,
+        body: ProductListBody(
+          category: args.category,
+          user: args.user,
+          callBack: args.callBack,
+        ),
       ),
     );
   }

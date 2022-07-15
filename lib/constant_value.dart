@@ -56,23 +56,23 @@ OutlineInputBorder outlineInputBorder() {
 
 List<Map<String, String>> splashData = [
   {
-    "text": 'Hiện đại nhất Việt Nam\nChất lượng "ơ mây zing gút chóp" :3!',
-    "image": "http://192.168.1.5:5000/images/march7th_1.jpg"
+    "text": 'Chất lượng "ơ mây zing gút chóp" :3!',
+    "image": "assets/images/March7th_1.jpg"
   },
   {
     "text": 'Đổi trả miễn phí',
-    "image": "http://192.168.1.5:5000/images/march7th_2.jpg",
+    "image": "assets/images/March7th_2.jpg",
   },
   {
     "text": "Ship hàng tận tay",
-    "image": "http://192.168.1.5:5000/images/march7th_3.jpg",
+    "image": "assets/images/March7th_3.jpg",
   },
 ];
 
 List<ImageProvider> avatars = [
-  const NetworkImage("http://192.168.1.5:5000/images/march7th_1.jpg"),
-  const NetworkImage("http://192.168.1.5:5000/images/march7th_2.jpg"),
-  const NetworkImage("http://192.168.1.5:5000/images/march7th_3.jpg"),
+  const AssetImage("assets/images/March7th_1.jpg"),
+  const AssetImage("assets/images/March7th_2.jpg"),
+  const AssetImage("assets/images/March7th_3.jpg"),
 ];
 
 enum Menu { home, favourite, message, profile }

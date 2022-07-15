@@ -43,7 +43,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
               await repository.saveImage(
                   "${event.product.title}_${i + 1}", event.images[i]);
               imageNames.add(
-                  "http://192.168.1.5:5000/images/${event.product.title}_${i + 1}.${event.images[i].path.split("/").last.split(".").last}");
+                  "http://192.168.1.7:5000/images/${event.product.title}_${i + 1}.${event.images[i].path.split("/").last.split(".").last}");
             }
             var product = Product(
               id: event.product.id,
@@ -93,11 +93,13 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
               await repository.saveImage(
                   "${event.product.title}_${i + 1}", event.images[i]);
               imageNames.add(
-                  "http://192.168.1.5:5000/images/${event.product.title}_${i + 1}.${event.images[i].path.split("/").last.split(".").last}");
+                  "http://192.168.1.7:5000/images/${event.product.title}_${i + 1}.${event.images[i].path.split("/").last.split(".").last}");
             }
             var product = Product(
               id: event.product.id,
-              images: imageNames.join(","),
+              images: event.images.isNotEmpty
+                  ? imageNames.join(",")
+                  : event.product.images,
               colors: event.product.colors,
               rating: event.product.rating,
               price: event.product.price,

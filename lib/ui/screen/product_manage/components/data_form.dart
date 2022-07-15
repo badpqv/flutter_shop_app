@@ -77,8 +77,6 @@ class _ProductDataFormState extends State<ProductDataForm> {
   bool isPopular = false;
   List<String> selectColors = [];
 
-  late Color prevColors;
-  late Color currentColors;
   List<File> listImages = [];
 
   final ImagePicker _picker = ImagePicker();
@@ -100,8 +98,6 @@ class _ProductDataFormState extends State<ProductDataForm> {
       isFavourite = widget.product.isFavourite;
       isPopular = widget.product.isPopular;
     }
-    prevColors = Colors.blue;
-    currentColors = Colors.blue;
   }
 
   Future pickGalleryImage() async {
@@ -166,35 +162,53 @@ class _ProductDataFormState extends State<ProductDataForm> {
                 height: defaultPadding,
               ),
               buildRatingSelector(),
-              TextButton.icon(
-                onPressed: () async {
-                  pickGalleryImage();
-                },
-                icon: const Icon(
-                  FontAwesome5.images,
-                ),
-                label: const Text(
-                  "Chọn Ảnh từ Thư viện",
-                ),
-                style: TextButton.styleFrom(
-                  primary: Colors.white,
-                  backgroundColor: primaryColor,
-                ),
-              ),
-              TextButton.icon(
-                onPressed: () async {
-                  pickCameraImage();
-                },
-                icon: const Icon(
-                  FontAwesome5.camera,
-                ),
-                label: const Text(
-                  "Chọn Ảnh từ Camera",
-                ),
-                style: TextButton.styleFrom(
-                  primary: Colors.white,
-                  backgroundColor: primaryColor,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Chọn ảnh từ: ",
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: defaultPadding / 2,
+                  ),
+                  TextButton.icon(
+                    onPressed: () async {
+                      pickGalleryImage();
+                    },
+                    icon: const Icon(
+                      FontAwesome5.images,
+                    ),
+                    label: const Text(
+                      "Thư viện",
+                    ),
+                    style: TextButton.styleFrom(
+                      primary: Colors.white,
+                      backgroundColor: primaryColor,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: defaultPadding / 2,
+                  ),
+                  TextButton.icon(
+                    onPressed: () async {
+                      pickCameraImage();
+                    },
+                    icon: const Icon(
+                      FontAwesome5.camera,
+                    ),
+                    label: const Text(
+                      "Camera",
+                    ),
+                    style: TextButton.styleFrom(
+                      primary: Colors.white,
+                      backgroundColor: primaryColor,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(
                 height: defaultPadding,
@@ -276,6 +290,7 @@ class _ProductDataFormState extends State<ProductDataForm> {
                         id: widget.product.id,
                         title: productName,
                         description: description,
+                        images: images,
                         colors: selectColors.join(","),
                         isFavourite: isFavourite,
                         isPopular: isPopular,
@@ -495,11 +510,9 @@ class _ProductDataFormState extends State<ProductDataForm> {
           onTap: () async {
             final Color newColor = await buildColorPicker(Colors.blue);
             setState(() {
-              prevColors = currentColors;
-              currentColors = newColor;
-              if (prevColors != currentColors) {
+              if (!selectColors.contains("0xFF${newColor.hex}")) {
                 setState(() {
-                  selectColors.add("0xFF${currentColors.hex}");
+                  selectColors.add("0xFF${newColor.hex}");
                 });
               }
             });
@@ -615,11 +628,6 @@ class _ProductDataFormState extends State<ProductDataForm> {
       borderRadius: defaultBorderRadius * 2,
       colorCodeHasColor: true,
       title: Text('Chọn màu', style: Theme.of(context).textTheme.headline6),
-      copyPasteBehavior: const ColorPickerCopyPasteBehavior(
-        copyButton: true,
-        pasteButton: true,
-        longPressMenu: true,
-      ),
       width: 40,
       height: 40,
       pickersEnabled: const <ColorPickerType, bool>{
@@ -638,7 +646,7 @@ class _ProductDataFormState extends State<ProductDataForm> {
         okButton: true,
         closeButton: true,
         dialogActionButtons: false,
-        closeIsLast: false,
+        closeIsLast: true,
       ),
       constraints: const BoxConstraints(
         minHeight: 480,

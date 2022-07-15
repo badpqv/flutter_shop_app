@@ -13,19 +13,19 @@ class ApiProvider {
   final Dio _dio = Dio();
   final List<String> urls = [
     Platform.isAndroid
-        ? "http://192.168.1.5:5000/api/User"
+        ? "http://192.168.1.7:5000/api/User"
         : "http://localhost:5000/api/User",
     Platform.isAndroid
-        ? "http://192.168.1.5:5000/api/Product"
+        ? "http://192.168.1.7:5000/api/Product"
         : "http://localhost:5000/api/Product",
     Platform.isAndroid
-        ? "http://192.168.1.5:5000/api/Category"
+        ? "http://192.168.1.7:5000/api/Category"
         : "http://localhost:5000/api/Category",
     Platform.isAndroid
-        ? "http://192.168.1.5:5000/api/Cart"
+        ? "http://192.168.1.7:5000/api/Cart"
         : "http://localhost:5000/api/Cart",
     Platform.isAndroid
-        ? "http://192.168.1.5:5000/api/Notification"
+        ? "http://192.168.1.7:5000/api/Notification"
         : "http://localhost:5000/api/Notification",
   ];
 
