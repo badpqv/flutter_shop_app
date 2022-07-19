@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/shopping_cart_model.dart';
 import 'package:flutter_shop_app/ui/screen/details/components/colors_dot.dart';
+import 'package:flutter_shop_app/ui/screen/details/components/light_novel_type.dart';
 import 'package:intl/intl.dart';
 
 class CartItemCard extends StatelessWidget {
@@ -17,7 +18,7 @@ class CartItemCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xffFAF9F6),
-        borderRadius: BorderRadius.circular(defaultBorderRadius),
+        borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
         border: Border.all(color: Colors.white),
       ),
       child: Row(
@@ -40,13 +41,14 @@ class CartItemCard extends StatelessWidget {
             children: [
               Container(
                 width: 250,
-                padding: const EdgeInsets.only(right: defaultPadding / 2),
+                padding:
+                    const EdgeInsets.only(right: SizeConfig.defaultPadding / 2),
                 child: Text(
                   cart.product.title,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: 15,
-                    color: textColor,
+                    color: AppColors.textColor,
                     overflow: TextOverflow.ellipsis,
                   ),
                   maxLines: 1,
@@ -54,23 +56,22 @@ class CartItemCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: defaultPadding / 2,
+                height: SizeConfig.defaultPadding / 2,
               ),
-              Row(
-                children: [
-                  ...List.generate(
-                      cart.product.colors.split(",").length,
-                      (index) => ColorDot(
-                          color: Color(
-                            int.parse(
-                              cart.product.colors.split(",")[index],
-                            ),
-                          ),
-                          isSelected: false)),
-                ],
-              ),
+              cart.product.categoryId == "4"
+                  ? TypeSelectCard(
+                      selectedType: cart.selectedColor,
+                      product: cart.product,
+                      index: cart.product.colors
+                          .split(",")
+                          .indexOf(cart.selectedColor),
+                    )
+                  : ColorDot(
+                      color: Color(int.parse(cart.selectedColor)),
+                      isSelected: false,
+                    ),
               const SizedBox(
-                height: defaultPadding / 2,
+                height: SizeConfig.defaultPadding / 2,
               ),
               Text.rich(
                 TextSpan(
@@ -79,12 +80,12 @@ class CartItemCard extends StatelessWidget {
                       .format(cart.product.price),
                   style: const TextStyle(
                     fontWeight: FontWeight.w600,
-                    color: primaryColor,
+                    color: AppColors.primaryColor,
                   ),
                   children: [
                     TextSpan(
                       text: " x${cart.quantity}",
-                      style: const TextStyle(color: textColor),
+                      style: const TextStyle(color: AppColors.textColor),
                     ),
                   ],
                 ),

@@ -19,7 +19,7 @@ class EditProductScreen extends StatelessWidget {
         title: const Text(
           "Chỉnh sửa thông tin sản phẩm",
           style: TextStyle(
-            color: primaryColor,
+            color: AppColors.primaryColor,
           ),
         ),
       ),
@@ -27,7 +27,6 @@ class EditProductScreen extends StatelessWidget {
         user: args.user,
         category: args.category,
         product: args.product,
-        callBack: args.callBack,
       ),
     );
   }
@@ -37,10 +36,10 @@ class EditProductArguments {
   final Category category;
   final Product product;
   final User user;
-  final Function callBack;
-  const EditProductArguments(
-      {required this.product,
-      required this.category,
-      required this.user,
-      required this.callBack});
+
+  const EditProductArguments({
+    required this.product,
+    required this.category,
+    required this.user,
+  });
 }

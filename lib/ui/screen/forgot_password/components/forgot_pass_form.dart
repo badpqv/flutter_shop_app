@@ -39,11 +39,11 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
       child: Column(
         children: [
           const SizedBox(
-            height: defaultPadding * 3,
+            height: SizeConfig.defaultPadding * 3,
           ),
           buildEmailImput(),
           const SizedBox(
-            height: defaultPadding / 2,
+            height: SizeConfig.defaultPadding / 2,
           ),
           FormErrors(errors: errors),
           SizedBox(
@@ -76,7 +76,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
                   "Đăng ký",
                   style: TextStyle(
                     decoration: TextDecoration.underline,
-                    color: primaryColor,
+                    color: AppColors.primaryColor,
                     fontSize: 16,
                   ),
                 ),
@@ -93,18 +93,18 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
       onSaved: (newValue) => email = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: nullEmailError);
-        } else if (emailValidatoreRegExp.hasMatch(value)) {
-          removeError(error: invalidEmailError);
+          removeError(error: AppErrors.nullEmailError);
+        } else if (AppErrors.emailValidatoreRegExp.hasMatch(value)) {
+          removeError(error: AppErrors.invalidEmailError);
         }
       },
       keyboardType: TextInputType.emailAddress,
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: nullEmailError);
+          addError(error: AppErrors.nullEmailError);
           return "";
-        } else if (!emailValidatoreRegExp.hasMatch(value)) {
-          addError(error: invalidEmailError);
+        } else if (!AppErrors.emailValidatoreRegExp.hasMatch(value)) {
+          addError(error: AppErrors.invalidEmailError);
           return "";
         }
         return null;
@@ -114,20 +114,20 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         hintText: "Nhập email của bạn",
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding * 2,
-          vertical: defaultPadding * 1.5,
+          horizontal: SizeConfig.defaultPadding * 2,
+          vertical: SizeConfig.defaultPadding * 1.5,
         ),
         enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(defaultBorderRadius),
+            borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
             borderSide: const BorderSide(color: Colors.grey),
-            gapPadding: defaultPadding),
+            gapPadding: SizeConfig.defaultPadding),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         suffixIcon: const Padding(
-          padding: EdgeInsets.all(defaultPadding),
+          padding: EdgeInsets.all(SizeConfig.defaultPadding),
           child: Icon(Icons.email_outlined),
         ),
       ),

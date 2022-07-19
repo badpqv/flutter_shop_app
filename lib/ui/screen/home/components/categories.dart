@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/category_model.dart';
+import 'package:flutter_shop_app/ui/screen/home/components/category_card.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -22,7 +23,8 @@ class _CategoriesState extends State<Categories> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+      padding:
+          const EdgeInsets.symmetric(horizontal: SizeConfig.defaultPadding / 2),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
@@ -32,56 +34,16 @@ class _CategoriesState extends State<Categories> {
             widget.categories.length,
             (index) => Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: defaultPadding / 2,
+                horizontal: SizeConfig.defaultPadding / 2,
               ),
               child: CategoryCard(
-                icon: widget.categories[index].icon,
-                title: widget.categories[index].title,
-                onClick: () {},
+                category: widget.categories[index].title,
+                image: widget.categories[index].icon,
+                numberOfBrands: widget.categories[index].products.length,
+                onTap: () {},
               ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class CategoryCard extends StatelessWidget {
-  const CategoryCard({
-    Key? key,
-    required this.icon,
-    required this.title,
-    required this.onClick,
-  }) : super(key: key);
-
-  final String icon, title;
-  final GestureTapCallback onClick;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onClick,
-      child: SizedBox(
-        width: 70,
-        child: Column(
-          children: [
-            AspectRatio(
-              aspectRatio: 1,
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.transparent,
-                ),
-                child: SvgPicture.asset(icon),
-              ),
-            ),
-            const SizedBox(
-              height: defaultPadding / 4,
-            ),
-            Text(
-              title,
-              textAlign: TextAlign.center,
-            )
-          ],
         ),
       ),
     );

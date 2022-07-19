@@ -43,7 +43,7 @@ class _ProductImagesState extends State<ProductImages> {
                   widget.product.images.split(",").length,
                   (index) => Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: defaultPadding / 4,
+                          horizontal: SizeConfig.defaultPadding / 4,
                         ),
                         child: buildSmallPreview(index),
                       )),
@@ -64,14 +64,16 @@ class _ProductImagesState extends State<ProductImages> {
         widget.callbacks[1](index);
       },
       child: Container(
-        padding: const EdgeInsets.all(defaultPadding / 2),
+        padding: const EdgeInsets.all(SizeConfig.defaultPadding / 2),
         height: 48,
         width: 48,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           border: Border.all(
-            color: selectedImage == index ? primaryColor : Colors.transparent,
+            color: selectedImage == index
+                ? AppColors.primaryColor
+                : Colors.transparent,
           ),
         ),
         child: Image.network(widget.product.images.split(",")[index]),

@@ -17,14 +17,13 @@ class AddProductScreen extends StatelessWidget {
         title: const Text(
           "Thêm sản phẩm mới",
           style: TextStyle(
-            color: primaryColor,
+            color: AppColors.primaryColor,
           ),
         ),
       ),
       body: AddProdductBody(
         user: args.user,
         category: args.category,
-        callBack: args.callBack,
       ),
     );
   }
@@ -33,7 +32,6 @@ class AddProductScreen extends StatelessWidget {
 class AddProductArguments {
   final Category category;
   final User user;
-  final Function callBack;
-  const AddProductArguments(
-      {required this.category, required this.user, required this.callBack});
+
+  const AddProductArguments({required this.category, required this.user});
 }

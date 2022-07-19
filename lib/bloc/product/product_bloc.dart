@@ -41,9 +41,12 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           try {
             for (int i = 0; i < event.images.length; i++) {
               await repository.saveImage(
-                  "${event.product.title}_${i + 1}", event.images[i]);
+                  "${event.product.title.replaceAll(" ", "")}_${i + 1}",
+                  event.images[i]);
+              var extension =
+                  event.images[i].path.split("/").last.split(".").last;
               imageNames.add(
-                  "http://192.168.1.7:5000/images/${event.product.title}_${i + 1}.${event.images[i].path.split("/").last.split(".").last}");
+                  "http://192.168.1.2:5000/images/${event.product.title.replaceAll(" ", "")}_${i + 1}.${extension == "webp" ? "jpg" : extension}");
             }
             var product = Product(
               id: event.product.id,
@@ -91,9 +94,12 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           try {
             for (int i = 0; i < event.images.length; i++) {
               await repository.saveImage(
-                  "${event.product.title}_${i + 1}", event.images[i]);
+                  "${event.product.title.replaceAll(" ", "")}_${i + 1}",
+                  event.images[i]);
+              var extension =
+                  event.images[i].path.split("/").last.split(".").last;
               imageNames.add(
-                  "http://192.168.1.7:5000/images/${event.product.title}_${i + 1}.${event.images[i].path.split("/").last.split(".").last}");
+                  "http://192.168.1.2:5000/images/${event.product.title.replaceAll(" ", "")}_${i + 1}.${extension == "webp" ? "jpg" : extension}");
             }
             var product = Product(
               id: event.product.id,

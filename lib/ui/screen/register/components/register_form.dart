@@ -41,29 +41,29 @@ class _RegisterFormState extends State<RegisterForm> {
       key: _formKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding,
+          horizontal: SizeConfig.defaultPadding,
         ),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: defaultPadding),
+              const SizedBox(height: SizeConfig.defaultPadding),
               buildEmailFormField(),
-              const SizedBox(height: defaultPadding),
+              const SizedBox(height: SizeConfig.defaultPadding),
               buildPasswordFormField(),
-              const SizedBox(height: defaultPadding),
+              const SizedBox(height: SizeConfig.defaultPadding),
               TextFormField(
                 enableSuggestions: false,
                 autocorrect: false,
                 obscureText: true,
                 onChanged: (value) {
                   if (password == value) {
-                    removeError(error: matchPassError);
+                    removeError(error: AppErrors.matchPassError);
                   }
                   confirmPass = value;
                 },
                 validator: (value) {
                   if (password != value) {
-                    addError(error: matchPassError);
+                    addError(error: AppErrors.matchPassError);
                   }
                   return null;
                 },
@@ -72,25 +72,27 @@ class _RegisterFormState extends State<RegisterForm> {
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                   hintText: "Xác nhận mật khẩu",
                   contentPadding: const EdgeInsets.symmetric(
-                    horizontal: defaultPadding * 2,
-                    vertical: defaultPadding * 1.5,
+                    horizontal: SizeConfig.defaultPadding * 2,
+                    vertical: SizeConfig.defaultPadding * 1.5,
                   ),
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(defaultBorderRadius),
+                      borderRadius:
+                          BorderRadius.circular(SizeConfig.defaultBorderRadius),
                       borderSide: const BorderSide(color: Colors.grey),
-                      gapPadding: defaultPadding),
+                      gapPadding: SizeConfig.defaultPadding),
                   focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(defaultBorderRadius),
+                    borderRadius:
+                        BorderRadius.circular(SizeConfig.defaultBorderRadius),
                     borderSide: const BorderSide(color: Colors.grey),
-                    gapPadding: defaultPadding,
+                    gapPadding: SizeConfig.defaultPadding,
                   ),
                   suffixIcon: const Padding(
-                    padding: EdgeInsets.all(defaultPadding),
+                    padding: EdgeInsets.all(SizeConfig.defaultPadding),
                     child: Icon(Icons.vpn_key_outlined),
                   ),
                 ),
               ),
-              const SizedBox(height: defaultPadding * 2),
+              const SizedBox(height: SizeConfig.defaultPadding * 2),
               FormErrors(errors: errors),
               CustomButton(
                 text: "Tiếp tục",
@@ -120,18 +122,18 @@ class _RegisterFormState extends State<RegisterForm> {
       onSaved: (newValue) => email = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: nullEmailError);
-        } else if (emailValidatoreRegExp.hasMatch(value)) {
-          removeError(error: invalidEmailError);
+          removeError(error: AppErrors.nullEmailError);
+        } else if (AppErrors.emailValidatoreRegExp.hasMatch(value)) {
+          removeError(error: AppErrors.invalidEmailError);
         }
       },
       keyboardType: TextInputType.emailAddress,
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: nullEmailError);
+          addError(error: AppErrors.nullEmailError);
           return "";
-        } else if (!emailValidatoreRegExp.hasMatch(value)) {
-          addError(error: invalidEmailError);
+        } else if (!AppErrors.emailValidatoreRegExp.hasMatch(value)) {
+          addError(error: AppErrors.invalidEmailError);
           return "";
         }
         return null;
@@ -141,20 +143,20 @@ class _RegisterFormState extends State<RegisterForm> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         hintText: "Nhập email của bạn",
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding * 2,
-          vertical: defaultPadding * 1.5,
+          horizontal: SizeConfig.defaultPadding * 2,
+          vertical: SizeConfig.defaultPadding * 1.5,
         ),
         enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(defaultBorderRadius),
+            borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
             borderSide: const BorderSide(color: Colors.grey),
-            gapPadding: defaultPadding),
+            gapPadding: SizeConfig.defaultPadding),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         suffixIcon: const Padding(
-          padding: EdgeInsets.all(defaultPadding),
+          padding: EdgeInsets.all(SizeConfig.defaultPadding),
           child: Icon(Icons.email_outlined),
         ),
       ),
@@ -171,18 +173,18 @@ class _RegisterFormState extends State<RegisterForm> {
       obscureText: true,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: nullPassError);
+          removeError(error: AppErrors.nullPassError);
         } else if (value.length >= 6) {
-          removeError(error: shortPassError);
+          removeError(error: AppErrors.shortPassError);
         }
         password = value;
       },
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: nullPassError);
+          addError(error: AppErrors.nullPassError);
           return "";
         } else if (value.length < 6) {
-          addError(error: shortPassError);
+          addError(error: AppErrors.shortPassError);
           return "";
         }
         return null;
@@ -192,20 +194,20 @@ class _RegisterFormState extends State<RegisterForm> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         hintText: "Nhập mật khẩu của bạn",
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding * 2,
-          vertical: defaultPadding * 1.5,
+          horizontal: SizeConfig.defaultPadding * 2,
+          vertical: SizeConfig.defaultPadding * 1.5,
         ),
         enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(defaultBorderRadius),
+            borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
             borderSide: const BorderSide(color: Colors.grey),
-            gapPadding: defaultPadding),
+            gapPadding: SizeConfig.defaultPadding),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         suffixIcon: const Padding(
-          padding: EdgeInsets.all(defaultPadding),
+          padding: EdgeInsets.all(SizeConfig.defaultPadding),
           child: Icon(Icons.vpn_key_outlined),
         ),
       ),

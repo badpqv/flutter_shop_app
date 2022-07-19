@@ -23,20 +23,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    final ProductDetailsArguments agrs =
+    final ProductDetailsArguments args =
         ModalRoute.of(context)!.settings.arguments as ProductDetailsArguments;
     return WillPopScope(
       onWillPop: () async {
-        Navigator.popAndPushNamed(
-          context,
-          HomeScreen.routeName,
-          arguments: HomeArguments(user: agrs.user),
-        );
+        Navigator.popAndPushNamed(context, HomeScreen.routeName,
+            arguments: HomeArguments(
+              user: args.user,
+            ));
+
         return true;
       },
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: primaryLightColor,
+          backgroundColor: AppColors.primaryLightColor,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(AppBar().preferredSize.height),
             child: AppBar(
@@ -44,7 +44,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               elevation: 0,
               backgroundColor: Colors.transparent,
               leading: Padding(
-                padding: const EdgeInsets.all(defaultPadding / 3),
+                padding: const EdgeInsets.all(SizeConfig.defaultPadding / 3),
                 child: SizedBox(
                   height: (10),
                   width: (10),
@@ -53,14 +53,18 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      primary: primaryColor,
+                      primary: AppColors.primaryColor,
                       backgroundColor: Colors.white,
                       padding: EdgeInsets.zero,
                     ),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () => Navigator.popAndPushNamed(
+                      context,
+                      HomeScreen.routeName,
+                      arguments: HomeArguments(user: args.user),
+                    ),
                     child: const Icon(
                       Icons.arrow_back,
-                      color: primaryColor,
+                      color: AppColors.primaryColor,
                     ),
                   ),
                 ),
@@ -82,7 +86,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       child: Row(
                         children: [
                           Text(
-                            "${agrs.product.rating}",
+                            "${args.product.rating}",
                             style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -102,8 +106,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
             ),
           ),
           body: DetailsScreenBody(
-            product: agrs.product,
-            user: agrs.user,
+            product: args.product,
+            user: args.user,
             setSelectedIndex: setSelectedIndex,
           ),
         ),

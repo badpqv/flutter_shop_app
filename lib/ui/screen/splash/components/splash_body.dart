@@ -38,7 +38,8 @@ class _SplashBodyState extends State<SplashBody> {
             Expanded(
               flex: 2,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: SizeConfig.defaultPadding),
                 child: Column(
                   children: [
                     const Spacer(),
@@ -69,12 +70,12 @@ class _SplashBodyState extends State<SplashBody> {
 
   AnimatedContainer buildDot({required int index}) {
     return AnimatedContainer(
-      duration: animationDuration,
+      duration: SizeConfig.animationDuration,
       margin: const EdgeInsets.only(right: 5),
       height: 6,
       width: currentPage == index ? 20 : 6,
       decoration: BoxDecoration(
-        color: currentPage == index ? primaryColor : Colors.grey,
+        color: currentPage == index ? AppColors.primaryColor : Colors.grey,
         borderRadius: const BorderRadius.all(
           Radius.circular(3),
         ),

@@ -21,7 +21,7 @@ class _IconButtonWithCounterState extends State<IconButtonWithCounter> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: widget.onTap,
-      borderRadius: BorderRadius.circular(defaultBorderRadius * 5),
+      borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius * 5),
       child: Stack(
         children: [
           Container(
@@ -29,7 +29,7 @@ class _IconButtonWithCounterState extends State<IconButtonWithCounter> {
             height: 48,
             width: 48,
             decoration: BoxDecoration(
-              color: secondaryColor.withOpacity(0.1),
+              color: AppColors.secondaryColor.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(widget.icon),
@@ -57,7 +57,7 @@ class _IconButtonWithCounterState extends State<IconButtonWithCounter> {
                         style: const TextStyle(
                           fontSize: 10,
                           height: 1,
-                          color: primaryLightColor,
+                          color: AppColors.primaryLightColor,
                         ),
                       ),
                     ),

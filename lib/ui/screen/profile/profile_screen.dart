@@ -23,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
         title: const Text(
           "Profile",
           style: TextStyle(
-            color: primaryColor,
+            color: AppColors.primaryColor,
           ),
         ),
       ),
@@ -32,15 +32,15 @@ class ProfileScreen extends StatelessWidget {
         height: MediaQuery.of(context).size.height * .9,
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            vertical: defaultPadding / 2,
-            horizontal: defaultPadding,
+            vertical: SizeConfig.defaultPadding / 2,
+            horizontal: SizeConfig.defaultPadding,
           ),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 const AvatarBox(),
                 const SizedBox(
-                  height: defaultPadding,
+                  height: SizeConfig.defaultPadding,
                 ),
                 NameBox(
                   firstName: args.user.firstName,
@@ -48,7 +48,7 @@ class ProfileScreen extends StatelessWidget {
                   isVerified: args.user.isVerified,
                 ),
                 const SizedBox(
-                  height: defaultPadding,
+                  height: SizeConfig.defaultPadding,
                 ),
                 ProfileMenu(
                   title: "Tài khoản của tôi",

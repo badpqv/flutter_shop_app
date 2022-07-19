@@ -14,15 +14,17 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: defaultPadding * 3,
+      height: SizeConfig.defaultPadding * 3,
       child: ElevatedButton(
         style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(defaultBorderRadius * 2),
-            side: const BorderSide(color: primaryColor),
+            borderRadius:
+                BorderRadius.circular(SizeConfig.defaultBorderRadius * 2),
+            side: const BorderSide(color: AppColors.primaryColor),
           )),
-          backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
+          backgroundColor:
+              MaterialStateProperty.all<Color>(AppColors.primaryColor),
         ),
         onPressed: press,
         child: Text(

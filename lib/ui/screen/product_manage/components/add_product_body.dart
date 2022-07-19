@@ -8,15 +8,14 @@ import 'package:flutter_shop_app/models/user_model.dart';
 import 'package:flutter_shop_app/ui/screen/product_manage/components/data_form.dart';
 
 class AddProdductBody extends StatefulWidget {
-  const AddProdductBody(
-      {Key? key,
-      required this.user,
-      required this.category,
-      required this.callBack})
-      : super(key: key);
+  const AddProdductBody({
+    Key? key,
+    required this.user,
+    required this.category,
+  }) : super(key: key);
   final User user;
   final Category category;
-  final Function callBack;
+
   @override
   State<AddProdductBody> createState() => _AddProdductBodyState();
 }
@@ -33,24 +32,23 @@ class _AddProdductBodyState extends State<AddProdductBody> {
             height: MediaQuery.of(context).size.height,
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: defaultPadding / 2,
-                horizontal: defaultPadding,
+                vertical: SizeConfig.defaultPadding / 2,
+                horizontal: SizeConfig.defaultPadding,
               ),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     const SizedBox(
-                      height: defaultPadding / 2,
+                      height: SizeConfig.defaultPadding / 2,
                     ),
                     ProductDataForm(
                       category: widget.category,
                       user: widget.user,
                       mode: "ADD",
                       product: const Product(id: "0"),
-                      callBack: widget.callBack,
                     ),
                     const SizedBox(
-                      height: defaultPadding / 2,
+                      height: SizeConfig.defaultPadding / 2,
                     ),
                   ],
                 ),

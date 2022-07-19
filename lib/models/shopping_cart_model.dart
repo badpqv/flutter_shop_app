@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_shop_app/models/category_model.dart';
-import 'package:flutter_shop_app/models/nofification_model.dart';
 import 'package:flutter_shop_app/models/product_model.dart';
 import "dart:convert";
 
@@ -20,6 +19,7 @@ class Cart extends Equatable {
     required this.productId,
     required this.userId,
     required this.user,
+    this.selectedColor = "",
   });
 
   final Product product;
@@ -27,6 +27,7 @@ class Cart extends Equatable {
   final String id;
   final String userId;
   final String productId;
+  final String selectedColor;
   final User user;
 
   factory Cart.fromJson(dynamic json) => Cart(
@@ -35,6 +36,7 @@ class Cart extends Equatable {
         id: json["id"].toString(),
         userId: json["userId"].toString(),
         productId: json["productId"].toString(),
+        selectedColor: json["selectedColor"].toString(),
         user: User.fromJson(json["user"]),
       );
 
@@ -43,6 +45,7 @@ class Cart extends Equatable {
         "id": int.parse(id),
         "userId": int.parse(userId),
         "productId": int.parse(productId),
+        "selectedColor": selectedColor,
       };
 
   @override
@@ -53,6 +56,7 @@ class Cart extends Equatable {
         id,
         userId,
         productId,
+        selectedColor,
         user,
       ];
 }

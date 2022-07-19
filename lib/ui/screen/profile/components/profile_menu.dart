@@ -15,29 +15,31 @@ class ProfileMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding, vertical: defaultPadding / 2),
+          horizontal: SizeConfig.defaultPadding,
+          vertical: SizeConfig.defaultPadding / 2),
       child: TextButton(
         onPressed: onClick,
         style: TextButton.styleFrom(
-          primary: primaryColor,
-          padding: const EdgeInsets.all(defaultPadding),
+          primary: AppColors.primaryColor,
+          padding: const EdgeInsets.all(SizeConfig.defaultPadding),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(defaultBorderRadius * 2),
+            borderRadius:
+                BorderRadius.circular(SizeConfig.defaultBorderRadius * 2),
           ),
           backgroundColor: const Color(0xFFFAF9F6),
         ),
         child: Row(
           children: [
             const SizedBox(
-              width: defaultPadding / 2,
+              width: SizeConfig.defaultPadding / 2,
             ),
             Icon(
               icon,
-              color: primaryColor,
+              color: AppColors.primaryColor,
               size: 40,
             ),
             const SizedBox(
-              width: defaultPadding / 2,
+              width: SizeConfig.defaultPadding / 2,
             ),
             Expanded(
               child: Text(

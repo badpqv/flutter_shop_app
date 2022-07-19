@@ -17,7 +17,7 @@ class RegisterBody extends StatelessWidget {
             const Text(
               "Đăng ký tài khoản",
               textAlign: TextAlign.center,
-              style: headingStyle,
+              style: AppStyle.headingStyle,
             ),
             const Text(
               "Complete your details or continue \nwith social media",
@@ -25,7 +25,7 @@ class RegisterBody extends StatelessWidget {
             ),
             const RegisterForm(),
             const SizedBox(
-              height: defaultPadding,
+              height: SizeConfig.defaultPadding,
             ),
             Center(
               child: Column(
@@ -37,13 +37,14 @@ class RegisterBody extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: defaultPadding,
+                    height: SizeConfig.defaultPadding,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(right: defaultPadding),
+                        padding: const EdgeInsets.only(
+                            right: SizeConfig.defaultPadding),
                         child: SocialCard(
                           icon: const Icon(
                             Icons.facebook_outlined,
@@ -54,7 +55,8 @@ class RegisterBody extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: defaultPadding),
+                        padding: const EdgeInsets.only(
+                            right: SizeConfig.defaultPadding),
                         child: SocialCard(
                           icon: const Icon(
                             FontAwesome.twitter,
@@ -74,7 +76,7 @@ class RegisterBody extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: defaultPadding),
+                  const SizedBox(height: SizeConfig.defaultPadding),
                   const Text(
                     "Việc đăng ký tài khoản sẽ đồng nghĩ với việc bạn đồng ý \nvới các Điều khoản sử dụng của Artery",
                     textAlign: TextAlign.center,

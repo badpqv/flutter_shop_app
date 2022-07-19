@@ -26,13 +26,12 @@ class ProductDataForm extends StatefulWidget {
     required this.user,
     required this.mode,
     required this.product,
-    required this.callBack,
   }) : super(key: key);
   final Category category;
   final User user;
   final Product product;
   final String mode;
-  final Function callBack;
+
   @override
   State<ProductDataForm> createState() => _ProductDataFormState();
 }
@@ -73,9 +72,14 @@ class _ProductDataFormState extends State<ProductDataForm> {
   String colors = "";
   double rating = 2.5;
   double price = 0;
+  double maxPrice = 0;
   bool isFavourite = false;
   bool isPopular = false;
   List<String> selectColors = [];
+  List<String> LNType = [
+    "Bản thông thường",
+    "Bản đặc biệt",
+  ];
 
   List<File> listImages = [];
 
@@ -95,6 +99,7 @@ class _ProductDataFormState extends State<ProductDataForm> {
       images = widget.product.images;
       rating = widget.product.rating;
       price = widget.product.price;
+      maxPrice = widget.product.maxPrice;
       isFavourite = widget.product.isFavourite;
       isPopular = widget.product.isPopular;
     }
@@ -136,30 +141,32 @@ class _ProductDataFormState extends State<ProductDataForm> {
       key: _formKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding,
+          horizontal: SizeConfig.defaultPadding,
         ),
         child: SingleChildScrollView(
           child: Column(
             children: [
               buildProductNameFormField(),
               const SizedBox(
-                height: defaultPadding,
+                height: SizeConfig.defaultPadding,
               ),
               buildProductDescriptionFormField(),
               const SizedBox(
-                height: defaultPadding,
+                height: SizeConfig.defaultPadding,
               ),
-              buildColorSelector(),
+              widget.product.categoryId != "4"
+                  ? buildColorSelector()
+                  : buildLNTypeSelector(),
               const SizedBox(
-                height: defaultPadding,
+                height: SizeConfig.defaultPadding,
               ),
               buildFavouriteAndPopular(),
               const SizedBox(
-                height: defaultPadding,
+                height: SizeConfig.defaultPadding,
               ),
               buildProductPriceFormField(),
               const SizedBox(
-                height: defaultPadding,
+                height: SizeConfig.defaultPadding,
               ),
               buildRatingSelector(),
               Row(
@@ -168,12 +175,12 @@ class _ProductDataFormState extends State<ProductDataForm> {
                   const Text(
                     "Chọn ảnh từ: ",
                     style: TextStyle(
-                      color: textColor,
+                      color: AppColors.textColor,
                       fontSize: 14,
                     ),
                   ),
                   const SizedBox(
-                    width: defaultPadding / 2,
+                    width: SizeConfig.defaultPadding / 2,
                   ),
                   TextButton.icon(
                     onPressed: () async {
@@ -187,11 +194,11 @@ class _ProductDataFormState extends State<ProductDataForm> {
                     ),
                     style: TextButton.styleFrom(
                       primary: Colors.white,
-                      backgroundColor: primaryColor,
+                      backgroundColor: AppColors.primaryColor,
                     ),
                   ),
                   const SizedBox(
-                    width: defaultPadding / 2,
+                    width: SizeConfig.defaultPadding / 2,
                   ),
                   TextButton.icon(
                     onPressed: () async {
@@ -205,13 +212,13 @@ class _ProductDataFormState extends State<ProductDataForm> {
                     ),
                     style: TextButton.styleFrom(
                       primary: Colors.white,
-                      backgroundColor: primaryColor,
+                      backgroundColor: AppColors.primaryColor,
                     ),
                   ),
                 ],
               ),
               const SizedBox(
-                height: defaultPadding,
+                height: SizeConfig.defaultPadding,
               ),
               listImages.isEmpty
                   ? const Center(
@@ -227,7 +234,8 @@ class _ProductDataFormState extends State<ProductDataForm> {
                           itemCount: listImages.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
-                              padding: const EdgeInsets.all(defaultPadding / 2),
+                              padding: const EdgeInsets.all(
+                                  SizeConfig.defaultPadding / 2),
                               child: Image.file(
                                 listImages[index],
                                 width: 200,
@@ -239,11 +247,11 @@ class _ProductDataFormState extends State<ProductDataForm> {
                       ),
                     ),
               const SizedBox(
-                height: defaultPadding,
+                height: SizeConfig.defaultPadding,
               ),
               FormErrors(errors: errors),
               const SizedBox(
-                height: defaultPadding / 2,
+                height: SizeConfig.defaultPadding / 2,
               ),
               CustomButton(
                 text: widget.mode == "ADD"
@@ -257,11 +265,14 @@ class _ProductDataFormState extends State<ProductDataForm> {
                         id: "0",
                         title: productName,
                         description: description,
-                        colors: selectColors.join(","),
+                        colors: widget.product.categoryId != "4"
+                            ? selectColors.join(",")
+                            : LNType.join(","),
                         isFavourite: isFavourite,
                         isPopular: isPopular,
                         rating: rating,
                         price: price,
+                        maxPrice: price,
                         categoryId: widget.category.id,
                       );
                       context.read<ProductBloc>().add(
@@ -277,10 +288,7 @@ class _ProductDataFormState extends State<ProductDataForm> {
                                 arguments: ProductListArguments(
                                   category: widget.category,
                                   user: widget.user,
-                                  callBack: widget.callBack,
                                 ),
-                              ).whenComplete(
-                                () => widget.callBack(),
                               );
                             }),
                       );
@@ -291,11 +299,14 @@ class _ProductDataFormState extends State<ProductDataForm> {
                         title: productName,
                         description: description,
                         images: images,
-                        colors: selectColors.join(","),
+                        colors: widget.product.categoryId != "4"
+                            ? selectColors.join(",")
+                            : LNType.join(","),
                         isFavourite: isFavourite,
                         isPopular: isPopular,
                         rating: rating,
                         price: price,
+                        maxPrice: maxPrice,
                         categoryId: widget.category.id,
                       );
                       context.read<ProductBloc>().add(EditProduct(
@@ -303,7 +314,7 @@ class _ProductDataFormState extends State<ProductDataForm> {
                             images: listImages,
                           ));
                       var snackBar = SnackBar(
-                        backgroundColor: primaryColor,
+                        backgroundColor: AppColors.primaryColor,
                         content: const Text("Sửa thành công"),
                         action: SnackBarAction(
                             label: "Về xem",
@@ -315,10 +326,7 @@ class _ProductDataFormState extends State<ProductDataForm> {
                                 arguments: ProductListArguments(
                                   category: widget.category,
                                   user: widget.user,
-                                  callBack: widget.callBack,
                                 ),
-                              ).whenComplete(
-                                () => widget.callBack(),
                               );
                             }),
                       );
@@ -359,21 +367,21 @@ class _ProductDataFormState extends State<ProductDataForm> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         hintText: "Nhập đơn giá phẩm",
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding * 2,
-          vertical: defaultPadding * 1.5,
+          horizontal: SizeConfig.defaultPadding * 2,
+          vertical: SizeConfig.defaultPadding * 1.5,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         suffixIcon: const Padding(
-          padding: EdgeInsets.all(defaultPadding),
+          padding: EdgeInsets.all(SizeConfig.defaultPadding),
           child: Icon(
             Icons.abc_outlined,
             size: 30,
@@ -389,7 +397,7 @@ class _ProductDataFormState extends State<ProductDataForm> {
         const Text(
           "Rating: ",
           style: TextStyle(
-            color: textColor,
+            color: AppColors.textColor,
             fontSize: 16,
           ),
         ),
@@ -399,8 +407,8 @@ class _ProductDataFormState extends State<ProductDataForm> {
           allowHalfRating: true,
           updateOnDrag: true,
           direction: Axis.horizontal,
-          itemPadding:
-              const EdgeInsets.symmetric(horizontal: defaultPadding / 5),
+          itemPadding: const EdgeInsets.symmetric(
+              horizontal: SizeConfig.defaultPadding / 5),
           itemBuilder: (context, _) => const Icon(
             Icons.star,
             color: Colors.amber,
@@ -422,7 +430,7 @@ class _ProductDataFormState extends State<ProductDataForm> {
         const Text(
           "Favourite: ",
           style: TextStyle(
-            color: textColor,
+            color: AppColors.textColor,
             fontSize: 16,
           ),
         ),
@@ -439,7 +447,7 @@ class _ProductDataFormState extends State<ProductDataForm> {
         const Text(
           "Popular: ",
           style: TextStyle(
-            color: textColor,
+            color: AppColors.textColor,
             fontSize: 16,
           ),
         ),
@@ -457,70 +465,127 @@ class _ProductDataFormState extends State<ProductDataForm> {
     );
   }
 
-  Row buildColorSelector() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        const Text(
-          "Màu: ",
-          style: TextStyle(
-            color: textColor,
-            fontSize: 16,
+  Widget buildLNTypeSelector() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          const Text(
+            "Màu: ",
+            style: TextStyle(
+              color: AppColors.textColor,
+              fontSize: 16,
+            ),
           ),
-        ),
-        ...List.generate(
-          selectColors.length,
-          (index) => GestureDetector(
-            onTap: () async {
-              final Color newColor = await buildColorPicker(
-                Color(
-                  int.parse(selectColors[index]),
+          ...List.generate(
+            LNType.length,
+            (index) => GestureDetector(
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                height: 50,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.transparent,
+                  ),
+                  shape: BoxShape.circle,
                 ),
-              );
+                child: Chip(
+                  backgroundColor: Colors.white,
+                  avatar: const CircleAvatar(
+                    backgroundColor: Colors.blue,
+                    child: Icon(Icons.check),
+                  ),
+                  label: Text(LNType[index]),
+                ),
+              ),
+            ),
+          ),
+          RoundedIconBtn(
+            icon: Icons.add,
+            onTap: () async {
+              final Color newColor = await buildColorPicker(Colors.blue);
               setState(() {
-                selectColors[index] = "0xFF${newColor.hex}";
+                if (!selectColors.contains("0xFF${newColor.hex}")) {
+                  setState(() {
+                    selectColors.add("0xFF${newColor.hex}");
+                  });
+                }
               });
             },
-            onLongPress: () => setState(() {
-              selectColors.removeAt(index);
-            }),
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.transparent,
+            showShadow: true,
+            isEnabled: true,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildColorSelector() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          const Text(
+            "Màu: ",
+            style: TextStyle(
+              color: AppColors.textColor,
+              fontSize: 16,
+            ),
+          ),
+          ...List.generate(
+            selectColors.length,
+            (index) => GestureDetector(
+              onTap: () async {
+                final Color newColor = await buildColorPicker(
+                  Color(
+                    int.parse(selectColors[index]),
+                  ),
+                );
+                setState(() {
+                  selectColors[index] = "0xFF${newColor.hex}";
+                });
+              },
+              onLongPress: () => setState(() {
+                selectColors.removeAt(index);
+              }),
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.transparent,
+                  ),
+                  shape: BoxShape.circle,
                 ),
-                shape: BoxShape.circle,
-              ),
-              child: CircleAvatar(
-                radius: 10,
-                backgroundColor: Color(
-                  int.parse(
-                    selectColors[index],
+                child: CircleAvatar(
+                  radius: 10,
+                  backgroundColor: Color(
+                    int.parse(
+                      selectColors[index],
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-        ),
-        RoundedIconBtn(
-          icon: Icons.add,
-          onTap: () async {
-            final Color newColor = await buildColorPicker(Colors.blue);
-            setState(() {
-              if (!selectColors.contains("0xFF${newColor.hex}")) {
-                setState(() {
-                  selectColors.add("0xFF${newColor.hex}");
-                });
-              }
-            });
-          },
-          showShadow: true,
-          isEnabled: true,
-        ),
-      ],
+          RoundedIconBtn(
+            icon: Icons.add,
+            onTap: () async {
+              final Color newColor = await buildColorPicker(Colors.blue);
+              setState(() {
+                if (!selectColors.contains("0xFF${newColor.hex}")) {
+                  setState(() {
+                    selectColors.add("0xFF${newColor.hex}");
+                  });
+                }
+              });
+            },
+            showShadow: true,
+            isEnabled: true,
+          ),
+        ],
+      ),
     );
   }
 
@@ -529,7 +594,7 @@ class _ProductDataFormState extends State<ProductDataForm> {
       initialValue: productName,
       onSaved: (newValue) => productName = newValue!,
       onChanged: (value) {
-        removeError(error: nullProductNameError);
+        removeError(error: AppErrors.nullProductNameError);
         if (value.isNotEmpty) {
           setState(() {
             productName = value;
@@ -539,7 +604,7 @@ class _ProductDataFormState extends State<ProductDataForm> {
       keyboardType: TextInputType.text,
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: nullProductNameError);
+          addError(error: AppErrors.nullProductNameError);
           return "";
         }
         return null;
@@ -549,21 +614,21 @@ class _ProductDataFormState extends State<ProductDataForm> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         hintText: "Nhập tên sản phẩm",
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding * 2,
-          vertical: defaultPadding * 1.5,
+          horizontal: SizeConfig.defaultPadding * 2,
+          vertical: SizeConfig.defaultPadding * 1.5,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         suffixIcon: const Padding(
-          padding: EdgeInsets.all(defaultPadding),
+          padding: EdgeInsets.all(SizeConfig.defaultPadding),
           child: Icon(
             Icons.abc_outlined,
             size: 30,
@@ -595,21 +660,21 @@ class _ProductDataFormState extends State<ProductDataForm> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         hintText: "Nhập thông tin sản phẩm",
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding * 2,
-          vertical: defaultPadding * 1.5,
+          horizontal: SizeConfig.defaultPadding * 2,
+          vertical: SizeConfig.defaultPadding * 1.5,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         suffixIcon: const Padding(
-          padding: EdgeInsets.all(defaultPadding),
+          padding: EdgeInsets.all(SizeConfig.defaultPadding),
           child: Icon(
             Icons.info,
             size: 30,
@@ -625,7 +690,7 @@ class _ProductDataFormState extends State<ProductDataForm> {
       color,
       showColorCode: true,
       showColorName: true,
-      borderRadius: defaultBorderRadius * 2,
+      borderRadius: SizeConfig.defaultBorderRadius * 2,
       colorCodeHasColor: true,
       title: Text('Chọn màu', style: Theme.of(context).textTheme.headline6),
       width: 40,

@@ -7,6 +7,7 @@ import 'package:flutter_shop_app/ui/screen/home/components/icon_btn_with_counter
 import 'package:flutter_shop_app/ui/screen/home/components/search_field.dart';
 import 'package:flutter_shop_app/ui/screen/home/home_screen.dart';
 import 'package:flutter_shop_app/ui/screen/shopping_cart/cart_screen.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 
 class HomeHeader extends StatefulWidget implements PreferredSizeWidget {
   const HomeHeader({
@@ -34,11 +35,12 @@ class _HomeHeaderState extends State<HomeHeader> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+      padding:
+          const EdgeInsets.symmetric(horizontal: SizeConfig.defaultPadding),
       child: Column(
         children: [
           const SizedBox(
-            height: defaultPadding / 2,
+            height: SizeConfig.defaultPadding / 2,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,6 +48,14 @@ class _HomeHeaderState extends State<HomeHeader> {
               const SearchField(),
               Wrap(
                 children: [
+                  IconButtonWithCounter(
+                    icon: FontAwesome5.truck,
+                    numberOfItems: 0,
+                    onTap: () {},
+                  ),
+                  const SizedBox(
+                    width: SizeConfig.defaultPadding / 2,
+                  ),
                   IconButtonWithCounter(
                     icon: Icons.shopping_cart_outlined,
                     numberOfItems: widget.carts.length,
@@ -61,7 +71,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                     },
                   ),
                   const SizedBox(
-                    width: defaultPadding,
+                    width: SizeConfig.defaultPadding / 2,
                   ),
                   IconButtonWithCounter(
                     icon: Icons.notifications_active_outlined,
@@ -73,7 +83,7 @@ class _HomeHeaderState extends State<HomeHeader> {
             ],
           ),
           const SizedBox(
-            height: defaultPadding / 2,
+            height: SizeConfig.defaultPadding / 2,
           ),
         ],
       ),

@@ -14,7 +14,7 @@ class ForgotPasswordScreen extends StatelessWidget {
         title: const Text(
           "Quên mật khẩu",
           style: TextStyle(
-            color: textColor,
+            color: AppColors.textColor,
           ),
         ),
         centerTitle: true,

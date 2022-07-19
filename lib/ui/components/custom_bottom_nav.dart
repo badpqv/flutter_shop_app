@@ -20,19 +20,20 @@ class CustomBottomAppBar extends StatelessWidget {
       color: Colors.white,
       shape: AutomaticNotchedShape(
         RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(defaultBorderRadius * 2)),
+            borderRadius:
+                BorderRadius.circular(SizeConfig.defaultBorderRadius * 2)),
         const StadiumBorder(),
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(
-          vertical: defaultPadding * .75,
-          horizontal: defaultPadding * 1.5,
+          vertical: SizeConfig.defaultPadding * .75,
+          horizontal: SizeConfig.defaultPadding * 1.5,
         ),
         height: 60,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(defaultBorderRadius * 3),
-            topRight: Radius.circular(defaultBorderRadius * 3),
+            topLeft: Radius.circular(SizeConfig.defaultBorderRadius * 3),
+            topRight: Radius.circular(SizeConfig.defaultBorderRadius * 3),
           ),
           boxShadow: [
             BoxShadow(
@@ -60,28 +61,31 @@ class CustomBottomAppBar extends StatelessWidget {
                 },
                 icon: Icon(
                   Maki.shop,
-                  color: Menu.home == selectedMenu ? primaryColor : textColor,
+                  color: Menu.home == selectedMenu
+                      ? AppColors.primaryColor
+                      : AppColors.textColor,
                 ),
               ),
               IconButton(
                 icon: const Icon(
                   Icons.favorite_border_outlined,
-                  color: textColor,
+                  color: AppColors.textColor,
                 ),
                 onPressed: () {},
               ),
               IconButton(
                 icon: const Icon(
                   Icons.message_outlined,
-                  color: textColor,
+                  color: AppColors.textColor,
                 ),
                 onPressed: () {},
               ),
               IconButton(
                 icon: Icon(
                   FontAwesome5.user,
-                  color:
-                      Menu.profile == selectedMenu ? primaryColor : textColor,
+                  color: Menu.profile == selectedMenu
+                      ? AppColors.primaryColor
+                      : AppColors.textColor,
                 ),
                 onPressed: () {
                   if (Menu.profile != selectedMenu) {

@@ -49,17 +49,18 @@ class _LoginFormState extends State<LoginForm> {
         children: [
           buildEmailImput(),
           const SizedBox(
-            height: defaultPadding,
+            height: SizeConfig.defaultPadding,
           ),
           buildPassWordInput(),
           const SizedBox(
-            height: defaultPadding,
+            height: SizeConfig.defaultPadding,
           ),
           Row(
             children: [
               Checkbox(
                   value: remember,
-                  fillColor: MaterialStateProperty.all<Color>(primaryColor),
+                  fillColor:
+                      MaterialStateProperty.all<Color>(AppColors.primaryColor),
                   checkColor: Colors.white,
                   onChanged: (bool? value) {
                     setState(() {
@@ -82,7 +83,7 @@ class _LoginFormState extends State<LoginForm> {
             ],
           ),
           FormErrors(errors: errors),
-          const SizedBox(height: defaultPadding / 2),
+          const SizedBox(height: SizeConfig.defaultPadding / 2),
           CustomButton(
             text: "Đăng nhập",
             press: () {
@@ -94,7 +95,7 @@ class _LoginFormState extends State<LoginForm> {
                 );
                 repository.login(user).then(
                       (value) => value == const User()
-                          ? addError(error: loginError)
+                          ? addError(error: AppErrors.loginError)
                           : Navigator.pushNamed(
                               context,
                               LoginSuccessScreen.routeName,
@@ -117,20 +118,20 @@ class _LoginFormState extends State<LoginForm> {
       obscureText: true,
       onSaved: (newValue) => password = newValue!,
       onChanged: (value) {
-        removeError(error: loginError);
+        removeError(error: AppErrors.loginError);
 
         if (value.isNotEmpty) {
-          removeError(error: nullPassError);
+          removeError(error: AppErrors.nullPassError);
         } else if (value.length >= 6) {
-          removeError(error: shortPassError);
+          removeError(error: AppErrors.shortPassError);
         }
       },
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: nullPassError);
+          addError(error: AppErrors.nullPassError);
           return "";
         } else if (value.length < 6) {
-          addError(error: shortPassError);
+          addError(error: AppErrors.shortPassError);
           return "";
         }
         return null;
@@ -140,20 +141,20 @@ class _LoginFormState extends State<LoginForm> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         hintText: "Nhập mật khẩu của bạn",
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding * 2,
-          vertical: defaultPadding * 1.5,
+          horizontal: SizeConfig.defaultPadding * 2,
+          vertical: SizeConfig.defaultPadding * 1.5,
         ),
         enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(defaultBorderRadius),
+            borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
             borderSide: const BorderSide(color: Colors.grey),
-            gapPadding: defaultPadding),
+            gapPadding: SizeConfig.defaultPadding),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         suffixIcon: const Padding(
-          padding: EdgeInsets.all(defaultPadding),
+          padding: EdgeInsets.all(SizeConfig.defaultPadding),
           child: Icon(Icons.vpn_key_outlined),
         ),
       ),
@@ -165,21 +166,21 @@ class _LoginFormState extends State<LoginForm> {
       controller: emailController,
       onSaved: (newValue) => email = newValue!,
       onChanged: (value) {
-        removeError(error: nullEmailError);
+        removeError(error: AppErrors.nullEmailError);
 
         if (value.isNotEmpty) {
-          removeError(error: loginError);
-        } else if (emailValidatoreRegExp.hasMatch(value)) {
-          removeError(error: invalidEmailError);
+          removeError(error: AppErrors.loginError);
+        } else if (AppErrors.emailValidatoreRegExp.hasMatch(value)) {
+          removeError(error: AppErrors.invalidEmailError);
         }
       },
       keyboardType: TextInputType.emailAddress,
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: nullEmailError);
+          addError(error: AppErrors.nullEmailError);
           return "";
-        } else if (!emailValidatoreRegExp.hasMatch(value)) {
-          addError(error: invalidEmailError);
+        } else if (!AppErrors.emailValidatoreRegExp.hasMatch(value)) {
+          addError(error: AppErrors.invalidEmailError);
           return "";
         }
         return null;
@@ -189,20 +190,20 @@ class _LoginFormState extends State<LoginForm> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         hintText: "Nhập email của bạn",
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding * 2,
-          vertical: defaultPadding * 1.5,
+          horizontal: SizeConfig.defaultPadding * 2,
+          vertical: SizeConfig.defaultPadding * 1.5,
         ),
         enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(defaultBorderRadius),
+            borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
             borderSide: const BorderSide(color: Colors.grey),
-            gapPadding: defaultPadding),
+            gapPadding: SizeConfig.defaultPadding),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         suffixIcon: const Padding(
-          padding: EdgeInsets.all(defaultPadding),
+          padding: EdgeInsets.all(SizeConfig.defaultPadding),
           child: Icon(Icons.email_outlined),
         ),
       ),

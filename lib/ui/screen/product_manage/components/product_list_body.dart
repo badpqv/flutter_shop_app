@@ -11,15 +11,14 @@ import 'package:intl/intl.dart';
 import '../edit_product.dart';
 
 class ProductListBody extends StatefulWidget {
-  const ProductListBody(
-      {Key? key,
-      required this.category,
-      required this.user,
-      required this.callBack})
-      : super(key: key);
+  const ProductListBody({
+    Key? key,
+    required this.category,
+    required this.user,
+  }) : super(key: key);
   final Category category;
   final User user;
-  final Function callBack;
+
   @override
   State<ProductListBody> createState() => _ProductListBodyState();
 }
@@ -50,7 +49,7 @@ class _ProductListBodyState extends State<ProductListBody> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: defaultPadding,
+                      horizontal: SizeConfig.defaultPadding,
                     ),
                     child: TextButton.icon(
                       onPressed: () => Navigator.pushNamed(
@@ -59,7 +58,6 @@ class _ProductListBodyState extends State<ProductListBody> {
                         arguments: AddProductArguments(
                           category: widget.category,
                           user: widget.user,
-                          callBack: widget.callBack,
                         ),
                       ),
                       icon: const Icon(Icons.add),
@@ -72,8 +70,9 @@ class _ProductListBodyState extends State<ProductListBody> {
                       ),
                       style: TextButton.styleFrom(
                         primary: Colors.white,
-                        padding: const EdgeInsets.all(defaultPadding / 3),
-                        backgroundColor: primaryColor,
+                        padding:
+                            const EdgeInsets.all(SizeConfig.defaultPadding / 3),
+                        backgroundColor: AppColors.primaryColor,
                       ),
                     ),
                   ),
@@ -98,7 +97,7 @@ class _ProductListBodyState extends State<ProductListBody> {
                     )
                   : const Center(
                       child: CircularProgressIndicator(
-                        color: primaryColor,
+                        color: AppColors.primaryColor,
                       ),
                     ),
             ],
@@ -112,8 +111,8 @@ class _ProductListBodyState extends State<ProductListBody> {
       ProductLoaded state, int index, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: defaultPadding / 2,
-        horizontal: defaultPadding / 2,
+        vertical: SizeConfig.defaultPadding / 2,
+        horizontal: SizeConfig.defaultPadding / 2,
       ),
       child: Column(
         children: [
@@ -123,12 +122,12 @@ class _ProductListBodyState extends State<ProductListBody> {
             ),
           ),
           const SizedBox(
-            height: defaultPadding / 3,
+            height: SizeConfig.defaultPadding / 3,
           ),
           Text(
             state.products[index].title,
             style: const TextStyle(
-              color: primaryColor,
+              color: AppColors.primaryColor,
               fontSize: 16,
               overflow: TextOverflow.ellipsis,
             ),
@@ -139,7 +138,7 @@ class _ProductListBodyState extends State<ProductListBody> {
               state.products[index].price,
             ),
             style: const TextStyle(
-              color: primaryColor,
+              color: AppColors.primaryColor,
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
@@ -176,7 +175,6 @@ class _ProductListBodyState extends State<ProductListBody> {
                 product: state.products[index],
                 category: widget.category,
                 user: widget.user,
-                callBack: widget.callBack,
               ),
             );
           },

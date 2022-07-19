@@ -13,12 +13,13 @@ class CompleteProfileBody extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+          padding:
+              const EdgeInsets.symmetric(horizontal: SizeConfig.defaultPadding),
           child: SingleChildScrollView(
             child: Column(children: [
               const Text(
                 "Hoàn thiện hồ sơ",
-                style: headingStyle,
+                style: AppStyle.headingStyle,
               ),
               const Text(
                 "Complete your details or continue \nwith social media",
@@ -30,7 +31,7 @@ class CompleteProfileBody extends StatelessWidget {
               CompleteProfileForm(
                 args: args,
               ),
-              const SizedBox(height: defaultPadding),
+              const SizedBox(height: SizeConfig.defaultPadding),
               const Text(
                 "Việc đăng ký tài khoản sẽ đồng nghĩ với việc bạn đồng ý \nvới các Điều khoản sử dụng của Artery",
                 textAlign: TextAlign.center,

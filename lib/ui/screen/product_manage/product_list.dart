@@ -35,14 +35,13 @@ class _ProductListState extends State<ProductListScreen> {
           }),
           title: const Text(
             "Quản lý sản phẩm",
-            style: TextStyle(color: primaryColor),
+            style: TextStyle(color: AppColors.primaryColor),
           ),
           centerTitle: true,
         ),
         body: ProductListBody(
           category: args.category,
           user: args.user,
-          callBack: args.callBack,
         ),
       ),
     );
@@ -52,7 +51,6 @@ class _ProductListState extends State<ProductListScreen> {
 class ProductListArguments {
   final Category category;
   final User user;
-  final Function callBack;
-  ProductListArguments(
-      {required this.category, required this.user, required this.callBack});
+
+  ProductListArguments({required this.category, required this.user});
 }

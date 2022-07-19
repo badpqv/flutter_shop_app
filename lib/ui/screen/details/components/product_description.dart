@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/product_model.dart';
+import 'package:intl/intl.dart';
 
 class ProductDescription extends StatelessWidget {
   const ProductDescription({
@@ -17,19 +18,43 @@ class ProductDescription extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-          child: Text(
-            product.title,
-            style: Theme.of(context).textTheme.headline6,
+          padding:
+              const EdgeInsets.symmetric(horizontal: SizeConfig.defaultPadding),
+          child: Column(
+            children: [
+              Text(
+                product.title,
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              const SizedBox(
+                height: SizeConfig.defaultPadding / 4,
+              ),
+              Text(
+                product.price < product.maxPrice
+                    ? "${NumberFormat.simpleCurrency(locale: "vi", decimalDigits: 0).format(product.price)} - ${NumberFormat.simpleCurrency(locale: "vi", decimalDigits: 0).format(product.maxPrice)}"
+                    : NumberFormat.simpleCurrency(
+                            locale: "vi", decimalDigits: 0)
+                        .format(product.price),
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w200,
+                  color: AppColors.primaryColor,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                softWrap: true,
+              ),
+            ],
           ),
         ),
         const SizedBox(
-          height: defaultPadding / 4,
+          height: SizeConfig.defaultPadding / 4,
         ),
         Align(
           alignment: Alignment.centerRight,
           child: Container(
-            padding: const EdgeInsets.all(defaultPadding * .75),
+            padding: const EdgeInsets.all(SizeConfig.defaultPadding * .75),
             width: 64,
             height: 50,
             decoration: BoxDecoration(
@@ -37,8 +62,8 @@ class ProductDescription extends StatelessWidget {
                   ? const Color(0xFFFFE6E6)
                   : const Color(0xFFF5F6F9),
               borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(defaultBorderRadius * 2),
-                bottomLeft: Radius.circular(defaultBorderRadius * 2),
+                topLeft: Radius.circular(SizeConfig.defaultBorderRadius * 2),
+                bottomLeft: Radius.circular(SizeConfig.defaultBorderRadius * 2),
               ),
             ),
             child: Icon(
@@ -53,8 +78,8 @@ class ProductDescription extends StatelessWidget {
         //ProductDescription
         Padding(
           padding: const EdgeInsets.only(
-            left: defaultPadding,
-            right: defaultPadding * 3,
+            left: SizeConfig.defaultPadding,
+            right: SizeConfig.defaultPadding * 3,
           ),
           child: Text(
             product.description,
@@ -64,8 +89,8 @@ class ProductDescription extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: defaultPadding,
-            vertical: defaultPadding / 2,
+            horizontal: SizeConfig.defaultPadding,
+            vertical: SizeConfig.defaultPadding / 2,
           ),
           child: InkWell(
             child: GestureDetector(
@@ -75,17 +100,17 @@ class ProductDescription extends StatelessWidget {
                   Text(
                     "Xem thêm",
                     style: TextStyle(
-                      color: primaryColor,
+                      color: AppColors.primaryColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   SizedBox(
-                    width: defaultPadding / 4,
+                    width: SizeConfig.defaultPadding / 4,
                   ),
                   Icon(
                     Icons.arrow_forward,
                     size: 12,
-                    color: primaryColor,
+                    color: AppColors.primaryColor,
                   ),
                 ],
               ),

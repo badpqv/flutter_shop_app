@@ -15,8 +15,8 @@ class SocialCard extends StatelessWidget {
       onTap: onClick,
       child: Container(
         alignment: Alignment.center,
-        height: defaultPadding * 2.5,
-        width: defaultPadding * 2.5,
+        height: SizeConfig.defaultPadding * 2.5,
+        width: SizeConfig.defaultPadding * 2.5,
         decoration: const BoxDecoration(
           color: Color(0xfff5f6f9),
           shape: BoxShape.circle,

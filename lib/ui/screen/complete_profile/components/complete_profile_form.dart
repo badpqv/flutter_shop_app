@@ -49,21 +49,21 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       key: _formKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding,
+          horizontal: SizeConfig.defaultPadding,
         ),
         child: Column(
           children: [
-            const SizedBox(height: defaultPadding),
+            const SizedBox(height: SizeConfig.defaultPadding),
             buildFirstNameInput(),
-            const SizedBox(height: defaultPadding),
+            const SizedBox(height: SizeConfig.defaultPadding),
             buildLastNameInput(),
-            const SizedBox(height: defaultPadding),
+            const SizedBox(height: SizeConfig.defaultPadding),
             buildPhoneNumberInput(),
-            const SizedBox(height: defaultPadding),
+            const SizedBox(height: SizeConfig.defaultPadding),
             buildAddressInput(),
-            const SizedBox(height: defaultPadding),
+            const SizedBox(height: SizeConfig.defaultPadding),
             FormErrors(errors: errors),
-            const SizedBox(height: defaultPadding),
+            const SizedBox(height: SizeConfig.defaultPadding),
             CustomButton(
               text: "Tiếp tục",
               press: () {
@@ -87,7 +87,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                         var snackBar = SnackBar(
                           content: const Text("Đăng ký thành công"),
                           behavior: SnackBarBehavior.floating,
-                          backgroundColor: primaryColor,
+                          backgroundColor: AppColors.primaryColor,
                           action: SnackBarAction(
                             label: "Về đăng nhập",
                             textColor: Colors.white,
@@ -114,13 +114,13 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       onSaved: (newValue) => firstName = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: nullFirstNameError);
+          removeError(error: AppErrors.nullFirstNameError);
         }
       },
       keyboardType: TextInputType.name,
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: nullFirstNameError);
+          addError(error: AppErrors.nullFirstNameError);
           return "";
         }
         return null;
@@ -130,21 +130,21 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         hintText: "Nhập họ, tên đệm của bạn",
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding * 2,
-          vertical: defaultPadding * 1.5,
+          horizontal: SizeConfig.defaultPadding * 2,
+          vertical: SizeConfig.defaultPadding * 1.5,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         suffixIcon: const Padding(
-          padding: EdgeInsets.all(defaultPadding),
+          padding: EdgeInsets.all(SizeConfig.defaultPadding),
           child: Icon(FontAwesome.user),
         ),
       ),
@@ -156,13 +156,13 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       onSaved: (newValue) => lastName = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: nullLastNameError);
+          removeError(error: AppErrors.nullLastNameError);
         }
       },
       keyboardType: TextInputType.name,
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: nullLastNameError);
+          addError(error: AppErrors.nullLastNameError);
           return "";
         }
         return null;
@@ -172,21 +172,21 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         hintText: "Nhập tên đệm của bạn",
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding * 2,
-          vertical: defaultPadding * 1.5,
+          horizontal: SizeConfig.defaultPadding * 2,
+          vertical: SizeConfig.defaultPadding * 1.5,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         suffixIcon: const Padding(
-          padding: EdgeInsets.all(defaultPadding),
+          padding: EdgeInsets.all(SizeConfig.defaultPadding),
           child: Icon(FontAwesome.user),
         ),
       ),
@@ -198,13 +198,13 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       onSaved: (newValue) => phoneNumber = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: nullPhoneError);
+          removeError(error: AppErrors.nullPhoneError);
         }
       },
       keyboardType: TextInputType.phone,
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: nullPhoneError);
+          addError(error: AppErrors.nullPhoneError);
           return "";
         }
         return null;
@@ -214,21 +214,21 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         hintText: "Nhập số điện thoại của bạn",
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding * 2,
-          vertical: defaultPadding * 1.5,
+          horizontal: SizeConfig.defaultPadding * 2,
+          vertical: SizeConfig.defaultPadding * 1.5,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         suffixIcon: const Padding(
-          padding: EdgeInsets.all(defaultPadding),
+          padding: EdgeInsets.all(SizeConfig.defaultPadding),
           child: Icon(Icons.phone_outlined),
         ),
       ),
@@ -240,12 +240,12 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       onSaved: (newValue) => address = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: nullAddressError);
+          removeError(error: AppErrors.nullAddressError);
         }
       },
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: nullAddressError);
+          addError(error: AppErrors.nullAddressError);
           return "";
         }
         return null;
@@ -256,21 +256,21 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         hintText: "Nhập địa chỉ của bạn",
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding * 2,
-          vertical: defaultPadding * 1.5,
+          horizontal: SizeConfig.defaultPadding * 2,
+          vertical: SizeConfig.defaultPadding * 1.5,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultBorderRadius),
           borderSide: const BorderSide(color: Colors.grey),
-          gapPadding: defaultPadding,
+          gapPadding: SizeConfig.defaultPadding,
         ),
         suffixIcon: const Padding(
-          padding: EdgeInsets.all(defaultPadding),
+          padding: EdgeInsets.all(SizeConfig.defaultPadding),
           child: Icon(FontAwesome5.address_card),
         ),
       ),

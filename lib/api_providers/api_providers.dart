@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_shop_app/models/category_model.dart';
-import 'package:flutter_shop_app/models/nofification_model.dart';
 import 'package:flutter_shop_app/models/product_model.dart';
 import 'package:flutter_shop_app/models/shopping_cart_model.dart';
 import 'package:flutter_shop_app/models/user_model.dart';
@@ -13,20 +12,17 @@ class ApiProvider {
   final Dio _dio = Dio();
   final List<String> urls = [
     Platform.isAndroid
-        ? "http://192.168.1.7:5000/api/User"
+        ? "http://192.168.1.2:5000/api/User"
         : "http://localhost:5000/api/User",
     Platform.isAndroid
-        ? "http://192.168.1.7:5000/api/Product"
+        ? "http://192.168.1.2:5000/api/Product"
         : "http://localhost:5000/api/Product",
     Platform.isAndroid
-        ? "http://192.168.1.7:5000/api/Category"
+        ? "http://192.168.1.2:5000/api/Category"
         : "http://localhost:5000/api/Category",
     Platform.isAndroid
-        ? "http://192.168.1.7:5000/api/Cart"
+        ? "http://192.168.1.2:5000/api/Cart"
         : "http://localhost:5000/api/Cart",
-    Platform.isAndroid
-        ? "http://192.168.1.7:5000/api/Notification"
-        : "http://localhost:5000/api/Notification",
   ];
 
   //FETCH
@@ -77,15 +73,6 @@ class ApiProvider {
     }
   }
 
-  Future<List<AppNotification>> fetchNotificationsList() async {
-    try {
-      Response response = await _dio.get(urls[4]);
-      return notificationFromJson(jsonEncode(response.data));
-    } catch (error, stacktrace) {
-      return <AppNotification>[];
-    }
-  }
-
   //POST
   Future<User> register(User user) async {
     var data = user.toJson();
@@ -116,10 +103,8 @@ class ApiProvider {
         urls[1],
         data: data,
       );
-      print(response.statusCode);
       return response.statusCode == 201 || response.statusCode == 200;
     } catch (e, stacktrace) {
-      print(e);
       return false;
     }
   }
@@ -165,17 +150,7 @@ class ApiProvider {
         urls[3],
         data: data,
       );
-      return response.statusCode == 201 || response.statusCode == 200;
-    } catch (e, stacktrace) {
-      return false;
-    }
-  }
 
-  Future<bool> sendNotification(AppNotification notification) async {
-    var data = notification.toJson();
-
-    try {
-      Response response = await _dio.post(urls[4], data: data);
       return response.statusCode == 201 || response.statusCode == 200;
     } catch (e, stacktrace) {
       return false;
@@ -196,13 +171,10 @@ class ApiProvider {
 
   Future<bool> editProduct(Product product, int id) async {
     var data = product.toJson();
-
     try {
       Response response = await _dio.put("${urls[1]}/$id", data: data);
-      print(response.statusCode);
       return response.data;
     } catch (e, stacktrace) {
-      print(e);
       return false;
     }
   }
@@ -240,13 +212,11 @@ class ApiProvider {
   }
 
   Future<List<Product>> deleteProduct(int id) async {
-    print(id);
     try {
       Response response = await _dio.delete("${urls[1]}/$id");
-      print(response.statusCode);
+
       return productsFromJson(jsonEncode(response.data));
     } catch (error, stacktrace) {
-      print(error);
       return [];
     }
   }

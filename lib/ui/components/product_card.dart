@@ -27,9 +27,9 @@ class ProductCard extends StatelessWidget {
               aspectRatio: ratio,
               child: Container(
                 decoration: BoxDecoration(
-                  color: secondaryColor.withOpacity(0.1),
+                  color: AppColors.secondaryColor.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(
-                    defaultBorderRadius * 1.5,
+                    SizeConfig.defaultBorderRadius * 1.5,
                   ),
                 ),
                 child: Image.network(product.images.split(",")[0]),
@@ -42,7 +42,7 @@ class ProductCard extends StatelessWidget {
               product.title,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                color: textColor,
+                color: AppColors.textColor,
                 overflow: TextOverflow.fade,
               ),
               maxLines: 1,
@@ -51,13 +51,20 @@ class ProductCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  NumberFormat.simpleCurrency(locale: "vi", decimalDigits: 0)
-                      .format(product.price),
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w200,
-                    color: primaryColor,
+                SizedBox(
+                  width: 100,
+                  child: Text(
+                    NumberFormat.simpleCurrency(locale: "vi", decimalDigits: 0)
+                        .format(product.price),
+                    maxLines: 1,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w200,
+                      color: AppColors.primaryColor,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    softWrap: true,
                   ),
                 ),
                 Container(

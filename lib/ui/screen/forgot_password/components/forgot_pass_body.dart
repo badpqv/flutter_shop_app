@@ -13,13 +13,13 @@ class ForgotPasswordBody extends StatelessWidget {
         width: double.infinity,
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: defaultPadding,
+            horizontal: SizeConfig.defaultPadding,
           ),
           child: SingleChildScrollView(
             child: Column(children: const [
               Text(
                 "Quên mật khẩu",
-                style: headingStyle,
+                style: AppStyle.headingStyle,
               ),
               Text(
                 "Nhập email của bạn và chúng tôi sẽ gửi \nlink để khổi phục tài khoản của bạn",

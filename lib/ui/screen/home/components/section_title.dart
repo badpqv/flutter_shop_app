@@ -14,7 +14,8 @@ class SectionTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+      padding:
+          const EdgeInsets.symmetric(horizontal: SizeConfig.defaultPadding),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -22,7 +23,7 @@ class SectionTitle extends StatelessWidget {
             title,
             style: const TextStyle(
               fontSize: 18,
-              color: textColor,
+              color: AppColors.textColor,
             ),
           ),
           Wrap(
@@ -32,12 +33,12 @@ class SectionTitle extends StatelessWidget {
                       onTap: onClick,
                       child: const Text(
                         "Quản lý",
-                        style: TextStyle(color: textColor),
+                        style: TextStyle(color: AppColors.textColor),
                       ),
                     )
                   : const Center(),
               const SizedBox(
-                width: defaultPadding,
+                width: SizeConfig.defaultPadding,
               ),
             ],
           ),

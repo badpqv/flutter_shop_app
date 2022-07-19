@@ -1,16 +1,16 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shop_app/bloc/category/category_bloc.dart';
 import 'package:flutter_shop_app/bloc/product/product_bloc.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/category_model.dart';
-import 'package:flutter_shop_app/models/product_model.dart';
 import 'package:flutter_shop_app/models/user_model.dart';
 import 'package:flutter_shop_app/ui/screen/home/components/categories.dart';
 import 'package:flutter_shop_app/ui/screen/home/components/discount_banner.dart';
 import 'package:flutter_shop_app/ui/screen/home/components/character_cards.dart';
 import 'package:flutter_shop_app/ui/screen/home/components/section_title.dart';
-import 'package:flutter_shop_app/ui/screen/home/components/special_offer_card.dart';
 import 'package:flutter_shop_app/ui/screen/product_manage/product_list.dart';
 
 class HomeScreenBody extends StatefulWidget {
@@ -27,10 +27,20 @@ class HomeScreenBody extends StatefulWidget {
 class _HomeScreenBodyState extends State<HomeScreenBody> {
   late CategoryBloc loadCategories;
   late ProductBloc loadProducts;
+  PageController pageController = PageController(viewportFraction: 0.85);
+  var _currPageValue = 0.0;
+  double scaleFactor = 0.8;
+  int currentPage = 0;
+  double height = 220;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    pageController.addListener(() {
+      setState(() {
+        _currPageValue = pageController.page!;
+      });
+    });
     loadCategories = CategoryBloc()..add(GetCategoriesList());
     loadProducts = ProductBloc()..add(GetProductsList());
   }
@@ -40,6 +50,13 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
       loadCategories = CategoryBloc()..add(GetCategoriesList());
       loadProducts = ProductBloc()..add(GetProductsList());
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    pageController.dispose();
   }
 
   @override
@@ -59,40 +76,54 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
         child: Column(
           children: [
             const SizedBox(
-              height: defaultPadding / 2,
+              height: SizeConfig.defaultPadding / 2,
             ),
             const DiscountBanner(),
             const SizedBox(
-              height: defaultPadding * 2,
-            ),
-            BlocBuilder<CategoryBloc, CategoryState>(
-              builder: (context, state) {
-                return state is CategoryLoaded
-                    ? Categories(categories: state.categories)
-                    : const Categories(categories: <Category>[]);
-              },
-            ),
-            const SizedBox(
-              height: defaultPadding,
-            ),
-            const SizedBox(
-              height: defaultPadding / 2,
+              height: SizeConfig.defaultPadding / 2,
             ),
             BlocBuilder<ProductBloc, ProductState>(
               builder: (context, state) {
                 return Column(
                   children: [
                     const SizedBox(
-                      height: defaultPadding / 2,
+                      height: SizeConfig.defaultPadding / 2,
                     ),
                     state is ProductLoaded
                         ? Column(
                             children: [
+                              const SizedBox(
+                                height: SizeConfig.defaultPadding / 2,
+                              ),
+                              const SizedBox(
+                                height: SizeConfig.defaultPadding / 2,
+                              ),
+                              BlocBuilder<CategoryBloc, CategoryState>(
+                                builder: (context, state) {
+                                  return state is CategoryLoaded
+                                      ? Categories(
+                                          categories: state.categories
+                                            ..sort(
+                                              (a, b) =>
+                                                  a.title.compareTo(b.title),
+                                            ),
+                                        )
+                                      : const Categories(
+                                          categories: <Category>[]);
+                                },
+                              ),
+                              const SizedBox(
+                                height: SizeConfig.defaultPadding,
+                              ),
                               ...List.generate(
-                                state.categories.length,
+                                (state.categories
+                                      ..sort(
+                                        (a, b) => a.title.compareTo(b.title),
+                                      ))
+                                    .length,
                                 (index) => Padding(
                                   padding: const EdgeInsets.symmetric(
-                                    horizontal: defaultPadding / 2,
+                                    horizontal: SizeConfig.defaultPadding / 2,
                                   ),
                                   child: Column(
                                     children: [
@@ -106,7 +137,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                                             arguments: ProductListArguments(
                                               category: state.categories[index],
                                               user: widget.user,
-                                              callBack: refreshBlocState,
                                             ),
                                           );
                                         },
@@ -133,7 +163,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
               },
             ),
             const SizedBox(
-              height: defaultPadding / 2,
+              height: SizeConfig.defaultPadding / 2,
             ),
           ],
         ),

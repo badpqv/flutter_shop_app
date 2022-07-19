@@ -43,7 +43,7 @@ class _CharacterCardsState extends State<CharacterCards> {
           filterList.length,
           (index) => Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: defaultPadding / 2,
+              horizontal: SizeConfig.defaultPadding / 2,
             ),
             child: filterList.isEmpty
                 ? const Center(

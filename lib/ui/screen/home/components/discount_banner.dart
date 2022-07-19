@@ -9,17 +9,17 @@ class DiscountBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
+      margin: const EdgeInsets.symmetric(horizontal: SizeConfig.defaultPadding),
       padding: const EdgeInsets.symmetric(
-        horizontal: defaultPadding,
-        vertical: defaultPadding,
+        horizontal: SizeConfig.defaultPadding,
+        vertical: SizeConfig.defaultPadding,
       ),
       width: double.infinity,
       height: 90,
       decoration: const BoxDecoration(
-        color: primaryColor,
+        color: AppColors.primaryColor,
         borderRadius: BorderRadius.all(
-          Radius.circular(defaultBorderRadius * 2),
+          Radius.circular(SizeConfig.defaultBorderRadius * 2),
         ),
       ),
       child: const Text.rich(

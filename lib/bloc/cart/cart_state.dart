@@ -23,14 +23,3 @@ class CartLoaded extends CartState {
 class CartAdded extends CartState {}
 
 class CartLoadError extends CartState {}
-
-class NotificationInitial extends CartState {}
-
-class NotificationLoading extends CartState {}
-
-class NotificationLoaded extends CartState {
-  final List<AppNotification> notifications;
-  const NotificationLoaded({required this.notifications});
-  @override
-  List<Object> get props => [notifications];
-}

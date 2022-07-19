@@ -12,8 +12,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding,
-          vertical: defaultPadding,
+          horizontal: SizeConfig.defaultPadding,
+          vertical: SizeConfig.defaultPadding,
         ),
         child: Row(
           children: [
@@ -25,21 +25,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(60),
                   ),
-                  primary: primaryColor,
+                  primary: AppColors.primaryColor,
                   backgroundColor: Colors.white,
                   padding: EdgeInsets.zero,
                 ),
                 onPressed: () => Navigator.pop(context),
                 child: const Icon(
                   Icons.arrow_back,
-                  color: primaryColor,
+                  color: AppColors.primaryColor,
                 ),
               ),
             ),
             const Spacer(),
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: defaultPadding / 2, vertical: defaultPadding / 4),
+                  horizontal: SizeConfig.defaultPadding / 2,
+                  vertical: SizeConfig.defaultPadding / 4),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(14),

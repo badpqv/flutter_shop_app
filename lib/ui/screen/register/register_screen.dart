@@ -14,7 +14,7 @@ class RegisterScreen extends StatelessWidget {
         title: const Text(
           "Đăng ký",
           style: TextStyle(
-            color: textColor,
+            color: AppColors.textColor,
           ),
         ),
       ),

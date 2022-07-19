@@ -18,10 +18,9 @@ class Product extends Equatable {
   final String title, description;
   final String images;
   final String colors;
-  final double rating, price;
+  final double rating, price, maxPrice;
   final bool isFavourite, isPopular;
   final String categoryId;
-  final int imagesCount;
   const Product({
     required this.id,
     this.images = '',
@@ -33,22 +32,22 @@ class Product extends Equatable {
     this.price = 0.0,
     this.description = "",
     this.categoryId = "0",
-    this.imagesCount = 0,
+    this.maxPrice = 0.0,
   });
 
   factory Product.fromJson(dynamic json) {
     return Product(
-      id: json["id"].toString(),
-      images: (json["images"].toString()),
-      colors: (json["colors"].toString()),
-      rating: (json['rating'] as num).toDouble(),
-      isFavourite: json['isFavourite'] as bool,
-      isPopular: json['isPopular'] as bool,
-      title: json['title'] as String,
-      price: (json['price'] as num).toDouble(),
-      description: json['description'] as String,
-      categoryId: json["categoryId"].toString(),
-    );
+        id: json["id"].toString(),
+        images: (json["images"].toString()),
+        colors: (json["colors"].toString()),
+        rating: (json['rating'] as num).toDouble(),
+        isFavourite: json['isFavourite'] as bool,
+        isPopular: json['isPopular'] as bool,
+        title: json['title'] as String,
+        price: (json['price'] as num).toDouble(),
+        description: json['description'] as String,
+        categoryId: json["categoryId"].toString(),
+        maxPrice: (json['maxPrice'] as num).toDouble());
   }
   Map<String, dynamic> toJson() => {
         "id": int.parse(id),
@@ -61,7 +60,7 @@ class Product extends Equatable {
         "isFavourite": isFavourite,
         "isPopular": isPopular,
         "categoryId": categoryId,
-        "imagesCount": imagesCount,
+        "maxPrice": maxPrice,
       };
   @override
   // TODO: implement props
@@ -74,6 +73,7 @@ class Product extends Equatable {
         isPopular,
         title,
         price,
+        maxPrice,
         description,
         categoryId,
       ];

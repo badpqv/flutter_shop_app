@@ -20,7 +20,7 @@ class LoginSuccessBody extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.04,
             ),
             Image.asset(
-              "assets/images/March7th_1.jpg",
+              "assets/images/March7th_1.png",
               height: MediaQuery.of(context).size.height * 0.4,
             ),
             SizedBox(
@@ -30,7 +30,7 @@ class LoginSuccessBody extends StatelessWidget {
               TextSpan(
                 text: "YAY! \n",
                 style: TextStyle(
-                  color: primaryColor,
+                  color: AppColors.primaryColor,
                   fontSize: 30,
                 ),
                 children: [

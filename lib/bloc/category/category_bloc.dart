@@ -10,11 +10,16 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   CategoryBloc() : super(CategoryInitial()) {
     final ApiRepository repository = ApiRepository();
 
-    on<CategoryEvent>((event, emit) async {
+    on<GetCategoriesList>((event, emit) async {
       emit(CategoryLoading());
       var categories = await repository.fetchCategoriesList();
       emit(
-        CategoryLoaded(categories: categories),
+        CategoryLoaded(
+          categories: categories
+            ..sort(
+              (a, b) => a.title.compareTo(b.title),
+            ),
+        ),
       );
     });
   }

@@ -18,7 +18,7 @@ class SplashContent extends StatelessWidget {
           "ARTERY GEAR",
           style: TextStyle(
             fontSize: 40,
-            color: primaryColor,
+            color: AppColors.primaryColor,
             fontWeight: FontWeight.bold,
           ),
         ),

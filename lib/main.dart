@@ -32,15 +32,15 @@ class MyApp extends StatelessWidget {
           color: Colors.white,
           elevation: 0,
           systemOverlayStyle: SystemUiOverlayStyle.light,
-          iconTheme: IconThemeData(color: primaryColor),
+          iconTheme: IconThemeData(color: AppColors.primaryColor),
           centerTitle: true,
-          toolbarTextStyle: TextStyle(color: primaryColor),
+          toolbarTextStyle: TextStyle(color: AppColors.primaryColor),
         ),
         textTheme: const TextTheme(
-          caption: TextStyle(color: primaryColor),
-          bodyText1: TextStyle(color: primaryColor),
-          bodyText2: TextStyle(color: primaryColor),
-          headline6: TextStyle(color: primaryColor),
+          caption: TextStyle(color: AppColors.primaryColor),
+          bodyText1: TextStyle(color: AppColors.primaryColor),
+          bodyText2: TextStyle(color: AppColors.primaryColor),
+          headline6: TextStyle(color: AppColors.primaryColor),
         ),
         inputDecorationTheme: inputDecorationTheme(),
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
 InputDecorationTheme inputDecorationTheme() {
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(28),
-    borderSide: const BorderSide(color: textColor),
+    borderSide: const BorderSide(color: AppColors.textColor),
     gapPadding: 10,
   );
   return InputDecorationTheme(

@@ -47,6 +47,7 @@ class _ColorDotsState extends State<ColorDots> {
               setState(() {
                 selectedColor = index;
               });
+              widget.callback(index);
             },
             child: ColorDot(
               color: Color(
@@ -70,17 +71,17 @@ class _ColorDotsState extends State<ColorDots> {
           isEnabled: quantity == 1 ? false : true,
         ),
         const SizedBox(
-          width: defaultPadding,
+          width: SizeConfig.defaultPadding,
         ),
         Text(
           "$quantity",
           style: const TextStyle(
-            color: primaryColor,
+            color: AppColors.primaryColor,
             fontSize: 20,
           ),
         ),
         const SizedBox(
-          width: defaultPadding,
+          width: SizeConfig.defaultPadding,
         ),
         RoundedIconBtn(
           icon: Icons.add,
@@ -112,7 +113,7 @@ class ColorDot extends StatelessWidget {
         width: 40,
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected ? primaryColor : Colors.transparent,
+            color: isSelected ? AppColors.primaryColor : Colors.transparent,
           ),
           shape: BoxShape.circle,
         ),

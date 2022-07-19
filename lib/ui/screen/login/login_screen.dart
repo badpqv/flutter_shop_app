@@ -14,7 +14,7 @@ class LoginPage extends StatelessWidget {
         leading: const BackButton(),
         title: const Text(
           "Đăng nhập",
-          style: TextStyle(color: textColor),
+          style: TextStyle(color: AppColors.textColor),
         ),
       ),
       body: const LoginPageBody(),

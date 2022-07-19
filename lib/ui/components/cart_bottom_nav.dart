@@ -16,15 +16,15 @@ class CartBottomNavbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-        vertical: defaultPadding * .75,
-        horizontal: defaultPadding * 1.5,
+        vertical: SizeConfig.defaultPadding * .75,
+        horizontal: SizeConfig.defaultPadding * 1.5,
       ),
       height: 175,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(defaultBorderRadius * 3),
-          topRight: Radius.circular(defaultBorderRadius * 3),
+          topLeft: Radius.circular(SizeConfig.defaultBorderRadius * 3),
+          topRight: Radius.circular(SizeConfig.defaultBorderRadius * 3),
         ),
         boxShadow: [
           BoxShadow(
@@ -38,17 +38,18 @@ class CartBottomNavbar extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(defaultPadding / 2),
+                padding: const EdgeInsets.all(SizeConfig.defaultPadding / 2),
                 height: 50,
                 width: 50,
                 decoration: BoxDecoration(
                   color: const Color(0xFFF5F6F9),
-                  borderRadius: BorderRadius.circular(defaultBorderRadius),
+                  borderRadius:
+                      BorderRadius.circular(SizeConfig.defaultBorderRadius),
                 ),
                 child: const Center(
                   child: Icon(
                     Icons.receipt_long_outlined,
-                    color: primaryColor,
+                    color: AppColors.primaryColor,
                     size: 30,
                   ),
                 ),
@@ -60,7 +61,7 @@ class CartBottomNavbar extends StatelessWidget {
               ),
               const Icon(
                 Icons.arrow_forward,
-                color: primaryColor,
+                color: AppColors.primaryColor,
               ),
             ],
           ),
@@ -74,7 +75,7 @@ class CartBottomNavbar extends StatelessWidget {
                 TextSpan(
                   text: "Thành tiền: \n",
                   style: const TextStyle(
-                    color: textColor,
+                    color: AppColors.textColor,
                   ),
                   children: [
                     TextSpan(

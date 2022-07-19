@@ -22,11 +22,11 @@ class NameBox extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         const SizedBox(
-          width: defaultPadding / 4,
+          width: SizeConfig.defaultPadding / 4,
         ),
         Icon(
           Icons.verified_user,
-          color: isVerified ? primaryColor : Colors.grey,
+          color: isVerified ? AppColors.primaryColor : Colors.grey,
           size: 20,
         ),
       ],

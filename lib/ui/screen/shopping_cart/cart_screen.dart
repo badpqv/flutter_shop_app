@@ -51,7 +51,7 @@ class _CartScreenState extends State<CartScreen> {
                     const Text(
                       "Giỏ hàng",
                       style: TextStyle(
-                        color: primaryColor,
+                        color: AppColors.primaryColor,
                       ),
                     ),
                     state is CartLoaded
@@ -82,19 +82,23 @@ class _CartScreenState extends State<CartScreen> {
   Padding buildCartBody(CartState state, List<Cart> carts) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-          horizontal: defaultPadding, vertical: defaultPadding / 2),
+          horizontal: SizeConfig.defaultPadding,
+          vertical: SizeConfig.defaultPadding / 2),
       child: ListView.builder(
         itemCount: carts.length,
         itemBuilder: (context, index) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: defaultPadding / 4),
+          padding: const EdgeInsets.symmetric(
+              vertical: SizeConfig.defaultPadding / 4),
           child: Dismissible(
             direction: DismissDirection.endToStart,
             key: Key(UniqueKey().toString()),
             background: Container(
-              padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: SizeConfig.defaultPadding),
               decoration: BoxDecoration(
                 color: const Color(0xFFFFE6E6),
-                borderRadius: BorderRadius.circular(defaultBorderRadius * 1.5),
+                borderRadius:
+                    BorderRadius.circular(SizeConfig.defaultBorderRadius * 1.5),
               ),
               child: Row(children: [
                 const Spacer(),

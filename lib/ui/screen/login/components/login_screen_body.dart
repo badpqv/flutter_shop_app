@@ -15,13 +15,14 @@ class LoginPageBody extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: defaultPadding * 2),
+          padding: const EdgeInsets.symmetric(
+              horizontal: SizeConfig.defaultPadding * 2),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 const Text(
                   "Welcome Back",
-                  style: headingStyle,
+                  style: AppStyle.headingStyle,
                 ),
                 const Text(
                   "Đăng nhập bằng email và mật khẩu \nhoặc các tài khoản mạng xã hội",
@@ -32,11 +33,11 @@ class LoginPageBody extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: defaultPadding * 2,
+                  height: SizeConfig.defaultPadding * 2,
                 ),
                 const LoginForm(),
                 const SizedBox(
-                  height: defaultPadding,
+                  height: SizeConfig.defaultPadding,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -48,13 +49,14 @@ class LoginPageBody extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: defaultPadding,
+                  height: SizeConfig.defaultPadding,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(right: defaultPadding),
+                      padding: const EdgeInsets.only(
+                          right: SizeConfig.defaultPadding),
                       child: SocialCard(
                         icon: const Icon(
                           Icons.facebook_outlined,
@@ -65,7 +67,8 @@ class LoginPageBody extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: defaultPadding),
+                      padding: const EdgeInsets.only(
+                          right: SizeConfig.defaultPadding),
                       child: SocialCard(
                         icon: const Icon(
                           FontAwesome.twitter,
@@ -85,7 +88,7 @@ class LoginPageBody extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: defaultPadding),
+                const SizedBox(height: SizeConfig.defaultPadding),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -104,7 +107,7 @@ class LoginPageBody extends StatelessWidget {
                         "Đăng ký",
                         style: TextStyle(
                           decoration: TextDecoration.underline,
-                          color: primaryColor,
+                          color: AppColors.primaryColor,
                           fontSize: 16,
                         ),
                       ),

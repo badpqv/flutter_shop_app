@@ -31,7 +31,7 @@ SingleChildScrollView formErrorText({String? error}) {
           color: Colors.red,
         ),
         const SizedBox(
-          width: defaultPadding,
+          width: SizeConfig.defaultPadding,
         ),
         Text(
           error!,
