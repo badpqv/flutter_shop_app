@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop_app/bloc/product/product_bloc.dart';
+import 'package:flutter_shop_app/bloc/category/category_bloc.dart';
+import 'package:flutter_shop_app/ui/screen/category_manage/add_category_screen.dart';
+import 'package:flutter_shop_app/ui/screen/category_manage/category_list.dart';
+import 'package:flutter_shop_app/ui/screen/category_manage/edit_category_scrren.dart';
 import 'package:flutter_shop_app/ui/screen/complete_profile/complete_profile_screen.dart';
 import 'package:flutter_shop_app/ui/screen/details/details_screen.dart';
 import 'package:flutter_shop_app/ui/screen/forgot_password/forgot_pass_screen.dart';
@@ -25,8 +28,11 @@ final Map<String, WidgetBuilder> routes = {
   ProfileScreen.routeName: (context) => const ProfileScreen(),
   HomeScreen.routeName: (context) => const HomeScreen(),
   ProductListScreen.routeName: (context) => const ProductListScreen(),
+  CategoryListScreen.routeName: (context) => const CategoryListScreen(),
   AddProductScreen.routeName: (context) => const AddProductScreen(),
+  AddCategoryScreen.routeName: (context) => const AddCategoryScreen(),
   EditProductScreen.routeName: (context) => const EditProductScreen(),
+  EditCategoryScreen.routeName: (context) => const EditCategoryScreen(),
   DetailsScreen.routeName: (context) => const DetailsScreen(),
   CartScreen.routeName: (context) => const CartScreen(),
 };

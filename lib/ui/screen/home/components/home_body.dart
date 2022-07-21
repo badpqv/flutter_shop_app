@@ -7,6 +7,7 @@ import 'package:flutter_shop_app/bloc/product/product_bloc.dart';
 import 'package:flutter_shop_app/constant_value.dart';
 import 'package:flutter_shop_app/models/category_model.dart';
 import 'package:flutter_shop_app/models/user_model.dart';
+import 'package:flutter_shop_app/ui/screen/category_manage/category_list.dart';
 import 'package:flutter_shop_app/ui/screen/home/components/categories.dart';
 import 'package:flutter_shop_app/ui/screen/home/components/discount_banner.dart';
 import 'package:flutter_shop_app/ui/screen/home/components/character_cards.dart';
@@ -101,12 +102,40 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                               BlocBuilder<CategoryBloc, CategoryState>(
                                 builder: (context, state) {
                                   return state is CategoryLoaded
-                                      ? Categories(
-                                          categories: state.categories
-                                            ..sort(
-                                              (a, b) =>
-                                                  a.title.compareTo(b.title),
-                                            ),
+                                      ? Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal:
+                                                SizeConfig.defaultPadding / 2,
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              SectionTitle(
+                                                title: "",
+                                                hasPermission:
+                                                    widget.user.isVerified,
+                                                onClick: () {
+                                                  Navigator.pushNamed(
+                                                    context,
+                                                    CategoryListScreen
+                                                        .routeName,
+                                                    arguments:
+                                                        CategoryListArguments(
+                                                      categories:
+                                                          state.categories,
+                                                      user: widget.user,
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                              Categories(
+                                                categories: state.categories
+                                                  ..sort(
+                                                    (a, b) => a.title
+                                                        .compareTo(b.title),
+                                                  ),
+                                              ),
+                                            ],
+                                          ),
                                         )
                                       : const Categories(
                                           categories: <Category>[]);

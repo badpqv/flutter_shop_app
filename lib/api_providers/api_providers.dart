@@ -180,7 +180,7 @@ class ApiProvider {
   }
 
   Future<Category> editCategory(Category category, int id) async {
-    var data = FormData.fromMap({'data': jsonEncode(category.toJson())});
+    var data = category.toJson();
 
     try {
       Response response = await _dio.put("${urls[0]}/$id", data: data);
@@ -221,9 +221,9 @@ class ApiProvider {
     }
   }
 
-  Future<int> deleteCategory() async {
+  Future<int> deleteCategory(int id) async {
     try {
-      Response response = await _dio.get(urls[2]);
+      Response response = await _dio.delete("${urls[2]}/$id");
       return response.statusCode!;
     } catch (error, stacktrace) {
       return 400;

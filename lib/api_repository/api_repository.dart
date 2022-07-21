@@ -81,6 +81,10 @@ class ApiRepository {
   Future<List<Product>> deleteProduct(int id) {
     return _provider.deleteProduct(id);
   }
+
+  Future<int> deleteCategory(int id) {
+    return _provider.deleteCategory(id);
+  }
 }
 
 class NetworkError extends Error {}

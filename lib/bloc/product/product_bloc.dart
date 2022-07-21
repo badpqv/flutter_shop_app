@@ -45,8 +45,10 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
                   event.images[i]);
               var extension =
                   event.images[i].path.split("/").last.split(".").last;
+              var imgName =
+                  event.product.title.replaceAll(" ", "").replaceAll(":", '');
               imageNames.add(
-                  "http://192.168.1.2:5000/images/${event.product.title.replaceAll(" ", "")}_${i + 1}.${extension == "webp" ? "jpg" : extension}");
+                  "http://192.168.1.5:5000/images/${imgName}_${i + 1}.${extension == "webp" ? "jpg" : extension}");
             }
             var product = Product(
               id: event.product.id,
@@ -98,8 +100,10 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
                   event.images[i]);
               var extension =
                   event.images[i].path.split("/").last.split(".").last;
+              var imgName =
+                  event.product.title.replaceAll(" ", "").replaceAll(":", '');
               imageNames.add(
-                  "http://192.168.1.2:5000/images/${event.product.title.replaceAll(" ", "")}_${i + 1}.${extension == "webp" ? "jpg" : extension}");
+                  "http://192.168.1.5:5000/images/${imgName}_${i + 1}.${extension == "webp" ? "jpg" : extension}");
             }
             var product = Product(
               id: event.product.id,

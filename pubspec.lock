@@ -120,6 +120,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.2"
+  file_selector_platform_interface:
+    dependency: transitive
+    description:
+      name: file_selector_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
+  file_selector_windows:
+    dependency: transitive
+    description:
+      name: file_selector_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.2+2"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -275,6 +289,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.5.0"
+  image_picker_windows:
+    dependency: "direct main"
+    description:
+      name: image_picker_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0+2"
   intl:
     dependency: "direct main"
     description:

@@ -18,6 +18,7 @@ import 'package:flutter_shop_app/ui/screen/details/components/colors_dot.dart';
 import 'package:flutter_shop_app/ui/screen/product_manage/product_list.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_windows/image_picker_windows.dart';
 
 class ProductDataForm extends StatefulWidget {
   const ProductDataForm({
@@ -84,6 +85,7 @@ class _ProductDataFormState extends State<ProductDataForm> {
   List<File> listImages = [];
 
   final ImagePicker _picker = ImagePicker();
+  final ImagePickerWindows _pickerWindows = ImagePickerWindows();
   List<String> errors = [];
   final _formKey = GlobalKey<FormState>();
 
@@ -107,7 +109,9 @@ class _ProductDataFormState extends State<ProductDataForm> {
 
   Future pickGalleryImage() async {
     try {
-      var images = await _picker.pickMultiImage();
+      var images = !Platform.isWindows
+          ? await _picker.pickMultiImage()
+          : await _pickerWindows.getMultiImage();
       if (images == null) return;
       setState(() {
         images.forEach((element) async {
@@ -124,7 +128,13 @@ class _ProductDataFormState extends State<ProductDataForm> {
 
   Future pickCameraImage() async {
     try {
-      var image = await _picker.pickImage(source: ImageSource.camera);
+      var image = !Platform.isWindows
+          ? await _picker.pickImage(
+              source: ImageSource.camera,
+            )
+          : await _pickerWindows.getImage(
+              source: ImageSource.camera,
+            );
       if (image == null) return;
       setState(() {
         listImages.add(File(image.path));
@@ -137,6 +147,7 @@ class _ProductDataFormState extends State<ProductDataForm> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.product.categoryId);
     return Form(
       key: _formKey,
       child: Padding(
@@ -154,7 +165,7 @@ class _ProductDataFormState extends State<ProductDataForm> {
               const SizedBox(
                 height: SizeConfig.defaultPadding,
               ),
-              widget.product.categoryId != "4"
+              widget.category.id != "4"
                   ? buildColorSelector()
                   : buildLNTypeSelector(),
               const SizedBox(
@@ -471,7 +482,7 @@ class _ProductDataFormState extends State<ProductDataForm> {
       child: Row(
         children: [
           const Text(
-            "Màu: ",
+            "Loại: ",
             style: TextStyle(
               color: AppColors.textColor,
               fontSize: 16,
